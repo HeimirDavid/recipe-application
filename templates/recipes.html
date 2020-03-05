@@ -1,7 +1,18 @@
 {% extends 'base.html'%}
 
 {% block content %}
-<h1>Hello World!</h1>
 
+    {% for recipe in recipes %}
+        {{recipe.image_url}}
+        {{recipe.cooking_time}}
+        {{recipe.cousine}}
+        {{recipe.recipe_name}}
+        {{recipe.summary}}
+        {{recipe.servings}}
+        {{recipe.instructions}}
+        {{recipe.ingredients}}
+        {{recipe.author}}
+
+    {% endfor %}
 
 {% endblock %}
