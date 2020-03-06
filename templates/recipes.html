@@ -1,19 +1,25 @@
 {% extends 'base.html'%}
 
 {% block content %}
+    <h2>Brwose Recipes</h2>
+    <div class="container">
+        <div class="row">
+        {% for recipe in recipes %}
+        <div class="col s12 m4 l3 recipe-card">
+            <div class="image">
+                <img src="{{recipe.image_url}}" alt="Food Image">
+            </div>
+            <h4>{{recipe.recipe_name}}</h4>
+            <p>By: {{recipe.author}}</p>
+            <p>Cooking Time: {{recipe.cooking_time}}</p>
+            <p>{{recipe.cousine}}</p>
+            <p>{{ recipe.category }}</p>
+            <span>Here is a button</span>
+        </div>
+        {% endfor %}
+        </div>
+    </div>
 
-    {% for recipe in recipes %}
-        {{recipe.image_url}}
-        {{recipe.cooking_time}}
-        {{recipe.cousine}}
-        {{recipe.recipe_name}}
-        {{recipe.summary}}
-        {{recipe.servings}}
-        {{recipe.instructions}}
-        {{recipe.ingredients}}
-        {{recipe.author}}
-
-    {% endfor %}
 
 {% endblock %}
 
