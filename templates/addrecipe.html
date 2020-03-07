@@ -22,7 +22,7 @@
           <label for="image_url">Image URL for Recipe:</label>
         </div>
         <div class="input-field col s12 m6">
-            <select class="browser-default" required>
+            <select required>
                 <option value="" disabled selected>Cousine Category</option>
                 <option value="lunch/dinner">Lunch/Dinner</option>
                 <option value="desert">Desert</option>
@@ -45,13 +45,13 @@
         </div>
       </div>
       <div class="row">
-        <div class="input-field col s7">
+        <div id="ingredients_list" class="input-field col s7">
             <label for="email">Ingredients:</label>
-            <input id="ingredients" placeholder="1 can of coconut milk" name="ingredients" type="text" class="validate" required>
-            <input id="ingredients" placeholder="1 block tofu, cut into cubes" name="ingredients" type="text" class="validate">
-            <input id="ingredients" placeholder="1tbsp avocado oil" name="ingredients" type="text" class="validate">
-            <a class="btn-floating btn-med waves-effect waves-light green"><i class="material-icons">add</i></a>
-            <a class="btn-floating btn-med waves-effect waves-light red"><i class="material-icons">remove</i></a>
+            <input placeholder="1 can of coconut milk" name="ingredients" type="text" class="validate" required>
+            <input placeholder="1 block tofu, cut into cubes" name="ingredients" type="text" class="validate">
+            <input placeholder="1tbsp avocado oil" name="ingredients" type="text" class="validate">
+            <a id="add_ing_field" class="btn-floating btn-med waves-effect waves-light green"><i class="material-icons">add</i></a>
+            <a id="remove_ing_field" class="btn-floating btn-med waves-effect waves-light red"><i class="material-icons">remove</i></a>
         </div>
       </div>
       <div class="row">
