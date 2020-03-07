@@ -5,16 +5,18 @@
     <div class="container">
         <div class="row">
         {% for recipe in recipes %}
-        <div class="col s12 m4 l3 recipe-card">
-            <div class="image-card">
+        <div class="col s12 m4 recipe-card">
+            <div class="image-card-container">
                 <img src="{{recipe.image_url}}" alt="Food Image">
             </div>
-            <h4>{{recipe.recipe_name}}</h4>
-            <p>By: {{recipe.author}}</p>
-            <p>Cooking Time: {{recipe.cooking_time}}</p>
-            <p>{{recipe.cousine}}</p>
-            <p>{{ recipe.category }}</p>
-            <span>Here is a button</span>
+            <div class="card-content">
+                <h4 class="card-header">{{recipe.recipe_name}}</h4>
+                <p class="card-text"><span class="bold-text">By: </span>{{recipe.author}}</p>
+                <p class="card-text"><span class="bold-text">Cooking Time: </span>{{recipe.cooking_time}}</p>
+                <p class="card-text">{{recipe.cousine}}</p>
+                <p class="card-text">{{ recipe.category }}</p>
+                <a class="waves-effect waves-light btn">button</a>
+            </div>
         </div>
         {% endfor %}
         </div>
