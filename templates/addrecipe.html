@@ -7,17 +7,17 @@
 <div class="row">
     <form action="{{url_for('insert_recipe')}}" method="POST" class="col s12">
       <div class="row">
-        <div class="input-field col s6">
+        <div class="input-field col s12 m6">
           <input id="recipe_name" name="recipe_name" type="text" class="validate" required>
           <label for="recipe_name">Recipe Name:</label>
         </div>
-        <div class="input-field col s6">
+        <div class="input-field col s12 m6">
           <input id="recipe_author" name="recipe_author" type="text" class="validate" required>
           <label for="recipe_author">Recipe Author:</label>
         </div>
       </div>
       <div class="row">
-        <div class="input-field col s6">
+        <div class="input-field col s12 m6">
           <input id="image_url" name="image_url" type="text" class="validate">
           <label for="image_url">Image URL for Recipe:</label>
         </div>
@@ -31,15 +31,15 @@
         </div>
       </div>
       <div class="row">
-        <div class="input-field col s4">
+        <div class="input-field col s12 m4">
           <input id="cousine" name="cousine" type="text" class="validate" required>
           <label for="cousine">Cousine Origin:</label>
         </div>
-        <div class="input-field col s4">
+        <div class="input-field col s12 m4">
           <input id="cooking_time" name="cooking_time" type="text" class="validate" required>
           <label for="cooking_time">Cooking Time:</label>
         </div>
-        <div class="input-field col s4">
+        <div class="input-field col s12 m4">
           <input id="servings" name="servings" type="text" class="validate" required>
           <label for="servings">Servings</label>
         </div>

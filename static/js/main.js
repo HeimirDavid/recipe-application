@@ -27,11 +27,3 @@ menuBtn.addEventListener('click', () => {
         menuOpen = false;
     }
 })
-/*
-function addIngredientField() {
-    const addIngBtn = document.getElementById('add_ing_field');
-    const newField = document.createElement('<input placeholder="1tbsp avocado oil" name="ingredients" type="text" class="validate"></input>');
-    addIngBtn.addEventListener('click', () => {
-        addIngBtn.parentNode.insertBefore(newField, addIngBtn);
-    });
-}*/

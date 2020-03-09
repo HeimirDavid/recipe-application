@@ -21,6 +21,9 @@ app.config["MONGO_URI"] = MONGO_URI
 mongo = PyMongo(app)
 
 @app.route('/')
+def index():
+    return render_template('index.html')
+
 @app.route('/view_recipes')
 def view_recipes():
     return render_template("recipes.html", recipes=mongo.db.recipe.find())

@@ -12,19 +12,21 @@ body {
 /* all code concerning the hamburger menu comes from the video linked above. */
 
 .menu-button {
-    position: relative;
+    position: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 80px;
-    height: 80px;
+    width: 4.5em;
+    height: 4.5em;
     cursor: pointer;
     transition: all .5s ease-in-out;
+    top: 0;
+    right: 0;
 }
 
 .menu-btn_burger {
-    width: 50px;
-    height: 6px;
+    width: 3em;
+    height: .4em;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(255, 101, 47, .2);
     transition: all .5s ease-in-out;
@@ -35,8 +37,8 @@ body {
 .menu-btn_burger::after {
     content: '';
     position: absolute;
-    width: 50px;
-    height: 6px;
+    width: 3em;
+    height: .4em;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(255, 101, 47, .2);
     transition: all .5s ease-in-out;
@@ -73,6 +75,42 @@ nav {
 }
 /* End of hamburger menu */
 
+/******    NAVBAR    ******/
+
+nav .navbar {
+    border: 1px solid red;
+}
+
+.navbar::before,
+.navbar::after {
+    content: "";
+    position: absolute;
+    background-color: #272727;
+    -webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
+}
+
+.navbar::before {
+    height: .2em;
+    width: 100%;
+    top: 4.5em;
+ }
+
+ .navbar::after {
+    height: 100%;
+    width: .2em;
+    left: 4.5em;
+    top: 0;
+ }
+
+ .logo {
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    margin-left: 1.5em;
+    color: green;
+ }
 
 /******    CARDS    ******/
 
@@ -119,3 +157,4 @@ nav {
 .bold-text {
     font-weight: 500;
 }
+
