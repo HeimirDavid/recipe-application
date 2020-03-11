@@ -14,21 +14,24 @@
         </section>
 
         <section class="img-slider-sec">
-            <div class="container">
-                <div class="row">
-                    <div class="col s12">
-                        <div class="glide">
-                            <div class="glide__track" data-glide-el="track">
-                                <ul class="glide__slides">
-                                    <li class="glide__slide">0</li>
-                                    <li class="glide__slide">1</li>
-                                    <li class="glide__slide">2</li>
-                                </ul>
-                            </div>
-                            <div class="glide__arrows" data-glide-el="controls">
-                                <button class="glide__arrow glide__arrow--left" data-glide-dir="<">prev</button>
-                                <button class="glide__arrow glide__arrow--right" data-glide-dir=">">next</button>
-                            </div>
+            <div class="row">
+                <div class="col s12">
+                    <div class="glide">
+                        <div class="glide__track" data-glide-el="track">
+
+                            <ul class="glide__slides">
+                            {% for recipe in recipes %}
+                                <li class="glide__slide">
+                                <img src="{{recipe.image_url}}" alt="foood">
+                                </li>
+                                <!--<li class="glide__slide">1</li>
+                                <li class="glide__slide">2</li>-->
+                            {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="glide__arrows" data-glide-el="controls">
+                            <button class="glide__arrow glide__arrow--left" data-glide-dir="<">prev</button>
+                            <button class="glide__arrow glide__arrow--right" data-glide-dir=">">next</button>
                         </div>
                     </div>
                 </div>
