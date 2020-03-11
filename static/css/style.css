@@ -6,6 +6,14 @@
 body {
     background-color:#efefef;
 }
+/*
+.offsetter {
+    position: absolute;
+    top: 4.5em;
+    left: 0;
+    width: 4.5em;
+    height: 100%;
+}*/
 
 /* Start of hamburger menu */
 /* Made from this tutorial: https://www.youtube.com/watch?v=dIyVTjJAkLw */
@@ -77,12 +85,9 @@ nav {
 
 /******    NAVBAR    ******/
 
-nav .navbar {
-    border: 1px solid red;
-}
 
-.navbar::before,
-.navbar::after {
+.nav-lines::before,
+.nav-lines::after {
     content: "";
     position: absolute;
     background-color: #272727;
@@ -91,15 +96,15 @@ nav .navbar {
     box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
 }
 
-.navbar::before {
-    height: .2em;
+.nav-lines::before {
+    height: .1em;
     width: 100%;
     top: 4.5em;
  }
 
- .navbar::after {
-    height: 100%;
-    width: .2em;
+ .nav-lines::after {
+    height: 110%;
+    width: .1em;
     left: 4.5em;
     top: 0;
  }
@@ -108,9 +113,27 @@ nav .navbar {
     display: inline-block;
     position: absolute;
     left: 0;
+    margin: 0;
     margin-left: 1.5em;
     color: green;
  }
+
+
+/******    Index    ******/
+
+ .landing-card {
+    text-align: center;
+    background-color: rgba(0,128,0,.2);
+    border-radius: 2%;
+    width: 50em;
+    position: relative;
+    margin-left: calc((100% - 50em)/2);
+    margin-top: 5em;
+ }
+
+.landing-card a {
+    margin: 2em; /*Hopefully works*/
+}
 
 /******    CARDS    ******/
 
@@ -158,3 +181,18 @@ nav .navbar {
     font-weight: 500;
 }
 
+
+/*** Desktop View ***/
+@media (min-width: 767px) {
+    #bg-img {
+        background: url('/static/images/green-recipe.jpg');
+        background-size: cover;
+        background-position: center;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 4.5em;
+        left: 0;
+        z-index: -5;
+    }
+}

@@ -1,5 +1,40 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Hello World!</h1>
+
+
+        <section id="bg-img">
+                <div class="row">
+                    <div class="col s8 landing-card">
+                        <h1>Your Online Cookbook</h1>
+                        <h3>Find, Create and Share your favorite recipes with others! All located here at GreenJunkie!</h3>
+                        <a class="waves-effect waves-light btn-large cyan">Browse Recipes</a>
+                    </div>
+                </div>
+        </section>
+
+        <section class="img-slider-sec">
+            <div class="container">
+                <div class="row">
+                    <div class="col s12">
+                        <div class="glide">
+                            <div class="glide__track" data-glide-el="track">
+                                <ul class="glide__slides">
+                                    <li class="glide__slide">0</li>
+                                    <li class="glide__slide">1</li>
+                                    <li class="glide__slide">2</li>
+                                </ul>
+                            </div>
+                            <div class="glide__arrows" data-glide-el="controls">
+                                <button class="glide__arrow glide__arrow--left" data-glide-dir="<">prev</button>
+                                <button class="glide__arrow glide__arrow--right" data-glide-dir=">">next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
 {% endblock %}
