@@ -86,30 +86,6 @@ nav {
 
 /******    NAVBAR    ******/
 
-
-.nav-lines::before,
-.nav-lines::after {
-    content: "";
-    position: absolute;
-    background-color: #272727;
-    -webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
-    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
-}
-
-.nav-lines::before {
-    height: .1em;
-    width: 100%;
-    top: 4.5em;
- }
-
- .nav-lines::after {
-    height: 110%;
-    width: .1em;
-    left: 4.5em;
-    top: 0;
- }
-
  .logo {
     display: inline-block;
     position: absolute;
@@ -181,6 +157,47 @@ nav {
     font-weight: 500;
 }
 
+
+/******    CAROUSEL    ******/
+
+.carousel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 25em;
+    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75)!important;
+    transition: all ease-in-out .5s;
+}
+
+.carousel:hover {
+    opacity: .5;
+}
+
+.carousel-header {
+    
+    opacity: 0;
+    transition: all ease-in-out .5s;
+}
+
+.carousel-header:hover {
+    opacity: .3;
+}
+
+.carousel-img {
+    max-height: 100%;
+    padding: 1em;
+    /*border: 1px solid; */
+}
+
+.box-shadow {
+    -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+}
+
+
+/******    FOOTER    ******/
+
 /*
 footer {
     position: absolute;
@@ -206,8 +223,33 @@ footer {
         z-index: -5;
     }
 
+    .nav-lines::before,
+    .nav-lines::after {
+        content: "";
+        position: absolute;
+        background-color: #272727;
+        -webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
+        box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
+    }
+
+    .nav-lines::before {
+        height: .1em;
+        width: 100%;
+        top: 4.5em;
+    }
+
+    .nav-lines::after {
+        height: 110%;
+        width: .1em;
+        left: 4.5em;
+        top: 0;
+    }
+
     .landing-card {
         width: 50em;
         margin-left: calc((100% - 50em)/2)!important;
     }
+
+
 }
