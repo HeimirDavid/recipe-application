@@ -1,3 +1,6 @@
+@import "node_modules/@glidejs/glide/src/assets/sass/glide.core";
+
+
 * {
     margin: 0;
     padding: 0;
@@ -121,7 +124,7 @@ nav {
 
 /******    Index    ******/
 
- .landing-card {
+ #bg-image .row .landing-card {
     text-align: center;
     background-color: rgba(0,128,0,.2);
     border-radius: 2%;
