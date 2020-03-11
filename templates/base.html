@@ -14,29 +14,37 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
     <title>Cook Book</title>
 </head>
-<header>
-    <div class="nav-lines">
-        <div class="row">
-            <a href="{{ url_for('index') }}"><h2 class="logo">GreenJunkie</h2></a>
-            <form class="col s3 offset-s5">
-                <div class="row">
-                    <div class="input-field col s12">
-                    <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
-                    <label for="icon_prefix2">Search</label>
-                    <i class="material-icons prefix">search</i>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="menu-button">
-            <div class="menu-btn_burger"></div>
-        </div>
-    </div>
 
-</header>
 <body>
+    <header>
+        <div class="nav-lines">
+            <div class="row">
+                <a href="{{ url_for('index') }}"><h2 class="logo">GreenJunkie</h2></a>
+                <form class="col s3 offset-s5">
+                    <div class="row">
+                        <div class="input-field col s12">
+                        <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
+                        <label for="icon_prefix2">Search</label>
+                        <i class="material-icons prefix">search</i>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="menu-button">
+                <div class="menu-btn_burger"></div>
+            </div>
+        </div>
+
+    </header>
     {% block content %}
     {% endblock %}
+
+
+    <footer>
+        
+    </footer>
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>

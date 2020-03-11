@@ -122,13 +122,12 @@ nav {
 
 /******    Index    ******/
 
- #bg-image .row .landing-card {
+ .landing-card {
     text-align: center;
     background-color: rgba(0,128,0,.2);
     border-radius: 2%;
-    width: 50em;
     position: relative;
-    margin-left: calc((100% - 50em)/2);
+    margin-left: calc((100% - 50em)/2)!important;
     margin-top: 5em;
  }
 
@@ -182,6 +181,15 @@ nav {
     font-weight: 500;
 }
 
+/*
+footer {
+    position: absolute;
+    bottom: 0;
+    height: 8em;
+    width: 100%;
+    background-color: #272727;
+}
+*/
 
 /*** Desktop View ***/
 @media (min-width: 767px) {
@@ -191,9 +199,15 @@ nav {
         background-position: center;
         height: 100%;
         width: 100%;
-        position: absolute;
+        margin-top: -4.3em;
+        /*position: absolute;
         top: 4.5em;
-        left: 0;
+        left: 0;*/
         z-index: -5;
+    }
+
+    .landing-card {
+        width: 50em;
+        margin-left: calc((100% - 50em)/2)!important;
     }
 }
