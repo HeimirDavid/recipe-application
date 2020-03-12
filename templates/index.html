@@ -5,7 +5,7 @@
 
         <section id="bg-img">
                 <div class="row">
-                    <div class="col s8 landing-card">
+                    <div class="col s12 l8 landing-card">
                         <h1>Your Online Cookbook</h1>
                         <h3>Find, Create and Share your favorite recipes with others! All located here at GreenJunkie!</h3>
                         <a class="waves-effect waves-light btn-large cyan">Browse Recipes</a>
@@ -14,7 +14,11 @@
         </section>
 
         <section class="img-slider-sec">
-        
+            <div class="row">
+                <div class="col s12 section-devider center">
+                    <h4>Take a look at some of our wonderful recipes!</h4>
+                </div>
+            </div>
             <div class="row">
                 <div class="col s12">
                     <div class="glide">
@@ -35,8 +39,12 @@
                             </div>
                         </div>
                         <div class="glide__arrows" data-glide-el="controls">
-                            <button class="glide__arrow glide__arrow--left" data-glide-dir="<">prev</button>
-                            <button class="glide__arrow glide__arrow--right" data-glide-dir=">">next</button>
+                            <span class="glide__arrow glide__arrow--left" data-glide-dir="<">
+                                <a class="btn-floating btn-med waves-effect waves-light light-cyan"><i class="material-icons">arrow_back</i></a>
+                            </span>
+                            <span class="glide__arrow glide__arrow--right" data-glide-dir=">">
+                                <a class="btn-floating btn-med waves-effect waves-light light-cyan"><i class="material-icons">arrow_forward</i></a>
+                            </span>
                         </div>
                     </div>
                 </div>

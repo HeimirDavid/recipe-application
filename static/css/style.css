@@ -103,12 +103,16 @@ nav {
     background-color: rgba(0,128,0,.2);
     border-radius: 2%;
     position: relative;
-    margin-left: calc((100% - 50em)/2)!important;
-    margin-top: 5em;
  }
 
 .landing-card a {
     margin: 2em; /*Hopefully works*/
+}
+
+.section-devider {
+    background-color: #abd6ab;
+    margin: 0;
+    padding-bottom: 1em;
 }
 
 /******    CARDS    ******/
@@ -169,24 +173,32 @@ nav {
     transition: all ease-in-out .5s;
 }
 
-.carousel:hover {
-    opacity: .5;
-}
-
 .carousel-header {
-    
+    position: absolute;
     opacity: 0;
     transition: all ease-in-out .5s;
 }
 
-.carousel-header:hover {
-    opacity: .3;
+.carousel:hover {
+    opacity: .5;
+}
+
+.carousel:hover .carousel-header {
+    opacity: 1;
 }
 
 .carousel-img {
     max-height: 100%;
     padding: 1em;
     /*border: 1px solid; */
+}
+
+.glide__arrows {
+    text-align: center;
+}
+
+.glide__arrow {
+    margin: 1em;
 }
 
 .box-shadow {
@@ -221,6 +233,7 @@ footer {
         top: 4.5em;
         left: 0;*/
         z-index: -5;
+        border-bottom: .1em solid;
     }
 
     .nav-lines::before,
@@ -240,7 +253,7 @@ footer {
     }
 
     .nav-lines::after {
-        height: 110%;
+        height: 100%;
         width: .1em;
         left: 4.5em;
         top: 0;
@@ -249,6 +262,7 @@ footer {
     .landing-card {
         width: 50em;
         margin-left: calc((100% - 50em)/2)!important;
+        margin-top: 5em;
     }
 
 
