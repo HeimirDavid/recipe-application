@@ -110,8 +110,10 @@ nav ul li {
     display: block;
     float: none;
     text-align: center;
-    background-color: rgba(77,182,172, .5);
+    background-color: rgba(77,182,172, .8);
     margin-bottom: 1px;
+    transition: all ease-in-out .3s;
+    visibility: hidden;
 }
 
 nav ul li a {
@@ -121,7 +123,10 @@ nav ul li a {
 }
 
 .mainMenu {
+    position: fixed;
+    right: 0!important;
     margin-top: 3.2em;
+
 }
 
 /******    Index    ******/

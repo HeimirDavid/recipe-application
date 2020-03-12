@@ -1,5 +1,6 @@
 $(document).ready(function() { 
 
+    //var menuOpen = false;
 
     //Allows user to add more ingredient fields
     $('#add_ing_field').click(function() {
@@ -13,23 +14,39 @@ $(document).ready(function() {
 
 
     //Open main navigation
+/*
+    function toggleMenu() {
+        if(!menuOpen) {
+            $('.navRow').css('visibility', 'visble');
+            menuOpen = true;
+        } else {
+             $('.navRow').css('visibility', 'hidden');
+             menuOpen = false;
+        }
+    }
+
     $('#mainNavBtn').click(function() {
-        console.log('Jibbicola');
+        toggleMenu();
     });
+*/
+
+
+
+
+    // Code for the hamburger menu, comes from this tutorial: https://www.youtube.com/watch?v=dIyVTjJAkLw
+    const menuBtn = document.querySelector('.menu-button');
+    let menuOpen = false;
+    menuBtn.addEventListener('click', () => {
+        if(!menuOpen) {
+            menuBtn.classList.add('open');
+            $('.navRow').css('visibility', 'visible').fadeIn('slow');
+            menuOpen = true;
+        } else {
+            menuBtn.classList.remove('open');
+            $('.navRow').css('visibility', 'hidden').fadeOut('slow');
+            menuOpen = false;
+        }
+    })
 
 
 });
-
-
-// Code for the hamburger menu, comes from this tutorial: https://www.youtube.com/watch?v=dIyVTjJAkLw
-const menuBtn = document.querySelector('.menu-button');
-let menuOpen = false;
-menuBtn.addEventListener('click', () => {
-    if(!menuOpen) {
-        menuBtn.classList.add('open');
-        menuOpen = true;
-    } else {
-        menuBtn.classList.remove('open');
-        menuOpen = false;
-    }
-})
