@@ -39,6 +39,7 @@ body {
     transition: all .5s ease-in-out;
     top: 0;
     right: 0;
+    z-index: 5;
 }
 
 .menu-btn_burger {
@@ -220,7 +221,7 @@ nav ul li a {
 }
 
 .carousel:hover {
-    opacity: .3;
+    opacity: .4;
 }
 
 .carousel:hover .carousel-header {

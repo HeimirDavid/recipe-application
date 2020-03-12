@@ -1,7 +1,5 @@
 $(document).ready(function() { 
 
-    //var menuOpen = false;
-
     //Allows user to add more ingredient fields
     $('#add_ing_field').click(function() {
         $('<input placeholder="1tbsp avocado oil" name="ingredients" type="text" class="validate"></input>').insertBefore(this);
@@ -13,29 +11,30 @@ $(document).ready(function() {
     }); 
 
 
-    //Open main navigation
-/*
-    function toggleMenu() {
-        if(!menuOpen) {
-            $('.navRow').css('visibility', 'visble');
-            menuOpen = true;
-        } else {
-             $('.navRow').css('visibility', 'hidden');
-             menuOpen = false;
-        }
-    }
-
-    $('#mainNavBtn').click(function() {
-        toggleMenu();
-    });
-*/
-
-
-
 
     // Code for the hamburger menu, comes from this tutorial: https://www.youtube.com/watch?v=dIyVTjJAkLw
-    const menuBtn = document.querySelector('.menu-button');
+    //const menuBtn = document.querySelector('.menu-button');
     let menuOpen = false;
+
+    //Call toggleMenu function on click
+    $("#mainNavBtn").on("click", toggleMenu());
+
+
+    function toggleMenu() {
+        //const menuBtn = $('.menu-button')
+        $('#mainNavBtn').click(function() {
+            if(!menuOpen) {
+                $('.menu-button').addClass('open');
+                $('.navRow').css({'visibility': 'visible', 'opacity': '1'});
+                menuOpen = true;
+            } else {
+                $('.menu-button').removeClass('open');
+                $('.navRow').css({'visibility': 'hidden', 'opacity': '0'});
+                menuOpen = false;
+            }
+        })
+    };
+    /*
     menuBtn.addEventListener('click', () => {
         if(!menuOpen) {
             menuBtn.classList.add('open');
@@ -46,7 +45,7 @@ $(document).ready(function() {
             $('.navRow').css({'visibility': 'hidden', 'opacity': '0'});
             menuOpen = false;
         }
-    })
+    })*/
 
 
 });

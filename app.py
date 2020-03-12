@@ -22,6 +22,10 @@ mongo = PyMongo(app)
 
 @app.route('/')
 def index():
+    #For loop to iterate through the recipes
+    #check image_url if it leeds somewhere (200)
+    #if so, store in dictionary, else continue the iteration
+    #send ditionary to view, carousel element
     return render_template('index.html', recipes=mongo.db.recipe.find())
 
 @app.route('/view_recipes')

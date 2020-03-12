@@ -37,10 +37,13 @@
                 <div class="col s8 l4 mainMenu">
                     <ul>
                         <li class="navRow">
-                            <a href="#">Hello</a>
+                            <a href="{{ url_for('index') }}">Home</a>
                         </li>
                         <li class="navRow">
-                            <a href="#">Hello</a>
+                            <a href="{{ url_for('view_recipes') }}">Browse Recipes</a>
+                        </li>
+                        <li class="navRow">
+                            <a href="{{ url_for('add_recipe') }}">Add Recipe</a>
                         </li>
                     </ul>
                 </div>
