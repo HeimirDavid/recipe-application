@@ -17,10 +17,10 @@
 
 <body>
     <header>
-        <div class="nav-lines">
+        <nav class="nav-lines">
             <div class="row">
                 <a href="{{ url_for('index') }}"><h2 class="logo">GreenJunkie</h2></a>
-                <form class="col s3 offset-s5">
+                <!--<form class="col s3 offset-s5">
                     <div class="row">
                         <div class="input-field col s12">
                         <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
@@ -28,12 +28,24 @@
                         <i class="material-icons prefix">search</i>
                         </div>
                     </div>
-                </form>
+                </form>-->
             </div>
-            <div class="menu-button">
+            <div class="menu-button" id="mainNavBtn">
                 <div class="menu-btn_burger"></div>
             </div>
-        </div>
+            <div class="row">
+                <div class="col s8 l4 right mainMenu">
+                    <ul>
+                        <li>
+                            <a href="#">Hello</a>
+                        </li>
+                        <li>
+                            <a href="#">Hello</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
 
     </header>
     {% block content %}

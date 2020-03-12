@@ -12,6 +12,12 @@ $(document).ready(function() {
     }); 
 
 
+    //Open main navigation
+    $('#mainNavBtn').click(function() {
+        console.log('Jibbicola');
+    });
+
+
 });
 
 
