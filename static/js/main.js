@@ -39,11 +39,11 @@ $(document).ready(function() {
     menuBtn.addEventListener('click', () => {
         if(!menuOpen) {
             menuBtn.classList.add('open');
-            $('.navRow').css('visibility', 'visible').fadeIn('slow');
+            $('.navRow').css({'visibility': 'visible', 'opacity': '1'});
             menuOpen = true;
         } else {
             menuBtn.classList.remove('open');
-            $('.navRow').css('visibility', 'hidden').fadeOut('slow');
+            $('.navRow').css({'visibility': 'hidden', 'opacity': '0'});
             menuOpen = false;
         }
     })

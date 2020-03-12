@@ -114,6 +114,8 @@ nav ul li {
     margin-bottom: 1px;
     transition: all ease-in-out .3s;
     visibility: hidden;
+    opacity: 0;
+    z-index: 6;
 }
 
 nav ul li a {
@@ -126,6 +128,7 @@ nav ul li a {
     position: fixed;
     right: 0!important;
     margin-top: 3.2em;
+    z-index: 5;
 
 }
 
