@@ -25,8 +25,13 @@ mongo = PyMongo(app)
 @app.route('/')
 def index():
     images = mongo.db.recipe.distinct('image_url')
-    #print(*images)
     
+    #for image in images:
+    request = requests.get('http://google.com')
+    if request.status_code == 200:
+        print('Jibbicola!')
+    else:
+        print('sad Cola')
     #For loop to iterate through the recipes
     #check image_url if it leeds somewhere (200)
     #if so, store in dictionary, else continue the iteration
