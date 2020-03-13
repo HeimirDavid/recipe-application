@@ -27,7 +27,7 @@ def index():
     imageUrls = mongo.db.recipe.distinct('image_url')
     validUrls = []
     images = []
-    
+
     # iterate through the keys, and check if they have valid urls
     for image in imageUrls:
         valid=validators.url(image)
@@ -48,7 +48,18 @@ def index():
         except requests.ConnectionError as err:
             print('Image could not load, Error Response: '+ str(err))
 
-    return render_template('index.html', images=images)
+    
+    #for i in images:
+    #    imageId = mongo.db.recipe.find({'image_url': i})
+    #    print(imageId)
+
+    return render_template('index.html',
+                        images=images)
+
+#({'_id': ObjectId(recipe_id)})
+#@app.route('/open_recipe/<recipe_id>')
+#def open_recipe(recipe_id):
+#    return redirect(url_for(''))
 
 
 @app.route('/view_recipes')
@@ -71,9 +82,7 @@ def insert_recipe():
 
 @app.route('/recipe/<recipe_id>')
 def recipe(recipe_id):
-    return render_template('recipe.html', recipe=mongo.db.recipes.find_one({'_id':ObjectId(recipe_id)}))
-
-
+    return render_template('recipe.html', recipe=mongo.db.recipe.find_one({'_id': ObjectId(recipe_id)}))
 
 
 if __name__ == '__main__':
