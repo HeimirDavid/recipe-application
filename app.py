@@ -1,5 +1,4 @@
-import os
-import requests
+import os, requests, validators
 
 from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
@@ -24,14 +23,29 @@ mongo = PyMongo(app)
 
 @app.route('/')
 def index():
-    images = mongo.db.recipe.distinct('image_url')
+    #collect all image_url keys from the collections
+    imageUrls = mongo.db.recipe.distinct('image_url')
+    validUrls = []
+    images = []
     
-    #for image in images:
-    request = requests.get('http://google.com')
-    if request.status_code == 200:
-        print('Jibbicola!')
-    else:
-        print('sad Cola')
+    #iterate through the keys, and check if they have valid urls
+    for image in imageUrls:
+        valid=validators.url(image)
+        if valid==True:
+            validUrls.append(image)
+            print('Valid Url')
+        else:
+            print('Invalid url')
+
+    #iterate through the valid urls and check if the status code is 200
+    for image in validUrls:
+        request = requests.get(image)
+        if request.status_code == 200:
+            print('status 200!')
+            images.append(image)
+        else:
+            print('Broken link')
+
     #For loop to iterate through the recipes
     #check image_url if it leeds somewhere (200)
     #if so, store in dictionary, else continue the iteration
