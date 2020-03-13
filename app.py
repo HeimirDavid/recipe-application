@@ -23,12 +23,12 @@ mongo = PyMongo(app)
 
 @app.route('/')
 def index():
-    #collect all image_url keys from the collections
+    # collect all image_url keys from the collections
     imageUrls = mongo.db.recipe.distinct('image_url')
     validUrls = []
     images = []
     
-    #iterate through the keys, and check if they have valid urls
+    # iterate through the keys, and check if they have valid urls
     for image in imageUrls:
         valid=validators.url(image)
         if valid==True:
@@ -36,8 +36,8 @@ def index():
             print('Valid Url')
         else:
             print('Invalid url')
-
-    #iterate through the valid urls and check if the status code is 200
+        
+    # iterate through the valid urls and check if the status code is 200, store 200 status code urls in images list
     for image in validUrls:
         try:
             request = requests.get(image)
@@ -49,6 +49,7 @@ def index():
             print('Image could not load, Error Response: '+ str(err))
 
     return render_template('index.html', images=images)
+
 
 @app.route('/view_recipes')
 def view_recipes():
@@ -66,6 +67,11 @@ def insert_recipe():
     recipes.insert_one(request.form.to_dict())
     return redirect(url_for('view_recipes'))
     #Missing validation on server side. 
+
+
+@app.route('/recipe/<recipe_id>')
+def recipe(recipe_id):
+    return render_template('recipe.html', recipe=mongo.db.recipes.find_one({'_id':ObjectId(recipe_id)}))
 
 
 
