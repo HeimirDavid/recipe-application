@@ -39,17 +39,15 @@ def index():
 
     #iterate through the valid urls and check if the status code is 200
     for image in validUrls:
-        request = requests.get(image)
-        if request.status_code == 200:
-            print('status 200!')
-            images.append(image)
-        else:
-            print('Broken link')
+        try:
+            request = requests.get(image)
+            request.raise_for_status()
+            if request.status_code == 200:
+                print('status 200!')
+                images.append(image)
+        except requests.ConnectionError as err:
+            print('Image could not load, Error Response: '+ str(err))
 
-    #For loop to iterate through the recipes
-    #check image_url if it leeds somewhere (200)
-    #if so, store in dictionary, else continue the iteration
-    #send ditionary to view, carousel element
     return render_template('index.html', images=images)
 
 @app.route('/view_recipes')
