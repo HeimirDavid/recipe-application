@@ -1,4 +1,6 @@
 import os
+import requests
+
 from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
@@ -22,11 +24,14 @@ mongo = PyMongo(app)
 
 @app.route('/')
 def index():
+    images = mongo.db.recipe.distinct('image_url')
+    #print(*images)
+    
     #For loop to iterate through the recipes
     #check image_url if it leeds somewhere (200)
     #if so, store in dictionary, else continue the iteration
     #send ditionary to view, carousel element
-    return render_template('index.html', recipes=mongo.db.recipe.find())
+    return render_template('index.html', images=images)
 
 @app.route('/view_recipes')
 def view_recipes():
@@ -44,6 +49,9 @@ def insert_recipe():
     recipes.insert_one(request.form.to_dict())
     return redirect(url_for('view_recipes'))
     #Missing validation on server side. 
+
+
+
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
