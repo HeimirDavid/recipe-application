@@ -84,13 +84,26 @@ def add_recipe():
 
 @app.route('/insert_recipe', methods=['GET', 'POST'])
 def insert_recipe():
-    recipes = mongo.db.recipe
-    recipes.insert_one(request.form.to_dict())
+    #cur.insert_one(request.form.to_dict())
+
+    if request.method == 'POST':
+        
+        new_recipe = request.form.to_dict()
+        ingredientsArray = request.form.getlist('ingredients')
+        new_recipe["ingredients"] = ingredientsArray
+        #new_recipeId = new_recipe.find('_id')
+        #new_recipe.get('ingredients') = ingredientsArray
+        #coll.update_one({'_id': new_recipeId}, {'$set': {'ingredients': ingredientsArray}})
+        
+        print(type(ingredientsArray))
+        print(new_recipe)
+        coll.insert_one(new_recipe)
+        #db.city.update({_id:ObjectId("584a13d5b65761be678d4dd4")}, {$set: {"citiName":"Jakarta Pusat"}})
     return redirect(url_for('view_recipes'))
     #Missing validation on server side. 
 
 
-@app.route('/recipe/<recipe_id>')
+@app.route('/recipe/<recipe_id>') 
 def recipe(recipe_id):
     return render_template('recipe.html', recipe=mongo.db.recipe.find_one({'_id': ObjectId(recipe_id)}))
 
