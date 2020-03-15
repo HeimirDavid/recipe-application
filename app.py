@@ -99,8 +99,25 @@ def recipe(recipe_id):
 def edit_recipe(recipe_id):
     chosen_recipe = coll.find_one({'_id': ObjectId(recipe_id)})
     return render_template('updaterecipe.html',
-                            cr=chosen_recipe, 
-                            recipes=cur)
+                            cr=chosen_recipe)
+
+
+@app.route('/update_recipe/<recipe_id>', methods=["POST"])
+def update_recipe(recipe_id):
+    coll.update({'_id': ObjectId(recipe_id)},
+    {
+        'recipe_name': request.form.get('recipe_name'),
+        'recipe_author': request.form.get('recipe_author'),
+        'image_url': request.form.get('image_url'),
+        'cousine': request.form.get('cousine'),
+        'cooking_time': request.form.get('cooking_time'),
+        'servings': request.form.get('servings'),
+        'ingredients': request.form.get('ingredients'),
+        'instructions': request.form.get('instructions'),
+        'summary': request.form.get('summary'),
+        'action':request.form.get('action')
+    })
+    return redirect(url_for('recipe', recipe_id=recipe_id))
 
 
 if __name__ == '__main__':
