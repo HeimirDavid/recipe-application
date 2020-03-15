@@ -56,13 +56,13 @@
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <textarea id="instructions" name="instructions" class="materialize-textarea" required></textarea>
+          <textarea id="instructions" name="instructions" class="materialize-textarea" required>{{ cr.instructions|join(' ') }}</textarea>
           <label for="instructions">Instructions:</label>
         </div>
       </div>
       <div class="row">
-        <div class="input-field col s12">
-          <textarea id="summary" name="summary" class="materialize-textarea" required></textarea>
+        <div class="input-field col s12">           
+          <textarea id="summary" name="summary" class="materialize-textarea" required>{{ cr.summary }}</textarea>
           <label for="summary">Summary/Description</label>
         </div>
       </div>
