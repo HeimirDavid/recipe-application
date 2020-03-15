@@ -2,7 +2,40 @@
 
 {% block content %}
 
-<h1>Recipe!</h1>
-<p>Hello {{recipe}}</p>
+<div class="row">
+    <div class="col s12">
+        <div class="recipe img">
+            <img src="{{ recipe.image_url }}" alt="Food Image">
+        </div>
+    </div>
+</div>
+<div class="cards-row">
+<div class="row">
+    <div class="col s12">
+        <p>{{ recipe.cooking_time }} | {{ recipe.cousine }}</p>
+        <h3>{{recipe.recipe_name}}</h3>
+        <p>{{ recipe.summary }}<p>
+        <p>Servings: {{ recipe.servings }}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col s6">
+        <h4>Instructions:</h4>
+        <ul>
+        {% for inst in recipe.instructions %}
+            <li>{{ inst }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+    <div class="col s6">
+        <h4>Ingredients:</h4>
+            <ul>
+            {% for ing in recipe.ingredients %}
+                <li>{{ ing }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+</div>
 
 {% endblock %}
