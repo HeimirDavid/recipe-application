@@ -158,13 +158,15 @@ nav ul li a {
 /******    CARDS    ******/
 
 .recipe-card {
-    height: 37em;
+    position: relative;
+    height: 40em;
     border-radius: .5em;
     padding: 0!important;
-    margin: .5em;
+    margin: 2em;
     -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.4);
     -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.4);
     box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.4);
+    overflow:hidden;
 }
 
 .image-card-container {
@@ -183,11 +185,13 @@ nav ul li a {
 }
 
 .card-content {
-    padding: .8em;
+    padding: .5em;
 }
 
-.card-content btn {
-    margin-top: 1em;
+.recipe-card-btn {
+    position: absolute;
+    bottom: .5em;
+    left: .5em;
 }
 
 .card-header {
@@ -202,6 +206,11 @@ nav ul li a {
 .bold-text {
     font-weight: 500;
 }
+
+.cards-row {
+        margin-left: 2em;
+        margin-right: 2em;
+    }
 
 
 /******    CAROUSEL    ******/
@@ -306,5 +315,13 @@ footer {
         margin-top: 5em;
     }
 
+    .cards-row {
+        margin-left: 7em;
+        margin-right: 7em;
+    }
+
+    .recipe-card {
+        width: 30%!important;
+    }
 
 }
