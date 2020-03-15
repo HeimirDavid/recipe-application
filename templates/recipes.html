@@ -2,8 +2,8 @@
 
 {% block content %}
     <h2>Browse Recipes</h2>
-    <div class="container">
-        <div class="row">
+
+    <div class="row">
         {% for recipe in recipes %}
         <div class="col s12 m4 recipe-card">
             <div class="image-card-container">
@@ -19,8 +19,8 @@
             </div>
         </div>
         {% endfor %}
-        </div>
     </div>
+  
 
 
 {% endblock %}

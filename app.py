@@ -1,3 +1,4 @@
+import pymongo
 import os, requests, validators
 
 from flask import Flask, render_template, redirect, request, url_for
@@ -15,11 +16,17 @@ MONGO_URI = os.environ.get("MONGO_URI")
 MONGODB_NAME = os.environ.get("MONGODB_NAME")
 
 
+
 app.config["MONGODB_NAME"] = MONGODB_NAME
 app.config["MONGO_URI"] = MONGO_URI
 
 #create new instance of PyMongo
 mongo = PyMongo(app)
+
+coll = mongo.db.recipe
+cur = coll.find()
+
+
 
 @app.route('/')
 def index():
@@ -48,13 +55,16 @@ def index():
         except requests.ConnectionError as err:
             print('Image could not load, Error Response: '+ str(err))
 
+    recipes = []
     
-    #for i in images:
-    #    imageId = mongo.db.recipe.find({'image_url': i})
-    #    print(imageId)
-
+    for i in images:
+        imageId = mongo.db.recipe.find({'image_url': i})
+        for y in imageId:
+            recipes.append(y)
+ 
     return render_template('index.html',
-                        images=images)
+                        recipes=recipes)
+
 
 #({'_id': ObjectId(recipe_id)})
 #@app.route('/open_recipe/<recipe_id>')
@@ -64,7 +74,7 @@ def index():
 
 @app.route('/view_recipes')
 def view_recipes():
-    return render_template("recipes.html", recipes=mongo.db.recipe.find())
+    return render_template("recipes.html", recipes=cur)
 
 
 @app.route('/add_recipe')

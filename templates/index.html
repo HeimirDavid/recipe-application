@@ -24,14 +24,14 @@
                     <div class="glide">
                         <div class="glide__track" data-glide-el="track">
                             <div class="row">
-                                {% for image in images %}
+                                {% for recipe in recipes %}
                                 <div class="col s12 m4">
                                     <ul class="glide__slides">
                                         <li class="glide__slide">
-                                            <a href="{{ url_for('recipe', recipe_id=recipe_id) }}">
+                                            <a href="{{ url_for('recipe', recipe_id=recipe._id) }}">
                                                 <div class="carousel">
                                                     
-                                                    <img class="carousel-img" src="{{image}}" alt="food">
+                                                    <img class="carousel-img" src="{{ recipe.image_url }}" alt="food">
                                                     <h4 class="carousel-header">Open Recipe</h4>
                                                 
                                                 </div>
