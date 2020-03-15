@@ -255,6 +255,23 @@ nav ul li a {
     margin: 1em;
 }
 
+/******    RECIPE SITE    ******/
+
+.recipe-img {
+    margin-top: .5px;
+    height: 30em;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: teal;
+    border-bottom: 1px solid;
+}
+
+.recipe-img > img {
+    height: 100%
+}
+
 /******    FOOTER    ******/
 
 
@@ -322,6 +339,10 @@ footer {
 
     .recipe-card {
         width: 30%!important;
+    }
+
+    .recipe-img {
+        margin-left: 3.8em;
     }
 
 }
