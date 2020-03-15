@@ -95,6 +95,14 @@ def recipe(recipe_id):
     return render_template('recipe.html', recipe=mongo.db.recipe.find_one({'_id': ObjectId(recipe_id)}))
 
 
+@app.route('/edit_recipe/<recipe_id>')
+def edit_recipe(recipe_id):
+    chosen_recipe = coll.find_one({'_id': ObjectId(recipe_id)})
+    return render_template('updaterecipe.html',
+                            cr=chosen_recipe, 
+                            recipes=cur)
+
+
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
