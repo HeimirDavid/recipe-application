@@ -26,6 +26,9 @@ mongo = PyMongo(app)
 coll = mongo.db.recipe
 cur = coll.find()
 
+collStatusOne = coll.find({'status': 1})
+
+
 
 
 @app.route('/')
@@ -66,12 +69,6 @@ def index():
                         recipes=recipes)
 
 
-#({'_id': ObjectId(recipe_id)})
-#@app.route('/open_recipe/<recipe_id>')
-#def open_recipe(recipe_id):
-#    return redirect(url_for(''))
-
-
 @app.route('/view_recipes')
 def view_recipes():
     return render_template("recipes.html", recipes=cur)
@@ -84,13 +81,14 @@ def add_recipe():
 
 @app.route('/insert_recipe', methods=['GET', 'POST'])
 def insert_recipe():
-    #cur.insert_one(request.form.to_dict())
-
     if request.method == 'POST':
-        
         new_recipe = request.form.to_dict()
         ingredientsArray = request.form.getlist('ingredients')
         new_recipe["ingredients"] = ingredientsArray
+
+        new_recipe.update({'status': 1})
+
+
         #new_recipeId = new_recipe.find('_id')
         #new_recipe.get('ingredients') = ingredientsArray
         #coll.update_one({'_id': new_recipeId}, {'$set': {'ingredients': ingredientsArray}})
@@ -125,12 +123,14 @@ def update_recipe(recipe_id):
         'cousine': request.form.get('cousine'),
         'cooking_time': request.form.get('cooking_time'),
         'servings': request.form.get('servings'),
-        'ingredients': request.form.get('ingredients'),
+        'ingredients': request.form.getlist('ingredients'),
         'instructions': request.form.get('instructions'),
         'summary': request.form.get('summary'),
-        'action':request.form.get('action')
+        'action':request.form.get('action'),
+        'status': 1
     })
     return redirect(url_for('recipe', recipe_id=recipe_id))
+
 
 
 if __name__ == '__main__':
