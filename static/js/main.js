@@ -18,8 +18,7 @@ $(document).ready(function() {
     let delRecipeOpen = false;
 
     //Call toggleMenu function on click
-    $("#mainNavBtn").on("click", toggleMenu());
-
+    $("#mainNavBtn").on("click", toggleMenu()); //Might be unneccessary
 
     function toggleMenu() {
         //const menuBtn = $('.menu-button')
@@ -35,30 +34,31 @@ $(document).ready(function() {
             }
         })
     };
-    /*
-    menuBtn.addEventListener('click', () => {
-        if(!menuOpen) {
-            menuBtn.classList.add('open');
-            $('.navRow').css({'visibility': 'visible', 'opacity': '1'});
-            menuOpen = true;
-        } else {
-            menuBtn.classList.remove('open');
-            $('.navRow').css({'visibility': 'hidden', 'opacity': '0'});
-            menuOpen = false;
-        }
-    })*/
+  
 
     function deleteRecipe() {
-        if(!delRecipeOpen) {
-            $('#popup-delete').addClass('popup-open');
-            delRecipeOpen = true;
-        } else {
-            $('#popup-delete').removeClass('popup-open');
-            delRecipeOpen = false;
-        }
-    }
+        $('#del-recipe').click(function() {
+            if(!delRecipeOpen) {
+                $('#popup-delete').show();
+                delRecipeOpen = true;
+            } else {
+                $('#popup-delete').hide();
+                delRecipeOpen = false;
+            }
+        });
+    };
 
-    $("#del-recipe").on("click", deleteRecipe());    
+    $("#del-recipe").on("click", deleteRecipe());    //Might be unneccessary
+
+    $('#cancel').click(function() {
+        $('#popup-delete').hide();
+        delRecipeOpen = false;
+    });
+
+    $('#confirm-del').click(function() {
+        $('#popup-delete').hide();
+        delRecipeOpen = false;
+    });
 
 
 });
