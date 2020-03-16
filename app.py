@@ -90,7 +90,8 @@ def insert_recipe():
         new_recipe.update({'status': 1})
         print(type(ingredientsArray))
         print(new_recipe)
-        collStatusOne.insert_one(new_recipe)
+
+        coll.insert_one(new_recipe)
         
     return redirect(url_for('view_recipes'))
     #Missing validation on server side. 
@@ -126,6 +127,19 @@ def update_recipe(recipe_id):
     })
     return redirect(url_for('recipe', recipe_id=recipe_id))
 
+
+@app.route('/delete_recipe/<recipe_id>', methods=["POST"])
+def delete_recipe(recipe_id):
+    if request.method == 'POST':
+        #https://kb.objectrocket.com/mongo-db/how-to-update-a-mongodb-document-in-python-356
+        coll.find_one_and_update(
+            {'_id': ObjectId(recipe_id)},
+            {"$set":
+                {'status': 2}
+            }, upsert=True
+        )
+        
+    return redirect(url_for('view_recipes'))
 
 
 if __name__ == '__main__':
