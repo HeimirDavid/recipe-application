@@ -33,8 +33,21 @@
                 {% endfor %}
             </ul>
         </div>
-        <a href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}" class="waves-effect waves-light btn recipe-card-btn">Open</a>
     </div>
+    <div class="row center">
+        <div class="col s2 offset-s2">
+            <a href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}" class="waves-effect waves-light green btn">Edit</a>
+        </div>
+        <div class="col s2 offset-s4">
+            <a id="del-recipe" class="waves-effect waves-light red btn">Delete</a>
+        </div>
+    </div>
+    <div id="popup-delete">
+        <h4>Are you sure you wish to delete this recipe from this page?</h4>
+        <a id="cancel" class="waves-effect waves-light green btn">Cancel</a>
+        <a id="confirm-del" class="waves-effect waves-light red btn">Delete</a>
+    </div>
+
 </div>
 
 {% endblock %}

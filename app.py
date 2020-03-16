@@ -26,6 +26,7 @@ mongo = PyMongo(app)
 coll = mongo.db.recipe
 cur = coll.find()
 
+
 collStatusOne = coll.find({'status': 1})
 
 
@@ -71,12 +72,12 @@ def index():
 
 @app.route('/view_recipes')
 def view_recipes():
-    return render_template("recipes.html", recipes=cur)
+    return render_template("recipes.html", recipes=coll.find({'status': 1}))
 
 
 @app.route('/add_recipe')
 def add_recipe():
-    return render_template('addrecipe.html', recipes=mongo.db.recipe.find())
+    return render_template('addrecipe.html', recipes=collStatusOne)
 
 
 @app.route('/insert_recipe', methods=['GET', 'POST'])
@@ -87,35 +88,29 @@ def insert_recipe():
         new_recipe["ingredients"] = ingredientsArray
 
         new_recipe.update({'status': 1})
-
-
-        #new_recipeId = new_recipe.find('_id')
-        #new_recipe.get('ingredients') = ingredientsArray
-        #coll.update_one({'_id': new_recipeId}, {'$set': {'ingredients': ingredientsArray}})
-        
         print(type(ingredientsArray))
         print(new_recipe)
         collStatusOne.insert_one(new_recipe)
-        #db.city.update({_id:ObjectId("584a13d5b65761be678d4dd4")}, {$set: {"citiName":"Jakarta Pusat"}})
+        
     return redirect(url_for('view_recipes'))
     #Missing validation on server side. 
 
 
-@app.route('/recipe/<recipe_id>') 
+@app.route('/recipe/<recipe_id>')
 def recipe(recipe_id):
-    return render_template('recipe.html', recipe=collStatusOne.find_one({'_id': ObjectId(recipe_id)}))
+    return render_template('recipe.html', recipe=coll.find_one({'_id': ObjectId(recipe_id)}))
 
 
 @app.route('/edit_recipe/<recipe_id>')
 def edit_recipe(recipe_id):
-    chosen_recipe = collStatusOne.find_one({'_id': ObjectId(recipe_id)})
+    chosen_recipe = coll.find_one({'_id': ObjectId(recipe_id)})
     return render_template('updaterecipe.html',
                             cr=chosen_recipe)
 
 
 @app.route('/update_recipe/<recipe_id>', methods=["POST"])
 def update_recipe(recipe_id):
-    collStatusOne.update({'_id': ObjectId(recipe_id)},
+    coll.update({'_id': ObjectId(recipe_id)},
     {
         'recipe_name': request.form.get('recipe_name'),
         'recipe_author': request.form.get('recipe_author'),
