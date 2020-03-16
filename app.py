@@ -34,7 +34,7 @@ collStatusOne = coll.find({'status': 1})
 @app.route('/')
 def index():
     # collect all image_url keys from the collections
-    imageUrls = mongo.db.recipe.distinct('image_url')
+    imageUrls = collStatusOne.distinct('image_url')
     validUrls = []
     images = []
 
@@ -61,7 +61,7 @@ def index():
     recipes = []
     
     for i in images:
-        imageId = mongo.db.recipe.find({'image_url': i})
+        imageId = coll.find({'image_url': i})
         for y in imageId:
             recipes.append(y)
  
@@ -95,7 +95,7 @@ def insert_recipe():
         
         print(type(ingredientsArray))
         print(new_recipe)
-        coll.insert_one(new_recipe)
+        collStatusOne.insert_one(new_recipe)
         #db.city.update({_id:ObjectId("584a13d5b65761be678d4dd4")}, {$set: {"citiName":"Jakarta Pusat"}})
     return redirect(url_for('view_recipes'))
     #Missing validation on server side. 
@@ -103,19 +103,19 @@ def insert_recipe():
 
 @app.route('/recipe/<recipe_id>') 
 def recipe(recipe_id):
-    return render_template('recipe.html', recipe=mongo.db.recipe.find_one({'_id': ObjectId(recipe_id)}))
+    return render_template('recipe.html', recipe=collStatusOne.find_one({'_id': ObjectId(recipe_id)}))
 
 
 @app.route('/edit_recipe/<recipe_id>')
 def edit_recipe(recipe_id):
-    chosen_recipe = coll.find_one({'_id': ObjectId(recipe_id)})
+    chosen_recipe = collStatusOne.find_one({'_id': ObjectId(recipe_id)})
     return render_template('updaterecipe.html',
                             cr=chosen_recipe)
 
 
 @app.route('/update_recipe/<recipe_id>', methods=["POST"])
 def update_recipe(recipe_id):
-    coll.update({'_id': ObjectId(recipe_id)},
+    collStatusOne.update({'_id': ObjectId(recipe_id)},
     {
         'recipe_name': request.form.get('recipe_name'),
         'recipe_author': request.form.get('recipe_author'),
