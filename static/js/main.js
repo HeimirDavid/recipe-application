@@ -15,6 +15,7 @@ $(document).ready(function() {
     // Code for the hamburger menu, comes from this tutorial: https://www.youtube.com/watch?v=dIyVTjJAkLw
     //const menuBtn = document.querySelector('.menu-button');
     let menuOpen = false;
+    let delRecipeOpen = false;
 
     //Call toggleMenu function on click
     $("#mainNavBtn").on("click", toggleMenu());
@@ -46,6 +47,18 @@ $(document).ready(function() {
             menuOpen = false;
         }
     })*/
+
+    function deleteRecipe() {
+        if(!delRecipeOpen) {
+            $('#popup-delete').addClass('popup-open');
+            delRecipeOpen = true;
+        } else {
+            $('#popup-delete').removeClass('popup-open');
+            delRecipeOpen = false;
+        }
+    }
+
+    $("#del-recipe").on("click", deleteRecipe());    
 
 
 });
