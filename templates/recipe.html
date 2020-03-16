@@ -45,7 +45,7 @@
     <form action="{{url_for('delete_recipe', recipe_id=recipe._id)}}"  method="POST">
         <div id="popup-delete">
             <h4>Are you sure you wish to delete this recipe from this page?</h4>
-            <button id="cancel" class="waves-effect waves-light green btn">Cancel</button>
+            <a id="cancel" class="waves-effect waves-light green btn">Cancel</a>
             <button id="confirm-del" class="btn red waves-effect waves-light" type="submit" name="action">Delete</button>
         </div>
     </form>
