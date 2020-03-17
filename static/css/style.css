@@ -328,7 +328,8 @@ nav ul li a {
 
 /******    LOGIN    ******/
 
-.login-container {
+.login-container,
+.register-container {
     padding: 1em;
     background-color: rgba(39,39,39, .99);
     color: #fefefe;
@@ -355,7 +356,7 @@ nav ul li a {
     cursor: pointer;
 }
 
-#login, #password {
+#login, #password, #register_password , #register {
     color: #fefefe;
 }
 

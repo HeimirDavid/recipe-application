@@ -54,12 +54,16 @@ $(document).ready(function() {
         delRecipeOpen = false;
     });
 
+
+    ////////////////////////////////////
     let loginWindow = false;
     $('#login-menu-btn').click(function() {
         if(!loginWindow) {
             $('.login-container').fadeIn('fast');
             loginWindow = true;
             console.log("Open Login")
+            $('.register-container').fadeOut('fast');
+            registerWindow = false;
         } else {
             $('.login-container').fadeOut('fast');
             loginWindow = false;
@@ -74,6 +78,35 @@ $(document).ready(function() {
         } else {
             $('.login-container').fadeOut('fast');
             loginWindow = false;
+        }
+    });
+
+    //////////////////////////////////////
+
+    let registerWindow = false;
+    $('.ToggleRegLog').click(function() {
+        if(!registerWindow) {
+            $('.register-container').fadeIn('fast');
+            registerWindow = true;
+            $('.login-container').fadeOut('fast');
+            loginWindow = false;
+            console.log("Open Register Window")
+        } else {
+            $('.register-container').fadeOut('fast');
+            registerWindow = false;
+            $('.login-container').fadeIn('fast');
+            loginWindow = true;
+            console.log("Close Register Window")
+        }
+    });
+
+    $('#close_register').click(function() {
+        if(!registerWindow) {
+            $('.register-container').fadeIn('fast');
+            registerWindow = true;
+        } else {
+            $('.register-container').fadeOut('fast');
+            registerWindow = false;
         }
     });
 
