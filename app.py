@@ -168,14 +168,19 @@ def recipe_search():
 
         searched_coll = coll.find(
                                   {'$text': {'$search': search}},
-                                  {'$score': {'$meta': 'textScore'}}
-                                )
+                                  {'score': {'$meta': 'textScore'}}
+                                ).sort([('score', {'$meta': 'textScore'})])
+
+    print('Searched Coll: ' + str(searched_coll))
+
+    #cursor.sort([('score', {'$meta': 'textScore'})])
 
     for doc in searched_coll:
-        if doc['status'] == 1:
-            result.append(doc)
+        #if doc['status'] == 1:
+        result.append(doc)
 
-    print(result)        
+    
+    
 
     return render_template('recipesearch.html',
                         recipes=result)
