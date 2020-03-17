@@ -23,10 +23,8 @@ app.config["MONGO_URI"] = MONGO_URI
 #create new instance of PyMongo
 mongo = PyMongo(app)
 
+#Two collection varables, one with only the availible collections for the user (see delete_recipe)
 coll = mongo.db.recipe
-cur = coll.find()
-
-
 collStatusOne = coll.find({'status': 1})
 
 
@@ -59,9 +57,11 @@ def index():
         except requests.ConnectionError as err:
             print('Image could not load, Error Response: '+ str(err))
 
+    #Empty list that the valid images will add into, with the rest of the info from it's matching document
     recipes = []
     
-    for i in images:
+    #itterate through the valid images and find it's matching document
+    for i in images:    
         imageId = coll.find({'image_url': i})
         for y in imageId:
             recipes.append(y)
@@ -69,46 +69,48 @@ def index():
     return render_template('index.html',
                         recipes=recipes)
 
-
+#route to browse recipes, sends along the valid recipes collection to view
 @app.route('/view_recipes')
 def view_recipes():
     return render_template("recipes.html", recipes=coll.find({'status': 1}))
 
-
+#route to add recipe
 @app.route('/add_recipe')
 def add_recipe():
     return render_template('addrecipe.html', recipes=collStatusOne)
 
-
-@app.route('/insert_recipe', methods=['GET', 'POST'])
+#Insert recipe route. 
+@app.route('/insert_recipe', methods=['POST'])
 def insert_recipe():
+    #If the request is POST, assign the data in the form of a dictionary to new_recipe variable.
+    #this is to be able to assign the ingredients a list and not string to the document
+    #make sure status is 1 so it will be displayed on the page, then insert the dictionary to the collection
     if request.method == 'POST':
         new_recipe = request.form.to_dict()
         ingredientsArray = request.form.getlist('ingredients')
         new_recipe["ingredients"] = ingredientsArray
-
         new_recipe.update({'status': 1})
-        print(type(ingredientsArray))
-        print(new_recipe)
-
+        
         coll.insert_one(new_recipe)
         
     return redirect(url_for('view_recipes'))
     #Missing validation on server side. 
 
-
+#redirect the user to display the recipe they chose by using it's id.
 @app.route('/recipe/<recipe_id>')
 def recipe(recipe_id):
     return render_template('recipe.html', recipe=coll.find_one({'_id': ObjectId(recipe_id)}))
 
-
+#redirect user to edit page, use the recipes id and send along it's document
 @app.route('/edit_recipe/<recipe_id>')
 def edit_recipe(recipe_id):
     chosen_recipe = coll.find_one({'_id': ObjectId(recipe_id)})
     return render_template('updaterecipe.html',
                             cr=chosen_recipe)
 
-
+#Locate the recipe using id, get the data from the form, and update it
+#with the new data from the user. redirect to the updated recipe so the 
+#user can see his/hers changes.
 @app.route('/update_recipe/<recipe_id>', methods=["POST"])
 def update_recipe(recipe_id):
     coll.update({'_id': ObjectId(recipe_id)},
@@ -127,10 +129,12 @@ def update_recipe(recipe_id):
     })
     return redirect(url_for('recipe', recipe_id=recipe_id))
 
-
+#Delete function does not delete the recipe from the database but changes
+#it's status to 2. Anything but a 1 will end up not displayed on the site.
 @app.route('/delete_recipe/<recipe_id>', methods=["POST"])
 def delete_recipe(recipe_id):
     if request.method == 'POST':
+        #The way of updating the document came from this source:
         #https://kb.objectrocket.com/mongo-db/how-to-update-a-mongodb-document-in-python-356
         coll.find_one_and_update(
             {'_id': ObjectId(recipe_id)},
@@ -148,13 +152,18 @@ def delete_recipe(recipe_id):
 # -------            SEARCH SECTION
 # -----------------------------------------------------------#
 
+#main info on how to use text index and search came from this tutorial:
+#https://www.youtube.com/watch?v=dTN8cBDEG_Q
+#The code below has been modified after my needs and so it works with pymongo
 @app.route('/recipe_search', methods=["POST"])
 def recipe_search():
     if request.method == 'POST':
+        #Assign the text from the input from the user to a variable, search
         search = request.form.to_dict().get('icon_prefix')
         result = []
         print(search)
-
+        
+        #Create text index
         coll.create_index([ 
                             ('recipe_name', pymongo.TEXT),
                             ('recipe_author', pymongo.TEXT),
@@ -165,26 +174,19 @@ def recipe_search():
                             ('instructions', pymongo.TEXT),
                             ('summary', pymongo.TEXT)
                         ])
-
+        #Search through the collection and find the matches, 
+        #assign it to 'searched_coll' and sort it by it's score value
         searched_coll = coll.find(
                                   {'$text': {'$search': search}},
                                   {'score': {'$meta': 'textScore'}}
                                 ).sort([('score', {'$meta': 'textScore'})])
-
-    print('Searched Coll: ' + str(searched_coll))
-
-
+    #Iterate through the documents, and assign the ones with a status of 1 to 'result' which is sent to view
     for doc in searched_coll:
-        #if doc['status'] == 1:
+        if doc['status'] == 1:
         result.append(doc)
-
-
-    
 
     return render_template('recipesearch.html',
                         recipes=result)
-
-
 
 
 
