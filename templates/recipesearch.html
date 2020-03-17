@@ -3,13 +3,48 @@
 
 <h1>Search:</h1>
 
-{% for recipe in recipes %}
 
-    <p>{{ recipe }}</p>
+
+
+<div class="container">
+{% for recipe in recipes %}
+    <div class="row">
+        <div class="col s12 result-recipe">
+            <h3 class="result-header">{{ recipe.recipe_name }}</h3>
+            <div class="col m4 s12">
+                <p class="card-text"><span class="bold-text">Cousine: {{ recipe.cousine }}</span></p>
+            </div>
+            <div class="col m4 s12">
+                <p class="card-text"><span class="bold-text">Time: {{ recipe.cooking_time }}</span></p>
+            </div>
+            <div class="col m4 s12">
+                <p class="card-text"><span class="bold-text">Servings: {{ recipe.servings }}</span></p>
+            </div>
+            <p class="card-text">{{ recipe.summary }}</p>
+            <a href="{{ url_for('recipe', recipe_id=recipe._id) }}" class="waves-effect waves-light green btn results-btn">Open!</a>
+        </div>
+        
+    </div>
+{% endfor %}
+</div>
+
+<!--
+{% for recipe in recipes %}
+    
+    <p>{{ recipe.recipe_name }}</p>
+    <p>{{ recipe.recipe_author }}</p>
+    <p>{{ recipe.cousine }}</p>
+    <p>{{ recipe.cooking_time }}</p>
+    <p>{{ recipe.servings }}</p>
+    {% for ing in recipe.ingredients %}
+    <p>{{ ing }}</p>
+    {% endfor %}
+    <p>{{ recipe.instructions }}</p>
+    <p>{{ recipe.summary }}</p>
   
 
 {% endfor %}
-
+-->
 
 
 

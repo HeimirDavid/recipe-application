@@ -173,13 +173,12 @@ def recipe_search():
 
     print('Searched Coll: ' + str(searched_coll))
 
-    #cursor.sort([('score', {'$meta': 'textScore'})])
 
     for doc in searched_coll:
         #if doc['status'] == 1:
         result.append(doc)
 
-    
+
     
 
     return render_template('recipesearch.html',

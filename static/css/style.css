@@ -308,6 +308,24 @@ nav ul li a {
     display: block;
 }
 
+/******    RESULTS    ******/
+
+.result-recipe {
+    background-color: #26a69a;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
+    padding: .5em;
+    margin: .5em;
+}
+
+.result-header {
+    margin: .2em;
+}
+
+.results-btn {
+    margin: .5em;
+}
+
 
 /******    FOOTER    ******/
 
@@ -318,6 +336,8 @@ footer {
     width: 100%;
     background-color: #272727;
 }
+
+
 
 
 /*** Desktop View ***/
