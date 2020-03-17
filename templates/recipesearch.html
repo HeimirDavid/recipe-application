@@ -1,12 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Search:</h1>
+<h2 class="center">Results:</h2>
 
 
 
 
 <div class="container">
+{% if not recipes  %}
+    <h4 class="center">No recipes found matching your search!</h4>
+    <div class="col s12 m8 offset-m2 result-recipe center teal lighten-4">
+        <p class="card-text">Would you like to go back to the browse page?</p>
+        <a href="{{ url_for('view_recipes')}}" class="waves-effect waves-light cyan btn results-btn center">Browse Recipes!</a>
+    </div>
+{% else %}
 {% for recipe in recipes %}
     <div class="row">
         <div class="col s12 result-recipe">
@@ -26,6 +33,7 @@
         
     </div>
 {% endfor %}
+{% endif %}
 </div>
 
 <!--
