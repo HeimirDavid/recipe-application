@@ -15,6 +15,14 @@ body {
     background-color:#efefef;
     font-family: 'Courgette', cursive;
 }
+
+.wrapper {
+  min-height: calc(100vh - 10em);
+}
+
+.row-no-margin {
+    margin-bottom: 0;
+}
 /*
 .offsetter {
     position: absolute;
@@ -35,7 +43,7 @@ body {
     align-items: center;
     width: 4.5em;
     height: 4.5em;
-    background-color: rgba(239, 239, 239, .5);
+    /*background-color: rgba(239, 239, 239, .5);*/
     cursor: pointer;
     transition: all .5s ease-in-out;
     top: 0;
@@ -365,7 +373,7 @@ nav ul li a {
 
 
 footer {
-    position: absolute;
+    position: relative;
     height: 8em;
     width: 100%;
     background-color: #272727;
