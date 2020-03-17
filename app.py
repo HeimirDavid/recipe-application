@@ -152,12 +152,33 @@ def delete_recipe(recipe_id):
 def recipe_search():
     if request.method == 'POST':
         search = request.form.to_dict().get('icon_prefix')
+        result = []
         print(search)
 
-        coll.createIndex({  })
+        coll.create_index([ 
+                            ('recipe_name', pymongo.TEXT),
+                            ('recipe_author', pymongo.TEXT),
+                            ('cousine', pymongo.TEXT),
+                            ('cooking_time', pymongo.TEXT),
+                            ('servings', pymongo.TEXT),
+                            ('ingredients', pymongo.TEXT),
+                            ('instructions', pymongo.TEXT),
+                            ('summary', pymongo.TEXT)
+                        ])
+
+        searched_coll = coll.find(
+                                  {'$text': {'$search': search}},
+                                  {'$score': {'$meta': 'textScore'}}
+                                )
+
+    for doc in searched_coll:
+        if doc['status'] == 1:
+            result.append(doc)
+
+    print(result)        
 
     return render_template('recipesearch.html',
-                        recipes=search)
+                        recipes=result)
 
 
 
