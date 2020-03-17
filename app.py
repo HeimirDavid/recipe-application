@@ -142,6 +142,27 @@ def delete_recipe(recipe_id):
     return redirect(url_for('view_recipes'))
 
 
+
+
+# -----------------------------------------------------------#
+# -------            SEARCH SECTION
+# -----------------------------------------------------------#
+
+@app.route('/recipe_search', methods=["POST"])
+def recipe_search():
+    if request.method == 'POST':
+        search = request.form.to_dict().get('icon_prefix')
+        print(search)
+
+        coll.createIndex({  })
+
+    return render_template('recipesearch.html',
+                        recipes=search)
+
+
+
+
+
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),

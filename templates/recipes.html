@@ -2,12 +2,12 @@
 
 {% block content %}
     <h2 class="center">Browse Recipes</h2>
-    <form class="col s3 offset-s5">
+    <form action="{{ url_for('recipe_search' ) }}" class="col s3 offset-s5" method="POST">
         <div class="row">
             <div class="input-field col s8 offset-s2 m4 offset-m4">
-                <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
-                <label for="icon_prefix2">Search</label>
                 <i class="material-icons prefix">search</i>
+                <input name="icon_prefix" id="icon_prefix" type="text" class="validate">
+                <label for="icon_prefix">Search</label>
             </div>
         </div>
     </form>
@@ -20,7 +20,7 @@
                 </div>
                 <div class="card-content">
                     <h4 class="card-header">{{recipe.recipe_name}}</h4>
-                    <p class="card-text"><span class="bold-text">By: </span>{{recipe.author}}</p>
+                    <p class="card-text"><span class="bold-text">By: </span>{{recipe.recipe_author}}</p>
                     <p class="card-text"><span class="bold-text">Cooking Time: </span>{{recipe.cooking_time}}</p>
                     <p class="card-text">{{recipe.cousine}}</p>
                     <p class="card-text">{{ recipe.category }}</p>
