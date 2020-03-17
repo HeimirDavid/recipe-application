@@ -183,7 +183,7 @@ def recipe_search():
     #Iterate through the documents, and assign the ones with a status of 1 to 'result' which is sent to view
     for doc in searched_coll:
         if doc['status'] == 1:
-        result.append(doc)
+            result.append(doc)
 
     return render_template('recipesearch.html',
                         recipes=result)

@@ -326,12 +326,45 @@ nav ul li a {
     margin: .5em;
 }
 
+/******    LOGIN    ******/
+
+.login-container {
+    padding: 1em;
+    background-color: rgba(39,39,39, .99);
+    color: #fefefe;
+    text-align: center;
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
+    position: absolute;
+    z-index: 15;
+    top: 12%;
+    display: none;
+    transition: all ease-in-out .3s;
+}
+
+.login-logo {
+    color: #26a69a;
+}
+
+.login-container p {
+    padding: .3em
+}
+
+.close-logo {
+    margin: .5em;
+    position: absolute;
+    right: 0;
+}
+
+#login, #password {
+    color: #fefefe;
+}
+
 
 /******    FOOTER    ******/
 
 
 footer {
-    position: relative;
+    position: absolute;
     height: 8em;
     width: 100%;
     background-color: #272727;
