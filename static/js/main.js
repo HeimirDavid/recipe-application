@@ -42,7 +42,7 @@ $(document).ready(function() {
     });
 
 
-    $("#del-recipe").on("click", deleteRecipe());    //Might be unneccessary
+    //$("#del-recipe").on("click", deleteRecipe());    //Might be unneccessary
 
     $('#cancel').click(function() {
         $('#popup-delete').hide();
@@ -54,5 +54,27 @@ $(document).ready(function() {
         delRecipeOpen = false;
     });
 
+    let loginWindow = false;
+    $('#login-menu-btn').click(function() {
+        if(!loginWindow) {
+            $('.login-container').fadeIn('fast');
+            loginWindow = true;
+            console.log("Open Login")
+        } else {
+            $('.login-container').fadeOut('fast');
+            loginWindow = false;
+            console.log("Hide Login")
+        }
+    });
+
+    $('#close_logo').click(function() {
+        if(!loginWindow) {
+            $('.login-container').fadeIn('fast');
+            loginWindow = true;
+        } else {
+            $('.login-container').fadeOut('fast');
+            loginWindow = false;
+        }
+    });
 
 });

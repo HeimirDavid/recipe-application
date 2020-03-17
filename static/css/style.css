@@ -338,7 +338,6 @@ nav ul li a {
     z-index: 15;
     top: 12%;
     display: none;
-    transition: all ease-in-out .3s;
 }
 
 .login-logo {
@@ -353,6 +352,7 @@ nav ul li a {
     margin: .5em;
     position: absolute;
     right: 0;
+    cursor: pointer;
 }
 
 #login, #password {

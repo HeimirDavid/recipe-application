@@ -36,7 +36,7 @@
                         <li class="navRow">
                             <a href="{{ url_for('add_recipe') }}">Add Recipe</a>
                         </li>
-                        <li class="navRow">
+                        <li id="login-menu-btn" class="navRow">
                             <a href="#">Login/Signup</a>
                         </li>
                     </ul>
@@ -47,10 +47,10 @@
     </header>
 
     <div class="row">
-        <div class="col s10 offset-s1 m6 offset-m3 l4 offset-l4 login-container">
+        <div id="login_container" class="col s10 offset-s1 m6 offset-m3 l4 offset-l4 login-container">
         <form action="">
             <i class="material-icons large login-logo">account_circle</i>
-            <i class="material-icons small close-logo">close</i>
+            <i id="close_logo" class="material-icons small close-logo">close</i>
             <h4>Login</h4>
             <div class="row">
                 <div class="input-field col s12">
