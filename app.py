@@ -32,7 +32,8 @@ mongo = PyMongo(app)
 coll = mongo.db.recipe
 collStatusOne = coll.find({'status': 1})
 
-
+login_btn = '<a href="#">Login/Signup</a>'
+logout_btn = '<a href="#">Logout</a>'
 
 
 @app.route('/')
@@ -41,6 +42,12 @@ def index():
     imageUrls = collStatusOne.distinct('image_url')
     validUrls = []
     images = []
+
+    if session:
+        print('User logged in!')
+    else:
+        print("not logged in")
+
 
     # iterate through the keys, and check if they have valid urls
     for image in imageUrls:
@@ -70,9 +77,16 @@ def index():
         imageId = coll.find({'image_url': i})
         for y in imageId:
             recipes.append(y)
+
+    
+    if session:
+        return render_template('index.html',
+                        recipes=recipes, loginOut_btn=logout_btn.format(logout_btn))
+    else:
+        return render_template('index.html',
+                        recipes=recipes, loginOut_btn=login_btn.format(login_btn))
  
-    return render_template('index.html',
-                        recipes=recipes)
+    
 
 #route to browse recipes, sends along the valid recipes collection to view
 @app.route('/view_recipes')
@@ -213,7 +227,8 @@ def login():
         if login_user:
             if bcrypt.check_password_hash(hashpass, request.form['password']):
                 print('It Matches!')
-                return 'Match found! you are loggged in as' + str(login_user)
+                session['username'] = request.form['username']
+                return redirect(url_for('index'))
 
         else:
             print('No match or incrorrect password')
@@ -264,6 +279,12 @@ def register():
         return 'That username already exists!'
      
     #pw_hash = bcrypt.generate_password_hash('hunter2')
+
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('index'))
 
 
 if __name__ == '__main__':
