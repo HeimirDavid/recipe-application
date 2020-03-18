@@ -55,13 +55,13 @@
             <h4>Login</h4>
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="login" type="text" class="validate">
+                    <input id="login" name="login" type="text" class="validate">
                     <label for="login">Username</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="password" type="password" class="validate">
+                    <input id="password" name="password" type="password" class="validate">
                     <label for="password">Password</label>
                 </div>
             </div>
@@ -80,19 +80,19 @@
 
     <div class="row row-no-margin">
         <div id="register_container" class="col s10 offset-s1 m6 offset-m3 l4 offset-l4 register-container">
-        <form action="">
+        <form action="{{ url_for('register') }}" method="POST">
             <i class="material-icons large login-logo">account_circle</i>
             <i id="close_register" class="material-icons small close-logo">close</i>
             <h4>Register</h4>
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="register" type="text" class="validate">
-                    <label for="register">Username</label>
+                    <input id="register_name" name="register_name" type="text" class="validate">
+                    <label for="register_name">Username</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="register_password" type="password" class="validate">
+                    <input id="register_password" name="register_password" type="password" class="validate">
                     <label for="register_password">Password</label>
                 </div>
             </div>

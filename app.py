@@ -1,7 +1,8 @@
 import pymongo
 import os, requests, validators
+import bcrypt
 
-from flask import Flask, render_template, redirect, request, url_for
+from flask import Flask, render_template, redirect, request, url_for, session
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 
@@ -14,11 +15,13 @@ app = Flask(__name__)
 
 MONGO_URI = os.environ.get("MONGO_URI")
 MONGODB_NAME = os.environ.get("MONGODB_NAME")
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 
 
 app.config["MONGODB_NAME"] = MONGODB_NAME
 app.config["MONGO_URI"] = MONGO_URI
+app.config['SECRET_KEY'] = SECRET_KEY
 
 #create new instance of PyMongo
 mongo = PyMongo(app)
@@ -187,6 +190,32 @@ def recipe_search():
 
     return render_template('recipesearch.html',
                         recipes=result)
+
+
+
+# -----------------------------------------------------------#
+# -------            LOGIN SECTION
+# -----------------------------------------------------------#
+
+@app.route('/login')
+def login():
+    return ''
+
+@app.route('/register', methods=['POST'])
+def register():
+    if request.method == 'POST':
+        users = mongo.db.users
+        existing_user = users.find_one({'name': request.form['register_name']})
+        print(existing_user)
+
+        if existing_user is None:
+            hashpass = bcrypt.hashpw(request.form['register_password'].encode('utf-8'), bcrypt.gensalt())
+            users.insert({'name': request.form['register_name'], 'password': hashpass})
+            session['register_name'] = request.form['register_name']
+            return redirect(url_for('index')) #Will have to be changed to the page the user is at
+
+        return 'That username already exists!'
+     
 
 
 
