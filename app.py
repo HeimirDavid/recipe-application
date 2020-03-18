@@ -2,7 +2,7 @@ import pymongo
 import os, requests, validators
 #import bcrypt
 
-from flask import Flask, render_template, redirect, request, url_for, session, Markup
+from flask import Flask, render_template, redirect, request, url_for, session, Markup, flash
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from flask_bcrypt import Bcrypt
@@ -78,13 +78,12 @@ def index():
         for y in imageId:
             recipes.append(y)
 
-    
     if session:
         return render_template('index.html',
-                        recipes=recipes, loginOut_btn=logout_btn.format(logout_btn))
+                        recipes=recipes, loginOut_btn=logout_btn)
     else:
         return render_template('index.html',
-                        recipes=recipes, loginOut_btn=login_btn.format(login_btn))
+                        recipes=recipes, loginOut_btn=login_btn)
  
     
 
@@ -228,34 +227,14 @@ def login():
                 return redirect(url_for('index'))
 
         else:
-            logginF =  Markup("<h1>Loggin Failed</h1>")
-            return redirect(url_for('index', logginF=logginF)) #What to doo...
-        return 'Bad luck there'
-
-        #bcrypt.check_password_hash(pw_hash, 'hunter2') # returns True
-        #pw_hash = bcrypt.generate_password_hash('hunter2')
-        #user_p = login_user['password']
+            session.clear()
+            flash("This is an incorrect username.")
+            return redirect(url_for('index')) #What to doo...
+        session.clear()
+        flash("Bad luck there...")
+        return redirect(url_for('index'))
         
-        #if login_user:
-        #    if bcrypt.checkpw(user_p.encode('utf-8'), hashpass):
-        #        print('It Matches!')
-        #        return 'Match found! you are loggged in as' + str(login_user)
-        #else:
-        #    print('No match or incrorrect password')
 
-
-        #if bcrypt.checkpw(password, hashed):
-  #print("It Matches!")
-#else:
-#  print("It Does not Match :(")
-
-        #if login_user:
-        #    if bcrypt.hashpw(request.form['password'].encode('utf-8'), 
-        #       login_user['password'].encode('utf-8')) == login_user['password'].encode('utf-8'):
-        #        session['username'] = request.form['username']
-         #       return redirect(url_for('index'))
-
-        #return "Invalid Username or Password"
 
 
 @app.route('/register', methods=['POST'])
@@ -269,9 +248,7 @@ def register():
             hashpass = bcrypt.generate_password_hash(request.form['register_password']).decode('utf-8')
             users.insert({'name': request.form['register_name'], 'password': hashpass})
             session['register_name'] = request.form['register_name']
-            #hashpass = bcrypt.hashpw(request.form['register_password'].encode('utf-8'), bcrypt.gensalt())
-            #users.insert({'name': request.form['register_name'], 'password': hashpass})
-            #session['register_name'] = request.form['register_name']
+            
             return 'You are now registered and logged in!' #Will have to be changed to the page the user is at
 
         return 'That username already exists!'

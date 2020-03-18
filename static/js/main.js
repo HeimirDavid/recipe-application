@@ -121,4 +121,17 @@ $(document).ready(function() {
         }
     });
 
+    
+    function blink_text() {
+        $('.flash-message').fadeOut(500);
+        $('.flash-message').fadeIn(500);
+        $('.flash-message').fadeOut(500);
+        $('.flash-message').fadeIn(500);
+        $('.flash-message').fadeOut(500);
+        $('.flash-message').fadeIn(500);
+    }
+
+    blink_text();
+
+    
 });

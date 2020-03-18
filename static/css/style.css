@@ -23,6 +23,20 @@ body {
 .row-no-margin {
     margin-bottom: 0;
 }
+
+.center-absolute {
+    position: absolute;
+    left: 50%;
+}
+
+.flash-message {
+    position: relative;
+    left: -50%;
+}
+/*
+.flash-message h3 {
+    background-color: rgba(239, 239, 239, 0.7);
+}*/
 /*
 .offsetter {
     position: absolute;

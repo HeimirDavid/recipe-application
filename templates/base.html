@@ -46,7 +46,24 @@
 
     </header>
     <div class="wrapper">
-
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="row-no-margin center-absolute">
+            <div class="col s-10 offset-s1 flash-message">
+            {% for message in messages %}
+                <h3 class="flash-text">{{ message }}</h3>
+            {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+     {% endwith %}
+     <!--
+     <div class="row-no-margin center-absolute">
+        <div class="col s-10 offset-s1 flash-message">
+            <h3>{{ message }}BLA this is a message</h3>
+        </div>
+    </div>
+    -->
     <div class="row row-no-margin">
         <div id="login_container" class="col s10 offset-s1 m6 offset-m3 l4 offset-l4 login-container">
         <form action="{{ url_for('login') }}" method="POST">
@@ -108,7 +125,7 @@
         </div>
         </div>
     </div>
-    
+
     
 
     {% block content %}
