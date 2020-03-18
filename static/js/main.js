@@ -17,7 +17,10 @@ $(document).ready(function() {
     let menuOpen = false;
     let delRecipeOpen = false;
 
- 
+    //$('#mainNavBtn').on("click", toggleMenu());
+
+
+    //function toggleMenu() {
     $('#mainNavBtn').click(function() {
         if(!menuOpen) {
             $('.menu-button').addClass('open');
@@ -29,6 +32,7 @@ $(document).ready(function() {
             menuOpen = false;
         }
     })
+    
     
 
     $('#del-recipe').click(function() {
@@ -57,11 +61,18 @@ $(document).ready(function() {
 
     ////////////////////////////////////
     let loginWindow = false;
+
+
     $('#login-menu-btn').click(function() {
+        //Close the menu
+        $('.menu-button').removeClass('open');
+        $('.navRow').css({'visibility': 'hidden', 'opacity': '0'});
+        menuOpen = false;
         if(!loginWindow) {
             $('.login-container').fadeIn('fast');
             loginWindow = true;
             console.log("Open Login")
+            
             $('.register-container').fadeOut('fast');
             registerWindow = false;
         } else {

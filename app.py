@@ -2,7 +2,7 @@ import pymongo
 import os, requests, validators
 #import bcrypt
 
-from flask import Flask, render_template, redirect, request, url_for, session
+from flask import Flask, render_template, redirect, request, url_for, session, Markup
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from flask_bcrypt import Bcrypt
@@ -32,8 +32,8 @@ mongo = PyMongo(app)
 coll = mongo.db.recipe
 collStatusOne = coll.find({'status': 1})
 
-login_btn = '<a href="#">Login/Signup</a>'
-logout_btn = '<a href="#">Logout</a>'
+login_btn = Markup('<a>Login/Signup</a>')
+logout_btn = Markup('<a href="/logout">Logout</a>')
 
 
 @app.route('/')
@@ -218,20 +218,18 @@ def login():
     if request.method == 'POST':
         users = mongo.db.users
         login_user = users.find_one({'name': request.form['username']})
-        #hashpass = bcrypt.generate_password_hash(request.form['password']).decode('utf-8')
-        hashpass = login_user['password']
-        user_p = login_user['password']
+
         print(login_user)
-        print(user_p)
 
         if login_user:
-            if bcrypt.check_password_hash(hashpass, request.form['password']):
+            if bcrypt.check_password_hash(login_user['password'], request.form['password']):
                 print('It Matches!')
                 session['username'] = request.form['username']
                 return redirect(url_for('index'))
 
         else:
-            print('No match or incrorrect password')
+            logginF =  Markup("<h1>Loggin Failed</h1>")
+            return redirect(url_for('index', logginF=logginF)) #What to doo...
         return 'Bad luck there'
 
         #bcrypt.check_password_hash(pw_hash, 'hunter2') # returns True

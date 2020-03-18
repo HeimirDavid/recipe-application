@@ -364,7 +364,7 @@ nav ul li a {
     cursor: pointer;
 }
 
-#login, #password, #register_password , #register {
+#username, #password, #register_password , #register_name {
     color: #fefefe;
 }
 
