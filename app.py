@@ -78,11 +78,11 @@ def index():
         for y in imageId:
             recipes.append(y)
 
-    if session:
+    if 'username' in session:
         return render_template('index.html',
                         recipes=recipes) #loginOut_btn=logout_btn)
     else:
-        session.clear()
+        session.pop('username',None)  
         return render_template('index.html',
                         recipes=recipes) #, loginOut_btn=login_btn)
  
@@ -96,11 +96,11 @@ def view_recipes():
 #route to add recipe
 @app.route('/add_recipe')
 def add_recipe():
-    if session:
+    if 'username' in session:
         return render_template('addrecipe.html',
                         recipes=collStatusOne) #, loginOut_btn=logout_btn)
     else:
-        session.clear()
+        session.pop('username',None)  
         flash("Login/Register to upload a recipe!")
         return redirect(url_for('index'))
     #return render_template('addrecipe.html', recipes=collStatusOne)
@@ -125,13 +125,13 @@ def insert_recipe():
 #redirect the user to display the recipe they chose by using it's id.
 @app.route('/recipe/<recipe_id>')
 def recipe(recipe_id):
-    if session.get('username'):
-        return render_template('recipe.html',
+    if 'username' in session:
+        return render_template('recipe.html', loggedIn=True,
                         recipe=coll.find_one({'_id': ObjectId(recipe_id)})) #, loginOut_btn=logout_btn)
     else:
-        session.clear()
+        session.pop('username',None)  
         flash("Login/Register to upload a recipe!")
-        return render_template('recipe.html',
+        return render_template('recipe.html',loggedIn=False,
                     recipe=coll.find_one({'_id': ObjectId(recipe_id)})) #, loginOut_btn=login_btn)
     #return render_template('recipe.html', recipe=coll.find_one({'_id': ObjectId(recipe_id)}))
 
@@ -247,7 +247,7 @@ def login():
 
             #else:
             #    return redirect(url_for('index')) What to doo...
-        session.clear()
+        session.pop('username',None)  
         flash("Incorrect username or password")
         return redirect(url_for('index'))
         
@@ -264,7 +264,7 @@ def register():
         if existing_user is None:
             hashpass = bcrypt.generate_password_hash(request.form['register_password']).decode('utf-8')
             users.insert({'name': request.form['register_name'], 'password': hashpass})
-            session['register_name'] = request.form['register_name']
+            session['username'] = request.form['register_name']
             
             flash("Welcome " + request.form['register_name'])
             return redirect(url_for('index'))
@@ -276,7 +276,7 @@ def register():
 
 @app.route('/logout')
 def logout():
-    session.clear()
+    session.pop('username',None)  
     return redirect(url_for('index'))
 
 
