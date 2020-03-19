@@ -32,8 +32,8 @@ mongo = PyMongo(app)
 coll = mongo.db.recipe
 collStatusOne = coll.find({'status': 1})
 
-login_btn = Markup('<a>Login/Signup</a>')
-logout_btn = Markup('<a href="/logout">Logout</a>')
+#login_btn = Markup('<a>Login/Signup</a>')
+#logout_btn = Markup('<a href="/logout">Logout</a>')
 
 
 @app.route('/')
@@ -80,10 +80,11 @@ def index():
 
     if session:
         return render_template('index.html',
-                        recipes=recipes, loginOut_btn=logout_btn)
+                        recipes=recipes) #loginOut_btn=logout_btn)
     else:
+        session.clear()
         return render_template('index.html',
-                        recipes=recipes, loginOut_btn=login_btn)
+                        recipes=recipes) #, loginOut_btn=login_btn)
  
     
 
@@ -95,7 +96,14 @@ def view_recipes():
 #route to add recipe
 @app.route('/add_recipe')
 def add_recipe():
-    return render_template('addrecipe.html', recipes=collStatusOne)
+    if session:
+        return render_template('addrecipe.html',
+                        recipes=collStatusOne) #, loginOut_btn=logout_btn)
+    else:
+        session.clear()
+        flash("Login/Register to upload a recipe!")
+        return redirect(url_for('index'))
+    #return render_template('addrecipe.html', recipes=collStatusOne)
 
 #Insert recipe route. 
 @app.route('/insert_recipe', methods=['POST'])
@@ -117,7 +125,16 @@ def insert_recipe():
 #redirect the user to display the recipe they chose by using it's id.
 @app.route('/recipe/<recipe_id>')
 def recipe(recipe_id):
-    return render_template('recipe.html', recipe=coll.find_one({'_id': ObjectId(recipe_id)}))
+    if session.get('username'):
+        return render_template('recipe.html',
+                        recipe=coll.find_one({'_id': ObjectId(recipe_id)})) #, loginOut_btn=logout_btn)
+    else:
+        session.clear()
+        flash("Login/Register to upload a recipe!")
+        return render_template('recipe.html',
+                    recipe=coll.find_one({'_id': ObjectId(recipe_id)})) #, loginOut_btn=login_btn)
+    #return render_template('recipe.html', recipe=coll.find_one({'_id': ObjectId(recipe_id)}))
+
 
 #redirect user to edit page, use the recipes id and send along it's document
 @app.route('/edit_recipe/<recipe_id>')
@@ -224,14 +241,14 @@ def login():
             if bcrypt.check_password_hash(login_user['password'], request.form['password']):
                 print('It Matches!')
                 session['username'] = request.form['username']
+
+                flash("Welcome " + request.form['username'])
                 return redirect(url_for('index'))
 
-        else:
-            session.clear()
-            flash("This is an incorrect username.")
-            return redirect(url_for('index')) #What to doo...
+            #else:
+            #    return redirect(url_for('index')) What to doo...
         session.clear()
-        flash("Bad luck there...")
+        flash("Incorrect username or password")
         return redirect(url_for('index'))
         
 
@@ -249,11 +266,12 @@ def register():
             users.insert({'name': request.form['register_name'], 'password': hashpass})
             session['register_name'] = request.form['register_name']
             
-            return 'You are now registered and logged in!' #Will have to be changed to the page the user is at
+            flash("Welcome " + request.form['register_name'])
+            return redirect(url_for('index'))
+            #return 'You are now registered and logged in!' #Will have to be changed to the page the user is at
 
-        return 'That username already exists!'
-     
-    #pw_hash = bcrypt.generate_password_hash('hunter2')
+        flash('That username is already taken')
+        return redirect(url_for('index'))
 
 
 @app.route('/logout')

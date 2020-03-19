@@ -7,7 +7,23 @@
                 <div class="row">
                     <div class="col s12 l8 landing-card">
                         <h1>Your Online Cookbook</h1>
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                            <!--<div class="row-no-margin center-absolute">
+                                <div class="col s-10 offset-s1 flash-message">-->
+                                {% for message in messages %}
+                                <div class="flash-message center">
+                                    <h3 class="flash-text">{{ message }}</h3>
+                                </div>
+                                {% endfor %}
+                                <!--</div>
+                            </div>-->
+                            
+                            
+                            {% endif %}
+                        {% endwith %}
                         <h3>Find, Create and Share your favorite recipes with others! All located here at GreenJunkie!</h3>
+                        
                         <a href="{{ url_for('view_recipes') }}" class="waves-effect waves-light btn-large cyan">Browse Recipes</a>
                     </div>
                 </div>

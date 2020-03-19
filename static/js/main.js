@@ -21,6 +21,7 @@ $(document).ready(function() {
 
 
     //function toggleMenu() {
+        //toggle the main navigation. both open and close the hamburger (adding 'open' class) and the menu
     $('#mainNavBtn').click(function() {
         if(!menuOpen) {
             $('.menu-button').addClass('open');
@@ -64,32 +65,30 @@ $(document).ready(function() {
 
 
     $('#login-menu-btn').click(function() {
-        //Close the menu
+        //Close the main menu
         $('.menu-button').removeClass('open');
         $('.navRow').css({'visibility': 'hidden', 'opacity': '0'});
         menuOpen = false;
-        if(!loginWindow) {
+
+        if(!loginWindow) { //show the login window/close the register window
             $('.login-container').fadeIn('fast');
-            loginWindow = true;
-            console.log("Open Login")
-            
             $('.register-container').fadeOut('fast');
+            loginWindow = true;
             registerWindow = false;
-        } else {
+        } else { //hide the login contaniner
             $('.login-container').fadeOut('fast');
             loginWindow = false;
-            console.log("Hide Login")
         }
     });
 
     $('#close_logo').click(function() {
-        if(!loginWindow) {
-            $('.login-container').fadeIn('fast');
-            loginWindow = true;
-        } else {
+        if(loginWindow) { 
             $('.login-container').fadeOut('fast');
             loginWindow = false;
-        }
+        } /*else {
+            $('.login-container').fadeIn('fast');
+            loginWindow = true;
+        }*/
     });
 
     //////////////////////////////////////
@@ -98,15 +97,15 @@ $(document).ready(function() {
     $('.ToggleRegLog').click(function() {
         if(!registerWindow) {
             $('.register-container').fadeIn('fast');
-            registerWindow = true;
             $('.login-container').fadeOut('fast');
             loginWindow = false;
+            registerWindow = true;
             console.log("Open Register Window")
         } else {
             $('.register-container').fadeOut('fast');
-            registerWindow = false;
             $('.login-container').fadeIn('fast');
             loginWindow = true;
+            registerWindow = false;
             console.log("Close Register Window")
         }
     });
@@ -122,6 +121,15 @@ $(document).ready(function() {
     });
 
     
+    function blink_text(num) {
+        for(i = 0; i < num; i++) {
+            $('.flash-message').fadeOut(500);
+            $('.flash-message').fadeIn(500);
+        }
+    }
+
+    blink_text(4);
+    /*
     function blink_text() {
         $('.flash-message').fadeOut(500);
         $('.flash-message').fadeIn(500);
@@ -131,7 +139,7 @@ $(document).ready(function() {
         $('.flash-message').fadeIn(500);
     }
 
-    blink_text();
+    blink_text();*/
 
     
 });

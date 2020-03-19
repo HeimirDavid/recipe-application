@@ -33,12 +33,18 @@
                         <li class="navRow">
                             <a href="{{ url_for('view_recipes') }}">Browse Recipes</a>
                         </li>
-                        <li class="navRow">
-                            <a href="{{ url_for('add_recipe') }}">Add Recipe</a>
-                        </li>
-                        <li onclick="toggleMenu()" id="login-menu-btn" class="navRow">
-                            {{loginOut_btn}}
-                        </li>
+                        {% if session %}
+                            <li class="navRow">
+                                <a href="{{ url_for('add_recipe') }}">Add Recipe</a>
+                            </li>
+                            <li id="login-menu-btn" class="navRow">
+                                <a href="/logout">Logout</a>
+                            </li>
+                        {% else %}
+                        <li id="login-menu-btn" class="navRow">
+                                <a>Login/Signup</a>
+                            </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
@@ -46,7 +52,7 @@
 
     </header>
     <div class="wrapper">
-    {% with messages = get_flashed_messages() %}
+    <!--{% with messages = get_flashed_messages() %}
         {% if messages %}
         <div class="row-no-margin center-absolute">
             <div class="col s-10 offset-s1 flash-message">
@@ -55,15 +61,11 @@
             {% endfor %}
             </div>
         </div>
+        {% else %}
+        <h3>Bajs</h3>
         {% endif %}
-     {% endwith %}
-     <!--
-     <div class="row-no-margin center-absolute">
-        <div class="col s-10 offset-s1 flash-message">
-            <h3>{{ message }}BLA this is a message</h3>
-        </div>
-    </div>
-    -->
+     {% endwith %}-->
+    
     <div class="row row-no-margin">
         <div id="login_container" class="col s10 offset-s1 m6 offset-m3 l4 offset-l4 login-container">
         <form action="{{ url_for('login') }}" method="POST">
