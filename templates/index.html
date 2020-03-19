@@ -5,7 +5,7 @@
 
         <section id="bg-img">
                 <div class="row">
-                    <div class="col s12 l8 landing-card">
+                    <div class="col s12 l8 offset-l2 landing-card">
                         <h1>Your Online Cookbook</h1>
                         {% with messages = get_flashed_messages() %}
                             {% if messages %}
@@ -24,7 +24,7 @@
                         {% endwith %}
                         <h3>Find, Create and Share your favorite recipes with others! All located here at GreenJunkie!</h3>
                         
-                        <a href="{{ url_for('view_recipes') }}" class="waves-effect waves-light btn-large cyan">Browse Recipes</a>
+                        <a href="{{ url_for('view_recipes') }}" class="browse-btn waves-effect waves-light btn-large cyan">Browse Recipes</a>
                     </div>
                 </div>
         </section>
