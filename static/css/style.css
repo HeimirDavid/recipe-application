@@ -131,7 +131,7 @@ nav {
     top: 0;
     z-index: 20;
     color: #fff;
-    background-color: #efefef;
+    /*background-color: #efefef;*/
     /*opacity: .9;*/
     border-bottom: 1px solid #272727;
     -webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
@@ -237,13 +237,13 @@ nav ul li a {
 }
 
 .bold-text {
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .cards-row {
-        margin-left: 2em;
-        margin-right: 2em;
-    }
+    margin-left: 7em;
+    margin-right: 7em;
+}
 
 
 /******    CAROUSEL    ******/
@@ -309,6 +309,10 @@ nav ul li a {
 
 .recipe-img > img {
     height: 100%
+}
+
+.inst-ing {
+    margin: 1em;
 }
 
 
@@ -406,7 +410,7 @@ footer {
     position: relative;
     height: 8em;
     width: 100%;
-    background-color: #272727;
+    background-color: #8d2727;
 }
 
 
@@ -421,13 +425,14 @@ footer {
         height: 100%;
         width: 100%;
         margin-top: .1em;
+        margin-left: 4.5em
         /*position: absolute;
         top: 4.5em;
         left: 0;*/
         z-index: -5;
         border-bottom: .1em solid;
     }
-
+    /*
     #about-img::before {
         /* same as top, bg-img
         background: url('/static/images/about-img.jpg');
@@ -437,7 +442,7 @@ footer {
         width: 100%;
         margin-top: .1em;
         z-index: -5;
-        border-bottom: .1em solid;*/
+        border-bottom: .1em solid;
 
         content: "";
         display: block;
@@ -452,7 +457,7 @@ footer {
         -moz-background-size: cover;
         -o-background-size: cover;
         background-size: cover;
-    }
+    } */
     /*
     body {
         background: url('/static/images/.jpg');
@@ -463,6 +468,14 @@ footer {
         margin-top: .1em;
         z-index: -10;
     }*/
+    
+    .recipe-info {
+        background-color:rgba(254,254,254, .9);
+        box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
+        margin-top:2em;
+        margin-left: 4.5em;
+        border-radius: .3em;
+    }
 
     .wrapper::after {
         height: 36em;
@@ -488,9 +501,10 @@ footer {
         margin-top: 5em;
     }
 
-    .cards-row {
-        margin-left: 7em;
-        margin-right: 7em;
+    .recipe-row {
+        margin-left: 4.5em;
+        margin-right: 0;
+        background-color: teal;
     }
 
     .recipe-card {
@@ -501,4 +515,7 @@ footer {
         margin-left: 3.8em;
     }
 
+    .inst-ing {
+        margin:0 0 2em 5em;
+    }
 }
