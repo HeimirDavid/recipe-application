@@ -269,12 +269,17 @@ def register():
         print(existing_user)
 
         if existing_user is None:
-            hashpass = bcrypt.generate_password_hash(request.form['register_password']).decode('utf-8')
-            users.insert({'name': request.form['register_name'], 'password': hashpass})
-            session['username'] = request.form['register_name']
-            
-            flash("Welcome " + request.form['register_name'])
-            return redirect(url_for('index'))
+            if request.form['register_password'] == request.form['re_pass']:
+                hashpass = bcrypt.generate_password_hash(request.form['register_password']).decode('utf-8')
+                rehashpass = bcrypt.generate_password_hash(request.form['re_pass']).decode('utf-8')
+                users.insert({'name': request.form['register_name'], 'password': hashpass})
+                session['username'] = request.form['register_name']
+                
+                flash("Welcome " + request.form['register_name'])
+                return redirect(url_for('index'))
+            else:
+                flash("Passwords doesn't match")
+                return redirect(url_for('index'))
             #return 'You are now registered and logged in!' #Will have to be changed to the page the user is at
 
         flash('That username is already taken')
