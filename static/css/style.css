@@ -422,7 +422,7 @@ footer {
         border-bottom: .1em solid;
     }
 
-    #bg-img::after {
+    .wrapper::after {
         height: 36em;
         width: .1em;
         left: 4.5em;

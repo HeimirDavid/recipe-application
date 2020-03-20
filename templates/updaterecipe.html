@@ -22,7 +22,7 @@
                     <label for="image_url">Image URL for Recipe:</label>
                 </div>
                 <div class="input-field col s12 m6">
-                    <select required>
+                   <select id="category" name="category" required>
                         <option value="{{ cr.category }}" disabled selected>{{ cr.category }}</option>
                         <option value="lunch/dinner">Lunch/Dinner</option>
                         <option value="desert">Desert</option>

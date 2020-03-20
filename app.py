@@ -43,8 +43,8 @@ def index():
     validUrls = []
     images = []
 
-    if session:
-        print('User logged in!')
+    if 'username' in session:
+        print(session['username'])
     else:
         print("not logged in")
 
@@ -82,7 +82,7 @@ def index():
         return render_template('index.html',
                         recipes=recipes) #loginOut_btn=logout_btn)
     else:
-        session.pop('username',None)  
+        session.pop('username', None)
         return render_template('index.html',
                         recipes=recipes) #, loginOut_btn=login_btn)
  
@@ -97,8 +97,9 @@ def view_recipes():
 @app.route('/add_recipe')
 def add_recipe():
     if 'username' in session:
+        user = session['username']
         return render_template('addrecipe.html',
-                        recipes=collStatusOne) #, loginOut_btn=logout_btn)
+                        recipes=collStatusOne, user=user) #, loginOut_btn=logout_btn)
     else:
         session.pop('username',None)  
         flash("Login/Register to upload a recipe!")
@@ -115,8 +116,8 @@ def insert_recipe():
         new_recipe = request.form.to_dict()
         ingredientsArray = request.form.getlist('ingredients')
         new_recipe["ingredients"] = ingredientsArray
-        new_recipe.update({'status': 1})
-        
+        new_recipe.update({'status': 1}),
+        new_recipe.update({'recipe_author': session['username']})
         coll.insert_one(new_recipe)
         
     return redirect(url_for('view_recipes'))
@@ -126,7 +127,7 @@ def insert_recipe():
 @app.route('/recipe/<recipe_id>')
 def recipe(recipe_id):
     if 'username' in session:
-        return render_template('recipe.html', loggedIn=True,
+        return render_template('recipe.html', #loggedIn=True, think is unneccessary
                         recipe=coll.find_one({'_id': ObjectId(recipe_id)})) #, loginOut_btn=logout_btn)
     else:
         session.pop('username',None)  
@@ -156,6 +157,7 @@ def update_recipe(recipe_id):
         'cousine': request.form.get('cousine'),
         'cooking_time': request.form.get('cooking_time'),
         'servings': request.form.get('servings'),
+        'category': request.form.get('category'),
         'ingredients': request.form.getlist('ingredients'),
         'instructions': request.form.get('instructions'),
         'summary': request.form.get('summary'),
