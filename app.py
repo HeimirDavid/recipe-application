@@ -42,7 +42,7 @@ def index():
     imageUrls = collStatusOne.distinct('image_url')
     #validUrls = []
     recipes = []
-    images = []
+
 
     if 'username' in session:
         print(session['username'])
@@ -54,52 +54,32 @@ def index():
     for image in imageUrls:
         valid=validators.url(image)
         if valid==True:
-            #validUrls.append(image)
             print('Valid Url')
-            try:
+            try: #If the URL is valid, try if it gets a 200 status code response
                 request = requests.get(image)
                 request.raise_for_status()
                 if request.status_code == 200:
-                    print('status 200!')
-                    images.append(image)
+                    #Match the url's with it's matching document and store it in imageId
                     imageId = coll.find({'image_url': image})
+
+                    #loop through the imageId and store the rows in a list which will be sent to view: recipies
                     for imageColl in imageId:
                         recipes.append(imageColl)
                         print('This is awesome!')
+            #error message if the url didn't get a 200 response
             except requests.ConnectionError as err:
                 print('Image could not load, Error Response: '+ str(err))
 
         else:
             print('Invalid url')
         
-    # iterate through the valid urls and check if the status code is 200, store 200 status code urls in images list
-    #Time to clean up.....
-    #for image in validUrls:
-    #    try:
-    #        request = requests.get(image)
-    #        request.raise_for_status()
-    #        if request.status_code == 200:
-    #            print('status 200!')
-    #            images.append(image)
-    #    except requests.ConnectionError as err:
-    #        print('Image could not load, Error Response: '+ str(err))
-
-    #Empty list that the valid images will add into, with the rest of the info from it's matching document
-    
-    
-    #itterate through the valid images and find it's matching document
-    #for i in images:    
-    #    imageId = coll.find({'image_url': i})
-    #    for y in imageId:
-    #        recipes.append(y)
-
-    if 'username' in session:
-        return render_template('index.html',
-                        recipes=recipes) #loginOut_btn=logout_btn)
-    else:
-        session.pop('username', None)
-        return render_template('index.html',
-                        recipes=recipes) #, loginOut_btn=login_btn)
+    #if 'username' in session:
+    return render_template('index.html',
+                    recipes=recipes) #loginOut_btn=logout_btn)
+    #else:
+        #session.pop('username', None)
+        #return render_template('index.html',
+                        #recipes=recipes) #, loginOut_btn=login_btn)
  
     
 
@@ -114,17 +94,17 @@ def add_recipe():
     if 'username' in session:
         user = session['username']
         return render_template('addrecipe.html',
-                        recipes=collStatusOne, user=user) #, loginOut_btn=logout_btn)
+                        recipes=collStatusOne, user=user)
     else:
         session.pop('username',None)  
         flash("Login/Register to upload a recipe!")
         return redirect(url_for('index'))
-    #return render_template('addrecipe.html', recipes=collStatusOne)
+
 
 #Insert recipe route. 
 @app.route('/insert_recipe', methods=['POST'])
 def insert_recipe():
-    #If the request is POST, assign the data in the form of a dictionary to new_recipe variable.
+    #If the request is POST, assign the data in the form of a dictionary to new_recipe.
     #this is to be able to assign the ingredients a list and not string to the document
     #make sure status is 1 so it will be displayed on the page, then insert the dictionary to the collection
     if request.method == 'POST':
@@ -136,31 +116,31 @@ def insert_recipe():
         coll.insert_one(new_recipe)
         
     return redirect(url_for('view_recipes'))
-    #Missing validation on server side. 
+
 
 #redirect the user to display the recipe they chose by using it's id.
 @app.route('/recipe/<recipe_id>')
 def recipe(recipe_id):
     if 'username' in session:
-        return render_template('recipe.html', #loggedIn=True, think is unneccessary
-                        recipe=coll.find_one({'_id': ObjectId(recipe_id)})) #, loginOut_btn=logout_btn)
+        return render_template('recipe.html',
+                        recipe=coll.find_one({'_id': ObjectId(recipe_id)}))
     else:
         session.pop('username',None)  
         flash("Login/Register to upload a recipe!")
         return render_template('recipe.html',loggedIn=False,
-                    recipe=coll.find_one({'_id': ObjectId(recipe_id)})) #, loginOut_btn=login_btn)
-    #return render_template('recipe.html', recipe=coll.find_one({'_id': ObjectId(recipe_id)}))
+                    recipe=coll.find_one({'_id': ObjectId(recipe_id)}))
 
 
-#redirect user to edit page, use the recipes id and send along it's document
+#redirect user to the edit page, use the recipes id and send along it's document
 @app.route('/edit_recipe/<recipe_id>')
 def edit_recipe(recipe_id):
     chosen_recipe = coll.find_one({'_id': ObjectId(recipe_id)})
     return render_template('updaterecipe.html',
                             cr=chosen_recipe)
 
+
 #Locate the recipe using id, get the data from the form, and update it
-#with the new data from the user. redirect to the updated recipe so the 
+#with the new data from the user. redirect to the updated recipe so the
 #user can see his/hers changes.
 @app.route('/update_recipe/<recipe_id>', methods=["POST"])
 def update_recipe(recipe_id):
@@ -257,8 +237,6 @@ def login():
         users = mongo.db.users
         login_user = users.find_one({'name': request.form['username']})
 
-        print(login_user)
-
         if login_user:
             if bcrypt.check_password_hash(login_user['password'], request.form['password']):
                 print('It Matches!')
@@ -267,13 +245,9 @@ def login():
                 flash("Welcome " + request.form['username'])
                 return redirect(url_for('index'))
 
-            #else:
-            #    return redirect(url_for('index')) What to doo...
         session.pop('username',None)  
         flash("Incorrect username or password")
         return redirect(url_for('index'))
-        
-
 
 
 @app.route('/register', methods=['POST'])
