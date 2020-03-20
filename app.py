@@ -40,7 +40,8 @@ collStatusOne = coll.find({'status': 1})
 def index():
     # collect all image_url keys from the collections
     imageUrls = collStatusOne.distinct('image_url')
-    validUrls = []
+    #validUrls = []
+    recipes = []
     images = []
 
     if 'username' in session:
@@ -53,30 +54,44 @@ def index():
     for image in imageUrls:
         valid=validators.url(image)
         if valid==True:
-            validUrls.append(image)
+            #validUrls.append(image)
             print('Valid Url')
+            try:
+                request = requests.get(image)
+                request.raise_for_status()
+                if request.status_code == 200:
+                    print('status 200!')
+                    images.append(image)
+                    imageId = coll.find({'image_url': image})
+                    for imageColl in imageId:
+                        recipes.append(imageColl)
+                        print('This is awesome!')
+            except requests.ConnectionError as err:
+                print('Image could not load, Error Response: '+ str(err))
+
         else:
             print('Invalid url')
         
     # iterate through the valid urls and check if the status code is 200, store 200 status code urls in images list
-    for image in validUrls:
-        try:
-            request = requests.get(image)
-            request.raise_for_status()
-            if request.status_code == 200:
-                print('status 200!')
-                images.append(image)
-        except requests.ConnectionError as err:
-            print('Image could not load, Error Response: '+ str(err))
+    #Time to clean up.....
+    #for image in validUrls:
+    #    try:
+    #        request = requests.get(image)
+    #        request.raise_for_status()
+    #        if request.status_code == 200:
+    #            print('status 200!')
+    #            images.append(image)
+    #    except requests.ConnectionError as err:
+    #        print('Image could not load, Error Response: '+ str(err))
 
     #Empty list that the valid images will add into, with the rest of the info from it's matching document
-    recipes = []
+    
     
     #itterate through the valid images and find it's matching document
-    for i in images:    
-        imageId = coll.find({'image_url': i})
-        for y in imageId:
-            recipes.append(y)
+    #for i in images:    
+    #    imageId = coll.find({'image_url': i})
+    #    for y in imageId:
+    #        recipes.append(y)
 
     if 'username' in session:
         return render_template('index.html',
