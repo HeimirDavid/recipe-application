@@ -149,22 +149,27 @@ def edit_recipe(recipe_id):
 #user can see his/hers changes.
 @app.route('/update_recipe/<recipe_id>', methods=["POST"])
 def update_recipe(recipe_id):
-    coll.update({'_id': ObjectId(recipe_id)},
-    {
-        'recipe_name': request.form.get('recipe_name'),
-        'recipe_author': request.form.get('recipe_author'),
-        'image_url': request.form.get('image_url'),
-        'cousine': request.form.get('cousine'),
-        'cooking_time': request.form.get('cooking_time'),
-        'servings': request.form.get('servings'),
-        'category': request.form.get('category'),
-        'ingredients': request.form.getlist('ingredients'),
-        'instructions': request.form.get('instructions'),
-        'summary': request.form.get('summary'),
-        'action':request.form.get('action'),
-        'status': 1
-    })
-    return redirect(url_for('recipe', recipe_id=recipe_id))
+    if 'username' in session:
+        coll.update({'_id': ObjectId(recipe_id)},
+        {
+            'recipe_name': request.form.get('recipe_name'),
+            'recipe_author': session['username'],
+            'image_url': request.form.get('image_url'),
+            'cousine': request.form.get('cousine'),
+            'cooking_time': request.form.get('cooking_time'),
+            'servings': request.form.get('servings'),
+            'category': request.form.get('category'),
+            'ingredients': request.form.getlist('ingredients'),
+            'instructions': request.form.get('instructions'),
+            'summary': request.form.get('summary'),
+            'action':request.form.get('action'),
+            'status': 1
+        })
+        return redirect(url_for('recipe', recipe_id=recipe_id))
+    else:
+        flash("You must be logged in to update a recipe")
+        return redirect(url_for('index'))
+        
 
 #Delete function does not delete the recipe from the database but changes
 #it's status to 2. Anything but a 1 will end up not displayed on the site.
