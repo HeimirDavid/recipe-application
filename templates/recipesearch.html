@@ -9,14 +9,14 @@
 <div class="container">
 {% if not recipes  %}
     <h4 class="center">No recipes found matching your search!</h4>
-    <div class="col s12 m8 offset-m2 result-recipe center teal lighten-4">
+    <div class="col s12 m8 offset-m2 result-recipe box-shadow center teal lighten-4">
         <p class="card-text">Would you like to go back to the browse page?</p>
         <a href="{{ url_for('view_recipes')}}" class="waves-effect waves-light cyan btn results-btn center">Browse Recipes!</a>
     </div>
 {% else %}
 {% for recipe in recipes %}
     <div class="row">
-        <div class="col s12 result-recipe">
+        <div class="col s12 result-recipe box-shadow">
             <h3 class="result-header">{{ recipe.recipe_name }}</h3>
             <div class="col m4 s12">
                 <p class="card-text"><span class="bold-text">Cousine: {{ recipe.cousine }}</span></p>
@@ -35,25 +35,5 @@
 {% endfor %}
 {% endif %}
 </div>
-
-<!--
-{% for recipe in recipes %}
-    
-    <p>{{ recipe.recipe_name }}</p>
-    <p>{{ recipe.recipe_author }}</p>
-    <p>{{ recipe.cousine }}</p>
-    <p>{{ recipe.cooking_time }}</p>
-    <p>{{ recipe.servings }}</p>
-    {% for ing in recipe.ingredients %}
-    <p>{{ ing }}</p>
-    {% endfor %}
-    <p>{{ recipe.instructions }}</p>
-    <p>{{ recipe.summary }}</p>
-  
-
-{% endfor %}
--->
-
-
 
 {% endblock %}

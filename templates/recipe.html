@@ -3,12 +3,12 @@
 {% block content %}
 
 <div class="row recipe-row">
-    <div class="col s12 m4 offset-m1 recipe-info">
+    <div class="col s12 m4 offset-m1 recipe-info box-shadow">
         <h3 class="center">{{recipe.recipe_name}}</h3>
         <p class="card-text"><span class="bold-text">Summary: </span></p>
         <p class="card-text">{{ recipe.summary }}<p>
-        <p class="card-text">{{ recipe.cooking_time }} | {{ recipe.cousine }}</p>
-        <p class="card-text">Servings: {{ recipe.servings }}</p>
+        <p class="card-text bold-text">{{ recipe.cooking_time }} | {{ recipe.cousine }}</p>
+        <p class="card-text bold-text">Servings: {{ recipe.servings }}</p>
     </div>
     <div class="col s12 m7">
         <div class="recipe-img img">
@@ -16,10 +16,7 @@
         </div>
     </div>
 </div>
-<!--
-<div class="cards-row">
-    
-    -->
+
     <div class="row inst-ing">
         <div class="col s12 m5">
             <h4>Instructions:</h4>
@@ -47,13 +44,12 @@
     </div>
     {% endif %}
     <form action="{{url_for('delete_recipe', recipe_id=recipe._id)}}"  method="POST">
-        <div id="popup-delete">
+        <div id="popup-delete" class=" box-shadow">
             <h4>Are you sure you wish to delete this recipe from this page?</h4>
             <a id="cancel" class="waves-effect waves-light green btn">Cancel</a>
             <button id="confirm-del" class="btn red waves-effect waves-light" type="submit" name="action">Delete</button>
         </div>
     </form>
 
-</div>
 
 {% endblock %}

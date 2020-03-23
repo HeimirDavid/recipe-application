@@ -38,10 +38,10 @@ $(document).ready(function() {
 
     $('#del-recipe').click(function() {
         if(!delRecipeOpen) {
-            $('#popup-delete').show();
+            $('#popup-delete').fadeIn('fast');
             delRecipeOpen = true;
         } else {
-            $('#popup-delete').hide();
+            $('#popup-delete').fadeOut('fast');
             delRecipeOpen = false;
         }
     });
@@ -50,12 +50,12 @@ $(document).ready(function() {
     //$("#del-recipe").on("click", deleteRecipe());    //Might be unneccessary
 
     $('#cancel').click(function() {
-        $('#popup-delete').hide();
+        $('#popup-delete').fadeOut('fast');
         delRecipeOpen = false;
     });
 
     $('#confirm-del').click(function() {
-        $('#popup-delete').hide();
+        $('#popup-delete').fadeOut('fast');
         delRecipeOpen = false;
     });
 
@@ -129,17 +129,7 @@ $(document).ready(function() {
     }
 
     blink_text(4);
-    /*
-    function blink_text() {
-        $('.flash-message').fadeOut(500);
-        $('.flash-message').fadeIn(500);
-        $('.flash-message').fadeOut(500);
-        $('.flash-message').fadeIn(500);
-        $('.flash-message').fadeOut(500);
-        $('.flash-message').fadeIn(500);
-    }
-
-    blink_text();*/
+   
 
     
 });
