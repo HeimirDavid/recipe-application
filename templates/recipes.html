@@ -22,8 +22,8 @@
                     <h4 class="card-header">{{recipe.recipe_name}}</h4>
                     <p class="card-text"><span class="bold-text">By: </span>{{recipe.recipe_author}}</p>
                     <p class="card-text"><span class="bold-text">Cooking Time: </span>{{recipe.cooking_time}}</p>
-                    <p class="card-text">{{recipe.cousine}}</p>
-                    <p class="card-text">{{ recipe.category }}</p>
+                    <p class="card-text"><span class="bold-text">Cousine: </span>{{recipe.cousine}}</p>
+                    <p class="card-text"><span class="bold-text">Category: </span>{{ recipe.category }}</p>
                     
                 </div>
                 <a href="{{ url_for('recipe', recipe_id=recipe._id) }}" class="waves-effect waves-light btn recipe-card-btn">Open</a>

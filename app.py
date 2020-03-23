@@ -121,14 +121,8 @@ def insert_recipe():
 #redirect the user to display the recipe they chose by using it's id.
 @app.route('/recipe/<recipe_id>')
 def recipe(recipe_id):
-    if 'username' in session:
-        return render_template('recipe.html',
+    return render_template('recipe.html',
                         recipe=coll.find_one({'_id': ObjectId(recipe_id)}))
-    else:
-        session.pop('username',None)  
-        flash("Login/Register to upload a recipe!")
-        return render_template('recipe.html',loggedIn=False,
-                    recipe=coll.find_one({'_id': ObjectId(recipe_id)}))
 
 
 #redirect user to the edit page, use the recipes id and send along it's document

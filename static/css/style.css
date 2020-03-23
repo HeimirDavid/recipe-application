@@ -172,6 +172,11 @@ nav ul li a {
 
 /******    CARDS    ******/
 
+.cards-row {
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
 .recipe-card { /*Box shadow*/
     position: relative;
     height: 40em;
