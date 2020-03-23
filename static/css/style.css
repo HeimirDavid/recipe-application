@@ -14,10 +14,10 @@ body {
 }
 
 a {
+    color: inherit;
     text-decoration: none;
     text-decoration-color: none;
 }
-
 
 .wrapper {
   min-height: calc(100vh - 10em);

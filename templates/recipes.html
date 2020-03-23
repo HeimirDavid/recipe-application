@@ -14,6 +14,7 @@
 
         <div class="row cards-row">
             {% for recipe in recipes %}
+            <a class="" href="{{ url_for('recipe', recipe_id=recipe._id) }}">
             <div class="col col-size recipe-card box-shadow">
                 <div class="image-card-container">
                     <img src="{{recipe.image_url}}" alt="Food Image">
@@ -28,6 +29,7 @@
                 </div>
                 <a href="{{ url_for('recipe', recipe_id=recipe._id) }}" class="waves-effect waves-light btn recipe-card-btn">Open</a>
             </div>
+            </a>
             {% endfor %}
         </div>
 
