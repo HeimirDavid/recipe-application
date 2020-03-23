@@ -171,11 +171,17 @@ nav ul li a {
 }
 
 /******    CARDS    ******/
-/*
+
 .cards-row {
     margin-left: 1em;
     margin-right: 1em;
-}*/
+}
+
+.col-size {
+    width: 100%;
+    left: auto;
+    right: auto;
+}
 
 .browse-container {
     width: 90%;
@@ -420,7 +426,17 @@ footer a:hover {
 }
 
 
-/*** Desktop View ***/
+/*** Medium, between mobile and tablet View ***/
+
+@media (min-width: 426px) {
+    .col-size {
+        width: 40%;
+        margin: 5%;
+    }
+}
+
+
+/*** Tablet/Desktop View ***/
 @media (min-width: 767px) {
     #bg-img {
         background: url('/static/images/red-bg-img.jpg');
@@ -462,11 +478,11 @@ footer a:hover {
     .landing-card {
         margin-top: 5em;
     }
-    /*
+    
     .cards-row {
         margin-left: 7em;
         margin-right: 7em;
-    }*/
+    }
 
     .recipe-row {
         margin-left: 4.5em;
@@ -484,5 +500,13 @@ footer a:hover {
 
     .inst-ing {
         margin:0 0 2em 5em;
+    }
+}
+
+/*** Only Desktop View ***/
+@media (min-width: 767px) {
+    .col-size {
+        width: 28%;
+        margin: 2%;
     }
 }

@@ -11,10 +11,10 @@
             </div>
         </div>
     </form>
-    <div class="container browse-container">
-        <div class="row">
+
+        <div class="row cards-row">
             {% for recipe in recipes %}
-            <div class="col s12 m4 offset-m2 l3 offset-l1 recipe-card box-shadow">
+            <div class="col col-size recipe-card box-shadow">
                 <div class="image-card-container">
                     <img src="{{recipe.image_url}}" alt="Food Image">
                 </div>
@@ -31,8 +31,7 @@
             {% endfor %}
         </div>
 
-    </div>
-    
+
     
   
 
