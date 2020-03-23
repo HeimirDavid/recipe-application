@@ -222,12 +222,6 @@ nav ul li a {
     font-weight: 600;
 }
 
-.cards-row {
-    margin-left: 7em;
-    margin-right: 7em;
-}
-
-
 /******    CAROUSEL    ******/
 
 .carousel { /*Box shadow*/
@@ -458,6 +452,11 @@ footer a:hover {
 
     .landing-card {
         margin-top: 5em;
+    }
+
+    .cards-row {
+        margin-left: 7em;
+        margin-right: 7em;
     }
 
     .recipe-row {
