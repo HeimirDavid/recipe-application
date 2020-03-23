@@ -171,10 +171,14 @@ nav ul li a {
 }
 
 /******    CARDS    ******/
-
+/*
 .cards-row {
     margin-left: 1em;
     margin-right: 1em;
+}*/
+
+.browse-container {
+    width: 90%;
 }
 
 .recipe-card { /*Box shadow*/
@@ -182,7 +186,7 @@ nav ul li a {
     height: 40em;
     border-radius: .5em;
     padding: 0!important;
-    margin: 2em;
+    margin-bottom: 1.5em;
     /*-webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.4);
     -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.4);
     box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.4);*/
@@ -458,20 +462,20 @@ footer a:hover {
     .landing-card {
         margin-top: 5em;
     }
-
+    /*
     .cards-row {
         margin-left: 7em;
         margin-right: 7em;
-    }
+    }*/
 
     .recipe-row {
         margin-left: 4.5em;
         margin-right: 0;
         background-color: teal;
     }
-
-    .recipe-card {
-        width: 30%!important;
+    
+    .browse-container {
+        margin-left: 0;
     }
 
     .recipe-img {
