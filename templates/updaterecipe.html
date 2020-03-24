@@ -24,7 +24,7 @@
                 </div>
                 <div class="input-field col s12 m6">
                    <select id="category" name="category" required>
-                        <option value="{{ cr.category }}" disabled selected>{{ cr.category }}</option>
+                        <option value="" disabled selected>{{ cr.category }}</option>
                         <option value="lunch/dinner">Lunch/Dinner</option>
                         <option value="desert">Desert</option>
                         <option value="snack">Snack</option>
@@ -47,7 +47,7 @@
             </div>
             <div class="row">
                 <div id="ingredients_list" class="input-field col s7">
-                    <label for="email">Ingredients:</label>
+                    <label for="ingredients_list">Ingredients:</label>
                     {% for ing in cr.ingredients %}
                         <input value="{{ ing }}" placeholder="1 can of coconut milk" name="ingredients" type="text" class="validate" required>
                     {% endfor %}
