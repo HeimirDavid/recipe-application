@@ -188,7 +188,21 @@ Different configuration files?
 Separate git branch?
 In addition, if it is not obvious, you should also describe how to run your code locally.
 
-Credits
+##Credits
+* **The hamburger menu** styling and javascript came from this tutorial:  
+https://www.youtube.com/watch?v=dIyVTjJAkLw  
+* **The login and register** system was based upon two tutorials, mainly the first one linked below:  
+https://www.youtube.com/watch?v=vVx1737auSE  
+https://www.youtube.com/watch?v=CSHx6eCkmv0&t=324s  
+* **The search functionality** is based upon this tutorial on how to use text index:  
+https://www.youtube.com/watch?v=dTN8cBDEG_Q  
+* The way to use **flash messages** came from this documentation:  
+https://flask.palletsprojects.com/en/1.1.x/patterns/flashing/  
+* The Carousel and how to use glide.js comes from this tutorial:  
+https://www.youtube.com/watch?v=kpAt25cOBrU  
+
+
+
 Content
 The text for section Y was copied from the Wikipedia article Z
 Media

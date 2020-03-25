@@ -216,7 +216,7 @@ def recipe_search():
         if doc['status'] == 1:
             result.append(doc)
 
-    return render_template('recipesearch.html',
+    return render_template('search.html',
                         recipes=result)
 
 
@@ -278,4 +278,4 @@ def logout():
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
-            debug=False)
+            debug=True)

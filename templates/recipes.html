@@ -1,7 +1,7 @@
 {% extends 'base.html'%}
 
 {% block content %}
-    <h2 class="center">Browse Recipes</h2>
+    <h2 class="center fancy-writing">Browse Recipes</h2>
     <form action="{{ url_for('recipe_search' ) }}" class="col s3 offset-s5" method="POST">
         <div class="row">
             <div class="input-field col s8 offset-s2 m4 offset-m4">
@@ -14,13 +14,13 @@
 
         <div class="row cards-row">
             {% for recipe in recipes %}
-            <a class="" href="{{ url_for('recipe', recipe_id=recipe._id) }}">
+            <a href="{{ url_for('recipe', recipe_id=recipe._id) }}">
             <div class="col col-size recipe-card box-shadow">
                 <div class="image-card-container">
                     <img src="{{recipe.image_url}}" alt="Food Image">
                 </div>
                 <div class="card-content">
-                    <h4 class="card-header">{{recipe.recipe_name}}</h4>
+                    <h4 class="card-header center fancy-writing">{{recipe.recipe_name}}</h4>
                     <p class="card-text"><span class="bold-text">By: </span>{{recipe.recipe_author}}</p>
                     <p class="card-text"><span class="bold-text">Cooking Time: </span>{{recipe.cooking_time}}</p>
                     <p class="card-text"><span class="bold-text">Cousine: </span>{{recipe.cousine}}</p>

@@ -1,6 +1,8 @@
 
 @import url('https://fonts.googleapis.com/css?family=Courgette&display=swap');
 
+@import url('https://fonts.googleapis.com/css?family=Signika&display=swap');
+
 /******    General styles, fonts, margins etc.    ******/
 
 * {
@@ -8,9 +10,13 @@
     padding: 0;
 }
 
+.fancy-writing {
+    font-family: 'Courgette', cursive;
+}
+
 body {
     background-color:#efefef;
-    font-family: 'Courgette', cursive;
+    font-family: 'Signika', sans-serif;
 }
 
 a {
@@ -390,6 +396,10 @@ nav ul li a {
 
 #username, #password, #register_password , #register_name {
     color: #fefefe;
+}
+
+.ToggleRegLog {
+    color: #3366bb;
 }
 
 
