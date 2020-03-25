@@ -10,18 +10,12 @@ $(document).ready(function() {
         $('#ingredients_list input').last().remove();
     }); 
 
-
-
     // Code for the hamburger menu, comes from this tutorial: https://www.youtube.com/watch?v=dIyVTjJAkLw
-
+    // Has been modified for my needs and added some more functionality to open and close the menu
+    // as well as open and close (X) the hamburger.
     let menuOpen = false;
     let delRecipeOpen = false;
 
-    //$('#mainNavBtn').on("click", toggleMenu());
-
-
-    //function toggleMenu() {
-        //toggle the main navigation. both open and close the hamburger (adding 'open' class) and the menu
     $('#mainNavBtn').click(function() {
         if(!menuOpen) {
             $('.menu-button').addClass('open');
@@ -32,10 +26,9 @@ $(document).ready(function() {
             $('.navRow').css({'visibility': 'hidden', 'opacity': '0'});
             menuOpen = false;
         }
-    })
+    });
     
-    
-
+    //Open and close a warning popup before you delete a recipe
     $('#del-recipe').click(function() {
         if(!delRecipeOpen) {
             $('#popup-delete').fadeIn('fast');
@@ -46,26 +39,17 @@ $(document).ready(function() {
         }
     });
 
-
-    //$("#del-recipe").on("click", deleteRecipe());    //Might be unneccessary
-
-    $('#cancel').click(function() {
+    //Close the delete warning popup by pressing the cancel or delete button  
+    $('.close-del-popup').click(function() {
         $('#popup-delete').fadeOut('fast');
         delRecipeOpen = false;
     });
 
-    $('#confirm-del').click(function() {
-        $('#popup-delete').fadeOut('fast');
-        delRecipeOpen = false;
-    });
-
-
-    ////////////////////////////////////
+    /*****  Login Window  *****/
     let loginWindow = false;
 
-
     $('#login-menu-btn').click(function() {
-        //Close the main menu
+        //Close the main menu when login/register is pressed in the menu
         $('.menu-button').removeClass('open');
         $('.navRow').css({'visibility': 'hidden', 'opacity': '0'});
         menuOpen = false;
@@ -80,19 +64,18 @@ $(document).ready(function() {
             loginWindow = false;
         }
     });
-
+    // Close the login container when the X is pressed
     $('#close_logo').click(function() {
         if(loginWindow) { 
             $('.login-container').fadeOut('fast');
             loginWindow = false;
-        } /*else {
-            $('.login-container').fadeIn('fast');
-            loginWindow = true;
-        }*/
+        } 
     });
 
-    //////////////////////////////////////
+    /*****  Register Window  *****/
 
+    // Toggle between the register and the login window when 'ToggleRegLog' is clicked.
+    // This by using flags and fade the login/register containers in and out.
     let registerWindow = false;
     $('.ToggleRegLog').click(function() {
         if(!registerWindow) {
@@ -100,16 +83,17 @@ $(document).ready(function() {
             $('.login-container').fadeOut('fast');
             loginWindow = false;
             registerWindow = true;
-            console.log("Open Register Window")
+            console.log("Open Register Window");
         } else {
             $('.register-container').fadeOut('fast');
             $('.login-container').fadeIn('fast');
             loginWindow = true;
             registerWindow = false;
-            console.log("Close Register Window")
+            console.log("Close Register Window");
         }
     });
 
+    // Close the register window by pressing the X in the right corner which has the ID of 'close_register'
     $('#close_register').click(function() {
         if(!registerWindow) {
             $('.register-container').fadeIn('fast');
@@ -120,7 +104,7 @@ $(document).ready(function() {
         }
     });
 
-    
+    //Blink the flash message to add attention to it. this by fading it in and out with 500 ms.
     function blink_text(num) {
         for(i = 0; i < num; i++) {
             $('.flash-message').fadeOut(500);

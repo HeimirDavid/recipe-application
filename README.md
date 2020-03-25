@@ -102,9 +102,38 @@ The project uses JQuery to simplify DOM manipulation.
 
 
 ##Testing
-**HTML** was tested using **validator W3C**. Warnings came up with "Bad Value" for all jinja code, which was ecpected and ignored.
+* **HTML** was tested using **validator W3C**. Warnings came up with "Bad Value" for all jinja code, which was ecpected and ignored.
 One more warning was for two elements with the same ID, but since they are in a if else statement they also were ignored.
- **CSS** was tested using 
+* **CSS** was tested using **Jigsaw**. One warning came up with text-color-decoration: none being invalid value which has been fixed.
+* **JavaScript** was tested using **JSHint**. No mayor warning or errors, just a few missing semicolons which has been fixed.
+
+###Responsiveness
+This site has been developed using Gitpod in Google Chrome and therefor it's responsiveness mainly tested using
+Chrome Developer Tools. The responsiveness works fine on desktop computer and has been tested using both Chrome, 
+Microsoft Edge and Safari.
+This site has been tested on tablets, both IOS and Android, with Safari and Google Chrome. With google chrome it works
+as intended but with **safari** there have been a **few issues** with the Browse recipes page.
+ It was rendered as mobile view but after ading a breakpoint between mobile and tablet view it looks better.
+The site has also been tested on a few different mobile devices on Chrome, Samsung Internet and Safari and works fine. 
+
+###User Interaction
+***All of these interactions have been manually tested:***
+* **Home Page** - All buttons on the Home page brings a user to the correct places. Including the footers contact section that links to correct contact websites.
+* **Main Navigation** - All the buttons bring a user to the correct  pages.
+* **Add Recipe** - All the fields are possible to fill out, the required ones are blocking the user to continue if they
+are not filled in, and to submit the recipe with the correct value and value types to the database works.
+* **Update Recipe** - All the fields are prefilled with the correct data from the chosen recipe, and are able to edit
+and submit. Then the user is redirected to the updated version of the recipe and works fine.
+* **Register** - A user can register by filling out a username and password and confirming the password.
+If a username already exists, the user is notified about this. Same goes if the passwords don't match.
+As a user manage to register, they are logged in and a welcome message is displayed.
+* **Login** - A user can log in if they have a registered account. This by simply filling out their username and password.
+If the username or password is incorrect, this is displayed with a message to the user. When they log in they are notified 
+by a welcome message. 
+* **Logged in functionality** - Add a recipe is only available to logged in users and when you log in it will be 
+availible to you in the main navigation. as you log out the button disapears.
+* **User personal functionality** - A user is only able to delete or update a recipe they have created themself.
+
  
 
 In this section, you need to convince the assessor that you have conducted enough testing to legitimately believe that the site works well. Essentially, in this part you will want to go over all of your user stories from the UX section and ensure that they all work as intended, with the project providing an easy and straightforward way for the users to achieve their goals.
@@ -124,7 +153,32 @@ You should also mention in this section any interesting bugs or problems you dis
 
 If this section grows too long, you may want to split it off into a separate file and link to it from here.
 
-Deployment
+##Deployment
+This project was deployed to the hosting platform **Heroku**.
+*The steps i took where:
+1. When logged in to the heroku platform, I created a new app called "seefood-application" and set it's region to Europe
+2. Log in to Heroku in the Terminal window on Gitpod using `Heroku login` command.
+3. Link my Git repository (already existed) to heroku. 
+This done by first copy the Heroku Git URL from this application settings page.
+Then back to the terminal window on Gitpod, I typed in `git remote add heroku https://git.heroku.com/seefood-application.git`
+4. Create a requirements.txt file through the terminal: `pip3 freeze > requirements.txt`
+5. Create a Procfile to let heroku know how to run the program.
+This done by typing the following command into the terminal window: `echo web: python app.py > Procfile`
+6. Commit these changes and push it using these commands `git push heroku -u master`
+
+###Environment Variables
+1. After logging in to heroku dashboard I selected the application
+2. Locate settings and press Reveal Config Vars 
+3. Set the IP to 0.0.0.0
+4. set the PORT to 5000
+5. Add the MONGODB_NAME variable and set its value to the database name.
+6. Add the MONGO_URI variable and set its value.
+7. Add the SECRET_KEY variable and set it's value.
+
+### Local Deployment
+
+
+
 This section should describe the process you went through to deploy the project to a hosting platform (e.g. GitHub Pages or Heroku).
 
 In particular, you should provide all details of the differences between the deployed version and the development version, if any, including:
