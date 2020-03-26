@@ -1,13 +1,13 @@
-#SeeFood!
+# SeeFood!
 
 SeeFood is a website where people can store and share their favorite recipes. 
 Here you can create your own recipes to share with others, find and locate new recipes, perhaps get some new inspiration
 for tonights dinner. Create a user to handle your own recipes while enjoying the shared space with others!
 
 
-##UX
+## UX
 
-###User Stories
+### User Stories
 * As a user, I want to search for a particular recipe to cook for my next meal.
 * As a user, I want to locate my favorite recipes by keywords.
 * As a user, I want to browse different recipes from different categories to find inspiration.
@@ -16,12 +16,12 @@ for tonights dinner. Create a user to handle your own recipes while enjoying the
 * As a user, I want to update my current recipes stored on the site. 
 * As a user, I want to be able to remove my recipes if I don't want them published anymore.
 
-####Strategy/Scope
+#### Strategy/Scope
 The main goal for this site is to allow the users to share and store their favorite food with others.
 By using a clean and simple design, the user should find it easy to use, and wish to come back to browse and 
 store even more of their recipes. 
 
-####Structure
+#### Structure
 * On the landing page, I want to quickly and efficiently describe what the website provides, and encourage
 the user to sign up to the site. By using 
 background images and a carousel at the bottom display some of the recipes that are available.
@@ -32,10 +32,10 @@ using a form to fill in which is very similar between creating a recipe and upda
 * The recipe itself is a page where all the information about how to cook the meal is displayed, 
 with the image if the food as well presented to the user.
 
-####Skeleton
+#### Skeleton
 
 
-####Surface
+#### Surface
 As a colour pallet i wanted to use bright colours, to match with the theme of bright images of food.
 Since this is a cook book written by the users, i wanted the typography to be a bit handwritten to make it feel
 more personal.
@@ -47,7 +47,7 @@ In particular, as part of this section we recommend that you provide a list of U
 As a user type, I want to perform an action, so that I can achieve a goal.
 This section is also where you would share links to any wireframes, mockups, diagrams etc. that you created as part of the design process. These files should themselves either be included as a pdf file in the project itself (in an separate directory), or just hosted elsewhere online and can be in any format that is viewable inside the browser.
 
-##Existing Features
+## Existing Features
 * **Register** - Allows a user to create an account by filling out a form with their wished username and password
 * **Login** - By filling out a form with their username and password a user can use the full features of the site.
 * **Browse recipes** - Allows a user to look around and see what other people are sharing to the site.
@@ -67,7 +67,7 @@ For some/all of your features, you may choose to reference the specific project 
 
 In addition, you may also use this section to discuss plans for additional features to be implemented in the future:
 
-###Features Left to Implement
+### Features Left to Implement
 * **Save Recipes** - I wish to add the functionality to allow a user to store their favorite recipes in their own 
 collection. Here you could store your favorite recipes and only view those. This would be their personal cookbook
 * **Hide Recipes** - I wish to make it availible for the logged in user to upload a recipe, store it in their saved 
@@ -76,7 +76,7 @@ recipe collection mentioned above, but not have it visible for the public.
 To allow a user to upload an image file, mayble straight from their phone as not everyone have an uploaded image with 
 an URL to provide.
 
-###Technologies Used
+### Technologies Used
 **Main Languages Used**: HTML, CSS, Python and JavaScript
 **Frameworks and Libraries**:
 * **Flask 1.1.1** - link: https://palletsprojects.com/p/flask/  
@@ -101,13 +101,13 @@ JQuery
 The project uses JQuery to simplify DOM manipulation.
 
 
-##Testing
+## Testing
 * **HTML** was tested using **validator W3C**. Warnings came up with "Bad Value" for all jinja code, which was ecpected and ignored.
 One more warning was for two elements with the same ID, but since they are in a if else statement they also were ignored.
 * **CSS** was tested using **Jigsaw**. One warning came up with text-color-decoration: none being invalid value which has been fixed.
 * **JavaScript** was tested using **JSHint**. No mayor warning or errors, just a few missing semicolons which has been fixed.
 
-###Responsiveness
+### Responsiveness
 This site has been developed using Gitpod in Google Chrome and therefor it's responsiveness mainly tested using
 Chrome Developer Tools. The responsiveness works fine on desktop computer and has been tested using both Chrome, 
 Microsoft Edge and Safari.
@@ -116,7 +116,7 @@ as intended but with **safari** there have been a **few issues** with the Browse
  It was rendered as mobile view but after ading a breakpoint between mobile and tablet view it looks better.
 The site has also been tested on a few different mobile devices on Chrome, Samsung Internet and Safari and works fine. 
 
-###User Interaction
+### User Interaction
 ***All of these interactions have been manually tested:***
 * **Home Page** - All buttons on the Home page brings a user to the correct places. Including the footers contact section that links to correct contact websites.
 * **Main Navigation** - All the buttons bring a user to the correct  pages.
@@ -153,7 +153,7 @@ You should also mention in this section any interesting bugs or problems you dis
 
 If this section grows too long, you may want to split it off into a separate file and link to it from here.
 
-##Deployment
+## Deployment
 This project was deployed to the hosting platform **Heroku**.
 *The steps i took where:
 1. When logged in to the heroku platform, I created a new app called "seefood-application" and set it's region to Europe
@@ -166,7 +166,7 @@ Then back to the terminal window on Gitpod, I typed in `git remote add heroku ht
 This done by typing the following command into the terminal window: `echo web: python app.py > Procfile`
 6. Commit these changes and push it using these commands `git push heroku -u master`
 
-###Environment Variables
+### Environment Variables
 1. After logging in to heroku dashboard I selected the application
 2. Locate settings and press Reveal Config Vars 
 3. Set the IP to 0.0.0.0
@@ -175,8 +175,33 @@ This done by typing the following command into the terminal window: `echo web: p
 6. Add the MONGO_URI variable and set its value.
 7. Add the SECRET_KEY variable and set it's value.
 
-### Local Deployment
+## Local Deployment
 
+***Control that you have following intalled on you computer (Windows):***
+1. Latest version on Python.
+2. Git.
+3. Working IDE, preferably Visual Studio Code for these steps to work.
+4. Visual studio extension for python. Named Python from Microsoft
+
+#### Clone The repository
+1. Go to https://github.com/HeimirDavid/recipe-application
+2. Press the button "Clone or Download" to the right
+3. Press "Use HTTPS" and copy the URL from the text field
+4. Create a folder for your workspace in Visual Studio Code
+5. Open a terminal window and navigate to the directory you wish to put this project
+6. type `git clone ` followed by the copied URL
+
+#### Set up the workspace
+1. open a terminal window from your computer.
+2. Locate the workspace directory.
+3. Create a viritual environment by typing `py -m venv env` into the command prompt. 
+Folder "env" should now be installed in the workspace.
+4. Activate the environment by typing `env\Scripts\activate`.
+5. Install flask using pip: `pip install flask`.
+6. Install the required packages from requirements.txt by typing `pip install -r requirements.txt`.
+7. set an environment variable in the command prompt: `set FLASK_APP=app.py`.
+8. Make sure to set up the mondoDB environment variables and then type `flask run` in the command prompt.
+9. Open the URL provided in your browser and you should see the site up and running.
 
 
 This section should describe the process you went through to deploy the project to a hosting platform (e.g. GitHub Pages or Heroku).
@@ -188,7 +213,7 @@ Different configuration files?
 Separate git branch?
 In addition, if it is not obvious, you should also describe how to run your code locally.
 
-##Credits
+## Credits
 * **The hamburger menu** styling and javascript came from this tutorial:  
 https://www.youtube.com/watch?v=dIyVTjJAkLw  
 * **The login and register** system was based upon two tutorials, mainly the first one linked below:  
