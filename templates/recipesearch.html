@@ -2,11 +2,8 @@
 {% block content %}
 
 <h2 class="center">Results:</h2>
-
-
-
-
 <div class="container">
+<!-- If there is no match for the search, this below is displayed -->
 {% if not recipes  %}
     <h4 class="center">No recipes found matching your search!</h4>
     <div class="col s12 m8 offset-m2 result-recipe box-shadow center teal lighten-4">
@@ -14,6 +11,7 @@
         <a href="{{ url_for('view_recipes')}}" class="waves-effect waves-light cyan btn results-btn center">Browse Recipes!</a>
     </div>
 {% else %}
+<!-- If there is a match, loop through the list 'recipes' and display them in card shapes, same style as the browse page has -->
 {% for recipe in recipes %}
     <div class="row">
         <div class="col s12 result-recipe box-shadow">

@@ -2,6 +2,7 @@
 
 {% block content %}
     <h2 class="center fancy-writing">Browse Recipes</h2>
+    <!-- First form is the search input field, sending the input text to the recipe_search function -->
     <form action="{{ url_for('recipe_search' ) }}" class="col s3 offset-s5" method="POST">
         <div class="row">
             <div class="input-field col s8 offset-s2 m4 offset-m4">
@@ -12,29 +13,30 @@
         </div>
     </form>
 
-        <div class="row cards-row">
-            {% for recipe in recipes %}
-            <a href="{{ url_for('recipe', recipe_id=recipe._id) }}">
-            <div class="col col-size recipe-card box-shadow">
-                <div class="image-card-container">
-                    <img src="{{recipe.image_url}}" alt="Food Image">
-                </div>
-                <div class="card-content">
-                    <h4 class="card-header center fancy-writing">{{recipe.recipe_name}}</h4>
-                    <p class="card-text"><span class="bold-text">By: </span>{{recipe.recipe_author}}</p>
-                    <p class="card-text"><span class="bold-text">Cooking Time: </span>{{recipe.cooking_time}}</p>
-                    <p class="card-text"><span class="bold-text">Cousine: </span>{{recipe.cousine}}</p>
-                    <p class="card-text"><span class="bold-text">Category: </span>{{ recipe.category }}</p>
-                    
-                </div>
-                <a href="{{ url_for('recipe', recipe_id=recipe._id) }}" class="waves-effect waves-light btn recipe-card-btn">Open</a>
+    <!-- Section for the recipes. All the availible recipes will be displayed here in the shape of cards -->
+    <div class="row cards-row">
+        {% for recipe in recipes %}
+        <a href="{{ url_for('recipe', recipe_id=recipe._id) }}">
+        <div class="col col-size recipe-card box-shadow">
+            <div class="image-card-container">
+                <img src="{{recipe.image_url}}" alt="Food Image">
             </div>
-            </a>
-            {% endfor %}
+            <div class="card-content">
+                <h4 class="card-header center fancy-writing">{{recipe.recipe_name}}</h4>
+                <p class="card-text"><span class="bold-text">By: </span>{{recipe.recipe_author}}</p>
+                <p class="card-text"><span class="bold-text">Cooking Time: </span>{{recipe.cooking_time}}</p>
+                <p class="card-text"><span class="bold-text">Cousine: </span>{{recipe.cousine}}</p>
+                <p class="card-text"><span class="bold-text">Category: </span>{{ recipe.category }}</p>
+                
+            </div>
+            <a href="{{ url_for('recipe', recipe_id=recipe._id) }}" class="waves-effect waves-light btn recipe-card-btn">Open</a>
         </div>
+        </a>
+        {% endfor %}
+    </div>
 
 
-    
+
   
 
 

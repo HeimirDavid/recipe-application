@@ -3,6 +3,8 @@
 
 <h2 class="center">Update Recipe</h2>
 
+<!-- Form is the same as the one on the addrecipe.html. cr == chosen recipe by the user. The fields are prefilled
+with the data from the chosen recipe and is availible to edit and submit the changes -->
 <div class="container">
     <div class="row">
         <form action="{{url_for('update_recipe', recipe_id=cr._id)}}" method="POST" class="col s12">
@@ -11,11 +13,6 @@
                     <input value="{{ cr.recipe_name }}" id="recipe_name" name="recipe_name" type="text" class="validate" required>
                     <label for="recipe_name">Recipe Name:</label>
                 </div>
-                <!--
-                <div class="input-field col s12 m6">
-                    <input value="{{ cr.recipe_author }}" id="recipe_author" name="recipe_author" type="text" class="validate" required>
-                    <label for="recipe_author">Recipe Author:</label>
-                </div>-->
             </div>
             <div class="row">
                 <div class="input-field col s12 m6">

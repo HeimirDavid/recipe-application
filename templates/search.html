@@ -2,11 +2,7 @@
 {% block content %}
 
 <h2 class="center fancy-writing">Results:</h2>
-
-
-
-
-
+<!-- If there is no match for the search, this below is displayed -->
 {% if not recipes  %}
     <h4 class="center">No recipes found matching your search!</h4>
     <div class="row">
@@ -16,32 +12,10 @@
         </div>
     </div>
 {% else %}
-
-
-<!-- 
-{% for recipe in recipes %}
-    <div class="row">
-        <div class="col s12 result-recipe box-shadow">
-            <h3 class="result-header">{{ recipe.recipe_name }}</h3>
-            <div class="col m4 s12">
-                <p class="card-text"><span class="bold-text">Cousine: {{ recipe.cousine }}</span></p>
-            </div>
-            <div class="col m4 s12">
-                <p class="card-text"><span class="bold-text">Time: {{ recipe.cooking_time }}</span></p>
-            </div>
-            <div class="col m4 s12">
-                <p class="card-text"><span class="bold-text">Servings: {{ recipe.servings }}</span></p>
-            </div>
-            <p class="card-text">{{ recipe.summary }}</p>
-            <a href="{{ url_for('recipe', recipe_id=recipe._id) }}" class="waves-effect waves-light green btn results-btn">Open!</a>
-        </div>
-        
-    </div>
-{% endfor %}  -->
-
-    <div class="row cards-row">
-        {% for recipe in recipes %}
-        <a class="" href="{{ url_for('recipe', recipe_id=recipe._id) }}">
+<!-- If there is a match, loop through the list 'recipes' and display them in card shapes, same style as the browse page has -->
+<div class="row cards-row">
+    {% for recipe in recipes %}
+    <a class="" href="{{ url_for('recipe', recipe_id=recipe._id) }}">
         <div class="col col-size recipe-card box-shadow">
             <div class="image-card-container">
                 <img src="{{recipe.image_url}}" alt="Food Image">
@@ -52,20 +26,19 @@
                 <p class="card-text"><span class="bold-text">Cooking Time: </span>{{recipe.cooking_time}}</p>
                 <p class="card-text"><span class="bold-text">Cousine: </span>{{recipe.cousine}}</p>
                 <p class="card-text"><span class="bold-text">Category: </span>{{ recipe.category }}</p>
-                
             </div>
             <a href="{{ url_for('recipe', recipe_id=recipe._id) }}" class="waves-effect waves-light btn recipe-card-btn">Open</a>
         </div>
-        </a>
-        {% endfor %}
+    </a>
+    {% endfor %}
+</div>
+<!-- Row displaying a button redirecting the user back to the browse page -->
+<div class="row">
+    <div class="col s12 m8 offset-m2 result-recipe box-shadow center teal lighten-4">
+        <p class="card-text">Would you like to go back to the browse page?</p>
+        <a href="{{ url_for('view_recipes')}}" class="waves-effect waves-light cyan btn results-btn center">Browse Recipes!</a>
     </div>
-    <div class="row">
-        <div class="col s12 m8 offset-m2 result-recipe box-shadow center teal lighten-4">
-            <p class="card-text">Would you like to go back to the browse page?</p>
-            <a href="{{ url_for('view_recipes')}}" class="waves-effect waves-light cyan btn results-btn center">Browse Recipes!</a>
-        </div>
-    </div>
+</div>
 {% endif %}
-
 
 {% endblock %}

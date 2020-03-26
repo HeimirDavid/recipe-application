@@ -2,6 +2,7 @@
 
 {% block content %}
 
+<!-- a row containing two collumns, first displaying some info about the recipe and then the recipe image -->
 <div class="row recipe-row">
     <div class="col s12 m4 offset-m1 recipe-info box-shadow">
         <h3 class="center fancy-writing">{{recipe.recipe_name}}</h3>
@@ -17,6 +18,7 @@
     </div>
 </div>
 
+<!-- Row containing the instructions and ingredients of the recipe -->
     <div class="row inst-ing">
         <div class="col s12 m5">
             <h4 class="fancy-writing">Instructions:</h4>
@@ -33,6 +35,9 @@
             </ul>
         </div>
     </div>
+
+    <!-- If the user is logged in and is the author of the recipe, this section will be displayed as well.
+    Containing the edit and delete buttons -->
     {% if session['username'] == recipe.recipe_author  %}
     <div class="row center">
         <div class="col s2 offset-s2">
@@ -43,6 +48,7 @@
         </div>
     </div>
     {% endif %}
+    <!-- Popup warning window, only visible if the logged in user press the "Delete" button -->
     <form action="{{url_for('delete_recipe', recipe_id=recipe._id)}}"  method="POST">
         <div id="popup-delete" class=" box-shadow">
             <h4>Are you sure you wish to delete this recipe from this page?</h4>

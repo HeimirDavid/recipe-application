@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" integrity="sha256-OweaP/Ic6rsV+lysfyS4h+LM6sRwuO3euTYfr6M124g=" crossorigin="anonymous" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
-    <title>Cook Book</title>
+    <title>SeeFood!</title>
 </head>
 
 <body>
@@ -32,6 +32,7 @@
                         <li class="navRow">
                             <a href="{{ url_for('view_recipes') }}">Browse Recipes</a>
                         </li>
+                        <!-- Check if the user if logged in, if so the add recipe and logout is availible -->
                         {% if 'username' in session %}
                             <li class="navRow">
                                 <a href="{{ url_for('add_recipe') }}">Add Recipe</a>
@@ -153,11 +154,13 @@
     <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
     
     <script>
+        // initialze the select elements from Materialize
         $(document).ready(function(){
             $('select').formSelect();
         });
         
-
+        // Configure the carousel used on the home page
+        // instructions on how to use it came from this tutorial: https://www.youtube.com/watch?v=kpAt25cOBrU
         const config = {
             type: 'carousel',
             perView: 3,
@@ -168,6 +171,7 @@
             }
         };
         new Glide('.glide', config).mount()
+
     </script>
 </body>
 </html>

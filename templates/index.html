@@ -7,6 +7,7 @@
         <div class="row">
             <div class="col s12 l8 offset-l2 landing-card box-shadow">
                 <h1 class="fancy-writing">Your Online Cookbook</h1>
+                <!-- If there is a flash message, maybe some one logged in, it will be displayed here -->
                 {% with messages = get_flashed_messages() %}
                     {% if messages %}
                         {% for message in messages %}
@@ -22,13 +23,16 @@
             </div>
         </div>
 </section>
-<!--  Carousel displaying the images from the recipes uploaded to the site, using glide.js  -->
+
+<!-- Section for the carousel displaying the images from the recipes uploaded to the site, using glide.js  -->
 <section class="img-slider-sec">
+    <!-- Short message working as a breakpoint between the sections -->
     <div class="row">
         <div class="col s12 section-devider center">
             <h4>Take a look at some of our wonderful recipes!</h4>
         </div>
     </div>
+    <!-- Start of the carousel -->
     <div class="row row-no-margin glide-row">
         <div class="col s12">
             <div class="glide">
