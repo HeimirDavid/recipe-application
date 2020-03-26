@@ -32,23 +32,13 @@ mongo = PyMongo(app)
 coll = mongo.db.recipe
 collStatusOne = coll.find({'status': 1})
 
-#login_btn = Markup('<a>Login/Signup</a>')
-#logout_btn = Markup('<a href="/logout">Logout</a>')
-
 
 @app.route('/')
 def index():
     # collect all image_url keys from the collections
     imageUrls = collStatusOne.distinct('image_url')
-    #validUrls = []
+    # create an empty list which later will store all recipes containing working image url's 
     recipes = []
-
-
-    if 'username' in session:
-        print(session['username'])
-    else:
-        print("not logged in")
-
 
     # iterate through the keys, and check if they have valid urls
     for image in imageUrls:
@@ -70,27 +60,21 @@ def index():
             except requests.ConnectionError as err:
                 print('Image could not load, Error Response: '+ str(err))
 
-        else:
-            print('Invalid url')
-        
-    #if 'username' in session:
     return render_template('index.html',
-                    recipes=recipes) #loginOut_btn=logout_btn)
-    #else:
-        #session.pop('username', None)
-        #return render_template('index.html',
-                        #recipes=recipes) #, loginOut_btn=login_btn)
- 
-    
+                    recipes=recipes)
+
 
 #route to browse recipes, sends along the valid recipes collection to view
 @app.route('/view_recipes')
 def view_recipes():
     return render_template("recipes.html", recipes=coll.find({'status': 1}))
 
+
 #route to add recipe
 @app.route('/add_recipe')
 def add_recipe():
+    # if the user is logged in they get redirected to the addrecipe page,
+    # otherwise back to the home page with a flash message
     if 'username' in session:
         user = session['username']
         return render_template('addrecipe.html',
@@ -101,11 +85,11 @@ def add_recipe():
         return redirect(url_for('index'))
 
 
-#Insert recipe route. 
+#Insert recipe route.
 @app.route('/insert_recipe', methods=['POST'])
 def insert_recipe():
     #If the request is POST, assign the data in the form of a dictionary to new_recipe.
-    #this is to be able to assign the ingredients a list and not string to the document
+    #this is to be able to assign the ingredients a list and not string to the document.
     #make sure status is 1 so it will be displayed on the page, then insert the dictionary to the collection
     if request.method == 'POST':
         new_recipe = request.form.to_dict()
@@ -114,7 +98,7 @@ def insert_recipe():
         new_recipe.update({'status': 1}),
         new_recipe.update({'recipe_author': session['username']})
         coll.insert_one(new_recipe)
-        
+
     return redirect(url_for('view_recipes'))
 
 
@@ -151,14 +135,14 @@ def update_recipe(recipe_id):
             'ingredients': request.form.getlist('ingredients'),
             'instructions': request.form.get('instructions'),
             'summary': request.form.get('summary'),
-            'action':request.form.get('action'),
+            'action': request.form.get('action'),
             'status': 1
         })
         return redirect(url_for('recipe', recipe_id=recipe_id))
     else:
         flash("You must be logged in to update a recipe")
         return redirect(url_for('index'))
-        
+
 
 #Delete function does not delete the recipe from the database but changes
 #it's status to 2. Anything but a 1 will end up not displayed on the site.
@@ -177,8 +161,6 @@ def delete_recipe(recipe_id):
     return redirect(url_for('view_recipes'))
 
 
-
-
 # -----------------------------------------------------------#
 # -------            SEARCH SECTION
 # -----------------------------------------------------------#
@@ -193,9 +175,9 @@ def recipe_search():
         search = request.form.to_dict().get('icon_prefix')
         result = []
         print(search)
-        
+
         #Create text index
-        coll.create_index([ 
+        coll.create_index([
                             ('recipe_name', pymongo.TEXT),
                             ('recipe_author', pymongo.TEXT),
                             ('cousine', pymongo.TEXT),
@@ -225,20 +207,29 @@ def recipe_search():
 # -------            LOGIN SECTION
 # -----------------------------------------------------------#
 
+# The login and register function is very similar to the code from this tutorial:
+## https://www.youtube.com/watch?v=vVx1737auSE
+# it has been slightly modified for my needs, and use a different type of encryption,
+# which I found in this tutorial: https://www.youtube.com/watch?v=CSHx6eCkmv0&t=324s
+
 @app.route('/login', methods=['POST'])
 def login():
     if request.method == 'POST':
         users = mongo.db.users
+        # Fetch the username the user typed in 
         login_user = users.find_one({'name': request.form['username']})
 
-        if login_user:
+        #check if the username exist in the database
+        if login_user: 
+            # check if the users password match with the hashed one in the database
             if bcrypt.check_password_hash(login_user['password'], request.form['password']):
-                print('It Matches!')
-                session['username'] = request.form['username']
 
+                #start a session with the username and welcome them back to the site
+                session['username'] = request.form['username']
                 flash("Welcome " + request.form['username'])
                 return redirect(url_for('index'))
 
+        #Let the user know they typed in the wrong password or username
         session.pop('username',None)  
         flash("Incorrect username or password")
         return redirect(url_for('index'))
@@ -248,22 +239,24 @@ def login():
 def register():
     if request.method == 'POST':
         users = mongo.db.users
+        # Fetch the username the user typed in the form
         existing_user = users.find_one({'name': request.form['register_name']})
         print(existing_user)
 
+        #Check if username is availible
         if existing_user is None:
+            #If so, check if the password and the confirmed password matches
             if request.form['register_password'] == request.form['re_pass']:
+                # Encrypt their password, insert the username and password into the users collection,
+                # start their session and redirect back to the home page with a welcome message
                 hashpass = bcrypt.generate_password_hash(request.form['register_password']).decode('utf-8')
-                rehashpass = bcrypt.generate_password_hash(request.form['re_pass']).decode('utf-8')
                 users.insert({'name': request.form['register_name'], 'password': hashpass})
                 session['username'] = request.form['register_name']
-                
                 flash("Welcome " + request.form['register_name'])
                 return redirect(url_for('index'))
             else:
                 flash("Passwords doesn't match")
                 return redirect(url_for('index'))
-            #return 'You are now registered and logged in!' #Will have to be changed to the page the user is at
 
         flash('That username is already taken')
         return redirect(url_for('index'))
@@ -271,11 +264,11 @@ def register():
 
 @app.route('/logout')
 def logout():
-    session.pop('username',None)  
+    session.pop('username', None)
     return redirect(url_for('index'))
 
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
-            debug=True)
+            debug=False)

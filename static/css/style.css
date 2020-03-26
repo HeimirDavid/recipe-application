@@ -104,6 +104,7 @@ a {
 }
 /* End of hamburger menu */
 
+
 /******    NAVBAR    ******/
 
  .logo {
@@ -121,9 +122,6 @@ nav {
     color: #fff;
     background-color: #efefef;
     border-bottom: 1px solid #272727;
-    /*-webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
-    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);*/
 }
 
 nav ul li {
@@ -152,14 +150,13 @@ nav ul li a {
 
 }
 
-/******    Index    ******/
+/******    Index / Home Page    ******/
 
  .landing-card {
     text-align: center;
     background-color: rgba(239, 239, 239, 0.4);
     border-radius: 2%;
     position: relative;
-    /*box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);*/
 }
 
 .browse-btn {
@@ -192,15 +189,12 @@ nav ul li a {
     width: 90%;
 }
 
-.recipe-card { /*Box shadow*/
+.recipe-card {
     position: relative;
     height: 40em;
     border-radius: .5em;
     padding: 0!important;
     margin-bottom: 1.5em;
-    /*-webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.4);
-    -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.4);
-    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.4);*/
     overflow:hidden;
 }
 
@@ -244,12 +238,11 @@ nav ul li a {
 
 /******    CAROUSEL    ******/
 
-.carousel { /*Box shadow*/
+.carousel {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 25em;
-    /*box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75)!important;*/
     transition: all ease-in-out .5s;
 }
 
@@ -314,10 +307,9 @@ nav ul li a {
 
 /******    POPUPS    ******/
 
-#popup-delete { /* Box Shadow*/
+#popup-delete {
     width: 30em;
     height: 15em;
-    /*box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);*/
     text-align: center;
     position: absolute;
     z-index: 1000;
@@ -348,10 +340,9 @@ nav ul li a {
 
 /******    RESULTS    ******/
 
-.result-recipe { /* Box Shadow */
+.result-recipe {
     background-color: #26a69a;
     border-radius: 5px;
-    /*box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);**/
     padding: .5em;
     margin: .5em;
 }
@@ -367,12 +358,11 @@ nav ul li a {
 /******    LOGIN    ******/
 
 .login-container,
-.register-container { /* Box Shadow */
+.register-container {
     padding: 1em;
     background-color: rgba(39,39,39, .99);
     color: #fefefe;
     text-align: center;
-    /*box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);*/
     position: absolute;
     z-index: 15;
     top: 12%;
@@ -394,7 +384,7 @@ nav ul li a {
     cursor: pointer;
 }
 
-#username, #password, #register_password , #register_name {
+#username, #password, #register_password, #re_pass, #register_name {
     color: #fefefe;
 }
 
@@ -422,7 +412,6 @@ footer a {
 footer a i {
     font-size: 2.5em;
     padding: .3em;
-    /*transition: all .3s;*/
 }
 
 footer a:hover {
@@ -434,6 +423,7 @@ footer a:hover {
     background-color: #272727;
 }
 
+/*******    Media Queries   ********/
 
 /*** Medium, between mobile and tablet View ***/
 
@@ -460,7 +450,6 @@ footer a:hover {
     
     .recipe-info {
         background-color:rgba(254,254,254, .9);
-        /*box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);*/
         margin-top:2em;
         margin-left: 4.5em;
         border-radius: .3em;
