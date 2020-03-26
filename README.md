@@ -17,26 +17,43 @@ for tonights dinner. Create a user to handle your own recipes while enjoying the
 * As a user, I want to be able to remove my recipes if I don't want them published anymore.
 
 #### Strategy/Scope
-The main goal for this site is to allow the users to share and store their favorite food with others.
+The main goal for this site is to allow the users to share and store their favorite food with others. How often do 
+you make a great dinner on the fly and want to document what you have done and perhaps share it with others? Or maybe 
+looking for ideas when you are stuck in a rutine of cooking the same meals week over week? The simplicity and availability 
+of this app should make these thing easy to overcome. 
 By using a clean and simple design, the user should find it easy to use, and wish to come back to browse and 
 store even more of their recipes. 
 
 #### Structure
 * On the landing page, I want to quickly and efficiently describe what the website provides, and encourage
 the user to sign up to the site. By using 
-background images and a carousel at the bottom display some of the recipes that are available.
-* The browse page should diplay the images with cards, the image of the recipe and some key information.
+background images and a carousel at the bottom displaying food and some of the recipes that are available.
+* The browse page should display the images with cards, the image of the recipe and some key information.
 It should also have a search function.
 * When a user is logged in they should be able to add a recipe, update their own and delete them. This is handled
 using a form to fill in which is very similar between creating a recipe and updating one.
 * The recipe itself is a page where all the information about how to cook the meal is displayed, 
-with the image if the food as well presented to the user.
+with an image of the food as well, presented to the user.
 
-#### Skeleton
+#### Skeleton 
 
+Wireframes made with Balsamiq:  
+
+[Home Page, Desktop and Mobile view](https://github.com/HeimirDavid/recipe-application/blob/master/static/images/wireframes_ERD/index.png)  
+
+[Recipe Page, Desktop and Mobile view](https://github.com/HeimirDavid/recipe-application/blob/master/static/images/wireframes_ERD/recipe.png)  
+
+[Browse Recipes, Desktop and Mobile view](https://github.com/HeimirDavid/recipe-application/blob/master/static/images/wireframes_ERD/recipes.png)  
+
+[Add Recipe Page, Desktop view](https://github.com/HeimirDavid/recipe-application/blob/master/static/images/wireframes_ERD/add_recipe.png)  
+
+Entity Relationship Diagram made with lucidchart:
+
+[ERD](https://github.com/HeimirDavid/recipe-application/blob/master/static/images/wireframes_ERD/seeFood-ERD.png)  
+ 
 
 #### Surface
-As a colour pallet i wanted to use bright colours, to match with the theme of bright images of food.
+As a colour pallet I wanted to use bright colours, to match with the theme of bright images of food.
 Since this is a cook book written by the users, i wanted the typography to be a bit handwritten to make it feel
 more personal.
 
@@ -48,10 +65,10 @@ As a user type, I want to perform an action, so that I can achieve a goal.
 This section is also where you would share links to any wireframes, mockups, diagrams etc. that you created as part of the design process. These files should themselves either be included as a pdf file in the project itself (in an separate directory), or just hosted elsewhere online and can be in any format that is viewable inside the browser.
 
 ## Existing Features
-* **Register** - Allows a user to create an account by filling out a form with their wished username and password
+* **Register** - Allows a user to create an account by filling out a form with their wished username and password.
 * **Login** - By filling out a form with their username and password a user can use the full features of the site.
-* **Browse recipes** - Allows a user to look around and see what other people are sharing to the site.
-* **Search recipes** - A search function on the browse page allows a user to look up a recipe, 
+* **Browse Recipes** - Allows a user to look around and see what other people are sharing to the site.
+* **Search Recipes** - A search function on the browse page allows a user to look up a recipe, 
 or author by filling out the search field with a keyword and search for it.
 * **Add Recipe** - Allows a logged in user to add a recipe to the site by filling out a form which ask for specific
 information about the recipe. After form is filled out, just press the button "Add Recipe" and it's done.
@@ -69,11 +86,11 @@ In addition, you may also use this section to discuss plans for additional featu
 
 ### Features Left to Implement
 * **Save Recipes** - I wish to add the functionality to allow a user to store their favorite recipes in their own 
-collection. Here you could store your favorite recipes and only view those. This would be their personal cookbook
+collection. Here you could store your favorite recipes and only view those. This would be their personal cookbook.
 * **Hide Recipes** - I wish to make it availible for the logged in user to upload a recipe, store it in their saved 
-recipe collection mentioned above, but not have it visible for the public.
+recipe collection mentioned above, but not have it visible to the public.
 * **Better Image Storage**: Right now the images are from a URL provided by the user. It would be more user friendly
-To allow a user to upload an image file, mayble straight from their phone as not everyone have an uploaded image with 
+to allow a user to upload an image file, maybye straight from their phone as not everyone have an uploaded image with 
 an URL to provide.
 
 ### Technologies Used
@@ -105,13 +122,13 @@ The project uses JQuery to simplify DOM manipulation.
 * **HTML** was tested using **validator W3C**. Warnings came up with "Bad Value" for all jinja code, which was ecpected and ignored.
 One more warning was for two elements with the same ID, but since they are in a if else statement they also were ignored.
 * **CSS** was tested using **Jigsaw**. One warning came up with text-color-decoration: none being invalid value which has been fixed.
-* **JavaScript** was tested using **JSHint**. No mayor warning or errors, just a few missing semicolons which has been fixed.
+* **JavaScript** was tested using **JSHint**. No severe warning or errors, just a few missing semicolons which has been fixed.
 
 ### Responsiveness
-This site has been developed using Gitpod in Google Chrome and therefor it's responsiveness mainly tested using
+This site has been developed using Gitpod in Google Chrome and therefor it's responsiveness has mainly been tested using
 Chrome Developer Tools. The responsiveness works fine on desktop computer and has been tested using both Chrome, 
 Microsoft Edge and Safari.
-This site has been tested on tablets, both IOS and Android, with Safari and Google Chrome. With google chrome it works
+It has also been tested on tablets, both IOS and Android, with Safari and Google Chrome. With google chrome it works
 as intended but with **safari** there have been a **few issues** with the Browse recipes page.
  It was rendered as mobile view but after ading a breakpoint between mobile and tablet view it looks better.
 The site has also been tested on a few different mobile devices on Chrome, Samsung Internet and Safari and works fine. 
@@ -120,7 +137,7 @@ The site has also been tested on a few different mobile devices on Chrome, Samsu
 ***All of these interactions have been manually tested:***
 * **Home Page** - All buttons on the Home page brings a user to the correct places. Including the footers contact section that links to correct contact websites.
 * **Main Navigation** - All the buttons bring a user to the correct  pages.
-* **Add Recipe** - All the fields are possible to fill out, the required ones are blocking the user to continue if they
+* **Add Recipe** - All the fields are possible to fill out. The required ones are blocking the user to continue if they
 are not filled in, and to submit the recipe with the correct value and value types to the database works.
 * **Update Recipe** - All the fields are prefilled with the correct data from the chosen recipe, and are able to edit
 and submit. Then the user is redirected to the updated version of the recipe and works fine.
@@ -155,20 +172,20 @@ If this section grows too long, you may want to split it off into a separate fil
 
 ## Deployment
 This project was deployed to the hosting platform **Heroku**.
-*The steps i took where:
-1. When logged in to the heroku platform, I created a new app called "seefood-application" and set it's region to Europe
-2. Log in to Heroku in the Terminal window on Gitpod using `Heroku login` command.
-3. Link my Git repository (already existed) to heroku. 
+*The steps I took where:
+1. When logged in to the heroku platform, I created a new app called "seefood-application" and set it's region to Europe.
+2. I logged in to Heroku in the Terminal window on Gitpod using `Heroku login` command.
+3. Linked my Git repository (already existed) to heroku. 
 This done by first copy the Heroku Git URL from this application settings page.
 Then back to the terminal window on Gitpod, I typed in `git remote add heroku https://git.heroku.com/seefood-application.git`
-4. Create a requirements.txt file through the terminal: `pip3 freeze > requirements.txt`
-5. Create a Procfile to let heroku know how to run the program.
+4. Created a requirements.txt file through the terminal: `pip3 freeze > requirements.txt`
+5. Created a Procfile to let heroku know how to run the program.
 This done by typing the following command into the terminal window: `echo web: python app.py > Procfile`
-6. Commit these changes and push it using these commands `git push heroku -u master`
+6. I commited these changes and pushing it using these commands `git push heroku -u master`
 
 ### Environment Variables
-1. After logging in to heroku dashboard I selected the application
-2. Locate settings and press Reveal Config Vars 
+1. After logging in to heroku dashboard I selected the application.
+2. I located the settings and pressed Reveal Config Vars.
 3. Set the IP to 0.0.0.0
 4. set the PORT to 5000
 5. Add the MONGODB_NAME variable and set its value to the database name.
@@ -181,18 +198,18 @@ This done by typing the following command into the terminal window: `echo web: p
 1. Latest version on Python.
 2. Git.
 3. Working IDE, preferably Visual Studio Code for these steps to work.
-4. Visual studio extension for python. Named Python from Microsoft
+4. Visual studio extension for python. Named Python from Microsoft.
 
 #### Clone The repository
 1. Go to https://github.com/HeimirDavid/recipe-application
-2. Press the button "Clone or Download" to the right
-3. Press "Use HTTPS" and copy the URL from the text field
-4. Create a folder for your workspace in Visual Studio Code
-5. Open a terminal window and navigate to the directory you wish to put this project
-6. type `git clone ` followed by the copied URL
+2. Press the button "Clone or Download" to the right.
+3. Press "Use HTTPS" and copy the URL from the text field.
+4. Create a folder for your workspace in Visual Studio Code.
+5. Open a terminal window and navigate to the directory you wish to put this project.
+6. type `git clone ` followed by the copied URL.
 
 #### Set up the workspace
-1. open a terminal window from your computer.
+1. Open a terminal window from your computer.
 2. Locate the workspace directory.
 3. Create a viritual environment by typing `py -m venv env` into the command prompt. 
 Folder "env" should now be installed in the workspace.
@@ -227,10 +244,21 @@ https://flask.palletsprojects.com/en/1.1.x/patterns/flashing/
 https://www.youtube.com/watch?v=kpAt25cOBrU  
 
 
-
-Content
+### Content
 The text for section Y was copied from the Wikipedia article Z
-Media
+### Media
+* The background image on the home page came from unsplash:
+link: https://unsplash.com/photos/sDbj1dFlFPU
+
 The photos used in this site were obtained from ...
-Acknowledgements
+### Acknowledgements
+*For this project i recived inpiration from a few different projects:*
+* Firstly, the **Task Manager** application that was the mini-project code along from Code Institute.
+The CRUD operations where highly influenced by it.
+* Secondly, two other projects made by other students who also choose the cookbook suggestion by Code Institute: 
+link to the first prject: https://online-cookbook4.herokuapp.com/
+link to the second project: https://data-centric-development.herokuapp.com/
+* I also want to thank my mentor Moosa Hassan for his guidance and all the people on Code Institutes Slack channel for their help.
+
+
 I received inspiration for this project from X
