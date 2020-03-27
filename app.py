@@ -57,51 +57,51 @@ def index():
                 print('Image could not load, Error Response: '+ str(err))
 
     return render_template('index.html',
-                    recipes=recipes, pageIndex=0)
+                    recipes=recipes)
 
 #Both used for the pagination
 pageIndex = 0
 page = None
 
+# Pagination function and route. Take two parameters, page which comes from the user, forwards or backwards.
+# and pageIndex, a number that will be the offset for the query when the recipes are displayed.
 @app.route('/page_recipes', defaults={'page': None, 'pageIndex': pageIndex})
 @app.route('/page_recipes/<page>/<pageIndex>')
 def page_recipes(page, pageIndex):
-    
     documents = coll.count_documents({"status": 1})
-    print("Collection length: "+str(documents))
-    print("Page Index: " + str(pageIndex))
-    if page == '+':
-        print("Page Index: " + str(pageIndex))
+    # if the user press forward, the pageIndex + 6 needs to be checked against the 
+    # number of recipes, so we stay within the number of recipes displayed. 6 comes
+    # from 6 recipes per page.
+    if page == '+' and (int(pageIndex) + 6) <= int(documents):
         pageIndex = int(pageIndex) + 6
-        if int(pageIndex) >= int(documents):
-            pageIndex = int(pageIndex) - 6
+    # if the user press backwards, make sure we are not already at the first page,
+    # otherwise remove 6 from the offset.
     elif page == '-':
-        print("Page Index: " + str(pageIndex))
         if int(pageIndex) == 0:
             return redirect(url_for('view_recipes', page=page, pageIndex=pageIndex))
         else:
             pageIndex = int(pageIndex) - 6
-    else:
-        print('None')
-        pageIndex = pageIndex
+
     return redirect(url_for('view_recipes', page=page, pageIndex=pageIndex))
 
-# route to browse recipes, sends along the valid recipes collection to view
+# route to browse recipes, sends along the valid recipe documents to view.
+# limited and with an offset, to make pagination work. Code for this functionality
+# is to big parts from this tutorial: https://www.youtube.com/watch?v=Lnt6JqtzM7I
 @app.route('/view_recipes', defaults={'page': page, 'pageIndex': pageIndex})
 @app.route('/view_recipes/<page>/<pageIndex>')
 def view_recipes(page, pageIndex):
-
+    # sorts the collection by id. First recipes added to the database is displayed, and limit
+    # the result by 6.
     limit = 6
     offset = int(pageIndex)
     collOne = coll.find({'status' : 1})
-
     starting_id = collOne.sort('_id', pymongo.ASCENDING)
     last_id = starting_id[offset]['_id']
-
+    # Take only the status 1 results, start from the ones with greater
+    # value than the offset controlled by the forward/backward from the user, and limit the result (now by 6)
     recipes = coll.find({
         'status' : 1,
         '_id' : {'$gte': last_id}}).sort('_id', pymongo.ASCENDING).limit(limit)
-
     return render_template("recipes.html", recipes=recipes, page=page, pageIndex=pageIndex)
 
 
@@ -209,7 +209,6 @@ def recipe_search():
         # Assign the text from the input from the user to a variable, search
         search = request.form.to_dict().get('icon_prefix')
         result = []
-        print(search)
 
         # Create text index
         coll.create_index([
@@ -235,7 +234,6 @@ def recipe_search():
 
     return render_template('search.html',
                         recipes=result)
-
 
 
 # -----------------------------------------------------------#
@@ -276,7 +274,6 @@ def register():
         users = mongo.db.users
         # Fetch the username the user typed in the form
         existing_user = users.find_one({'name': request.form['register_name']})
-        print(existing_user)
 
         # Check if username is availible
         if existing_user is None:

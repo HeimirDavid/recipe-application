@@ -1,7 +1,7 @@
 # SeeFood!
 
 SeeFood is a website where people can store and share their favorite recipes. 
-Here you can create your own recipes to share with others, find and locate new recipes, perhaps get some new inspiration
+Here you can create your own recipes to share with others, find and locate new recipes, and perhaps get some new inspiration
 for tonights dinner. Create a user to handle your own recipes while enjoying the shared space with others!
 
 
@@ -20,7 +20,7 @@ for tonights dinner. Create a user to handle your own recipes while enjoying the
 The main goal for this site is to allow the users to share and store their favorite food with others. How often do 
 you make a great dinner on the fly and want to document what you have done and perhaps share it with others? Or maybe 
 looking for ideas when you are stuck in a rutine of cooking the same meals week over week? The simplicity and availability 
-of this app should make these thing easy to overcome. 
+of this application should make these thing easy to overcome. 
 By using a clean and simple design, the user should find it easy to use, and wish to come back to browse and 
 store even more of their recipes. 
 
@@ -54,15 +54,9 @@ Entity Relationship Diagram made with lucidchart:
 
 #### Surface
 As a colour pallet I wanted to use bright colours, to match with the theme of bright images of food.
-Since this is a cook book written by the users, i wanted the typography to be a bit handwritten to make it feel
+Since this is a cook book written by the users, I wanted the typography to be a bit handwritten to make it feel
 more personal.
 
-Use this section to provide insight into your UX process, focusing on who this website is for, what it is that they want to achieve and how your project is the best way to help them achieve these things.
-
-In particular, as part of this section we recommend that you provide a list of User Stories, with the following general structure:
-
-As a user type, I want to perform an action, so that I can achieve a goal.
-This section is also where you would share links to any wireframes, mockups, diagrams etc. that you created as part of the design process. These files should themselves either be included as a pdf file in the project itself (in an separate directory), or just hosted elsewhere online and can be in any format that is viewable inside the browser.
 
 ## Existing Features
 * **Register** - Allows a user to create an account by filling out a form with their wished username and password.
@@ -77,12 +71,8 @@ button is displayed to the user. As it is pressed the recipe wished to update wi
 in the forms fields, but are availible to edit to what the user wish.
 * **Delete Recipe** - Allows a logged in user to remove their own recipes by clicking the "Delete" button when they have
 the wished recipe open. 
-
-Feature 1 - allows users X to achieve Y, by having them fill out Z
-...
-For some/all of your features, you may choose to reference the specific project files that implement them, although this is entirely optional.
-
-In addition, you may also use this section to discuss plans for additional features to be implemented in the future:
+* **Pagination** - On the browse page, there are two arrows at the bottom. These takes you to different pages and display 
+the recipes, at the moment 6 at a time.
 
 ### Features Left to Implement
 * **Save Recipes** - I wish to add the functionality to allow a user to store their favorite recipes in their own 
@@ -92,6 +82,11 @@ recipe collection mentioned above, but not have it visible to the public.
 * **Better Image Storage**: Right now the images are from a URL provided by the user. It would be more user friendly
 to allow a user to upload an image file, maybye straight from their phone as not everyone have an uploaded image with 
 an URL to provide.
+* **Improved Pagination**: The pagination that now exist was a last minute add to the project, and I wish to maybe improve it
+and add it into the search results as well. Perhaps other future parts as well which needs it, as the personal cookbook.
+* **User Managment**: The users would benefit from having more control over their login. Be able to change password, get
+a new one if the other is lost or forgotten, or delete the user entirely. These functions I would like to add to make the 
+application more functional.
 
 ### Technologies Used
 **Main Languages Used**: HTML, CSS, Python and JavaScript
@@ -112,8 +107,8 @@ an URL to provide.
 
 
 ## Testing
-* **HTML** was tested using **validator W3C**. Warnings came up with "Bad Value" for all jinja code, which was ecpected and ignored.
-One more warning was for two elements with the same ID, but since they are in a if else statement they also were ignored.
+* **HTML** was tested using **validator W3C**. Warnings came up with "Bad Value" for all jinja code, which was expected and ignored.
+One more warning was for two elements with the same ID, but since they are in a jinja if else statement they were also ignored.
 * **CSS** was tested using **Jigsaw**. One warning came up with text-color-decoration: none being invalid value which has been fixed.
 * **JavaScript** was tested using **JSHint**. No severe warning or errors, just a few missing semicolons which has been fixed.
 
@@ -144,17 +139,21 @@ by a welcome message.
 availible to you in the main navigation. as you log out the button disapears.
 * **User personal functionality** - A user is only able to delete or update a recipe they have created themself.
 
+***Side Note:***
+Same day as I was going to leave in this project, I realized this project would benefit from pagination greatly
+if it were to work as a real life application. This I managed to add by the end of the day, and has been manually tested
+and works fine as it is. But I want to note that it has not been through as much testing as the rest of the project. 
 
 ## Deployment
 This project was deployed to the hosting platform **Heroku**.  
 ***The steps I took where:***
 1. When logged in to the heroku platform, I created a new app called "seefood-application" and set it's region to Europe.
 2. I logged in to Heroku in the Terminal window on Gitpod using `Heroku login` command.
-3. Linked my Git repository (already existed) to heroku. 
+3. I linked my Git repository (already existed) to heroku. 
 This done by first copy the Heroku Git URL from this application settings page.
 Then back to the terminal window on Gitpod, I typed in `git remote add heroku https://git.heroku.com/seefood-application.git`
-4. Created a requirements.txt file through the terminal: `pip3 freeze > requirements.txt`
-5. Created a Procfile to let heroku know how to run the program.
+4. I created a requirements.txt file through the terminal: `pip3 freeze > requirements.txt`
+5. I created a Procfile to let heroku know how to run the program.
 This done by typing the following command into the terminal window: `echo web: python app.py > Procfile`
 6. I commited these changes and pushing it using these commands `git push heroku -u master`
 
@@ -225,7 +224,7 @@ link: https://unsplash.com/photos/3hi4Ckm-0v0
 * Advanced Avocado, picture from unsplash.  
 link: https://unsplash.com/photos/9aOswReDKPo  
 
-The photos used in this site were obtained from ...
+
 ### Acknowledgements
 *For this project i recived inpiration from a few different projects:*
 * Firstly, the **Task Manager** application that was the mini-project code along from Code Institute.

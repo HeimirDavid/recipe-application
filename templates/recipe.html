@@ -8,8 +8,8 @@
         <h3 class="center fancy-writing">{{recipe.recipe_name}}</h3>
         <p class="card-text"><span class="bold-text">Summary: </span></p>
         <p class="card-text">{{ recipe.summary }}<p>
-        <p class="card-text bold-text">{{ recipe.cooking_time }} | {{ recipe.cousine }}</p>
-        <p class="card-text bold-text">Servings: {{ recipe.servings }}</p>
+        <p class="card-text bold-text center">{{ recipe.cooking_time }} | {{ recipe.cousine }}</p>
+        <p class="card-text bold-text center">Servings: {{ recipe.servings }} | By: {{recipe.recipe_author}}</p>
     </div>
     <div class="col s12 m7">
         <div class="recipe-img img">
