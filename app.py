@@ -1,7 +1,10 @@
 import pymongo
-import os, requests, validators
+import os
+import requests
+import validators
 
-from flask import Flask, render_template, redirect, request, url_for, session, Markup, flash
+from flask import Flask, render_template, redirect, request, url_for, \
+    session, flash
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from flask_bcrypt import Bcrypt
@@ -26,83 +29,97 @@ app.config['SECRET_KEY'] = SECRET_KEY
 mongo = PyMongo(app)
 
 
-# Two collection varables, one with only the availible collections for the user (see delete_recipe)
+# Two collection varables, one with only the availible collections
+# for the user (see delete_recipe)
 coll = mongo.db.recipe
 collStatusOne = coll.find({'status': 1})
+
 
 @app.route('/')
 def index():
     # collect all image_url keys from the collections
     imageUrls = collStatusOne.distinct('image_url')
-    # create an empty list which later will store all recipes containing working image url's 
+    # create an empty list which later will store
+    # all recipes containing working image url's
     recipes = []
-    
 
     # iterate through the keys, and check if they have valid urls
     for image in imageUrls:
         valid = validators.url(image)
-        if valid == True:
-            try:  # If the URL is valid, try if it gets a 200 status code response
+        if valid is True:
+            try:  # If the URL is valid, try if it gets a 200 status response
                 request = requests.get(image)
                 request.raise_for_status()
                 if request.status_code == 200:
-                    # Match the url's with it's matching document and store it in imageId
+                    # Match the url's with it's matching document
+                    # and store it in imageId
                     imageId = coll.find({'image_url': image})
 
-                    # loop through the imageId and store the rows in a list which will be sent to view: recipies
+                    # loop through the imageId and store the rows in a list
+                    # which will be sent to view: recipies
                     for imageColl in imageId:
                         recipes.append(imageColl)
             # error message if the url didn't get a 200 response
             except requests.ConnectionError as err:
-                print('Image could not load, Error Response: '+ str(err))
+                print('Image could not load, Error Response: ' + str(err))
 
-    return render_template('index.html',
-                    recipes=recipes)
+    return render_template('index.html', recipes=recipes)
 
-#Both used for the pagination
+
+# Both used for the pagination
 pageIndex = 0
 page = None
 
-# Pagination function and route. Take two parameters, page which comes from the user, forwards or backwards.
-# and pageIndex, a number that will be the offset for the query when the recipes are displayed.
+
+# Pagination function and route. Take two parameters,
+# page which comes from the user, forwards or backwards.
+# and pageIndex, a number that will be the offset for
+# the query when the recipes are displayed.
 @app.route('/page_recipes', defaults={'page': None, 'pageIndex': pageIndex})
 @app.route('/page_recipes/<page>/<pageIndex>')
 def page_recipes(page, pageIndex):
     documents = coll.count_documents({"status": 1})
-    # if the user press forward, the pageIndex + 6 needs to be checked against the 
-    # number of recipes, so we stay within the number of recipes displayed. 6 comes
-    # from 6 recipes per page.
+    # if user press forward, pageIndex + 6 needs to be checked against the
+    # number of recipes, so we stay within the number of recipes displayed.
+    # 6 comes from 6 recipes per page.
     if page == '+' and (int(pageIndex) + 6) <= int(documents):
         pageIndex = int(pageIndex) + 6
-    # if the user press backwards, make sure we are not already at the first page,
+    # if the user press backwards,
+    # make sure we are not already at the first page,
     # otherwise remove 6 from the offset.
     elif page == '-':
         if int(pageIndex) == 0:
-            return redirect(url_for('view_recipes', page=page, pageIndex=pageIndex))
+            return redirect(url_for('view_recipes', page=page,
+                            pageIndex=pageIndex))
         else:
             pageIndex = int(pageIndex) - 6
 
     return redirect(url_for('view_recipes', page=page, pageIndex=pageIndex))
 
+
 # route to browse recipes, sends along the valid recipe documents to view.
-# limited and with an offset, to make pagination work. Code for this functionality
-# is to big parts from this tutorial: https://www.youtube.com/watch?v=Lnt6JqtzM7I
+# limited and with an offset, to make pagination work. Code for this
+# functionality is almost all parts from this tutorial:
+# https://www.youtube.com/watch?v=Lnt6JqtzM7I
 @app.route('/view_recipes', defaults={'page': page, 'pageIndex': pageIndex})
 @app.route('/view_recipes/<page>/<pageIndex>')
 def view_recipes(page, pageIndex):
-    # sorts the collection by id. First recipes added to the database is displayed, and limit
-    # the result by 6.
+    # sorts the collection by id. First recipes added to the database is
+    # displayed, and limit the result by 6.
     limit = 6
     offset = int(pageIndex)
-    collOne = coll.find({'status' : 1})
+    collOne = coll.find({'status': 1})
     starting_id = collOne.sort('_id', pymongo.ASCENDING)
     last_id = starting_id[offset]['_id']
     # Take only the status 1 results, start from the ones with greater
-    # value than the offset controlled by the forward/backward from the user, and limit the result (now by 6)
+    # value than the offset controlled by the forward/backward from the user,
+    # and limit the result (now by 6)
     recipes = coll.find({
-        'status' : 1,
-        '_id' : {'$gte': last_id}}).sort('_id', pymongo.ASCENDING).limit(limit)
-    return render_template("recipes.html", recipes=recipes, page=page, pageIndex=pageIndex)
+        'status': 1,
+        '_id': {'$gte': last_id}}).sort('_id', pymongo.ASCENDING).limit(limit)
+    return render_template(
+        "recipes.html", recipes=recipes, page=page,
+        pageIndex=pageIndex)
 
 
 # route to add recipe
@@ -112,10 +129,12 @@ def add_recipe():
     # otherwise back to the home page with a flash message
     if 'username' in session:
         user = session['username']
-        return render_template('addrecipe.html',
-                        recipes=collStatusOne, user=user)
+        return render_template(
+                                'addrecipe.html',
+                                recipes=collStatusOne,
+                                user=user)
     else:
-        session.pop('username',None)  
+        session.pop('username', None)
         flash("Login/Register to upload a recipe!")
         return redirect(url_for('index'))
 
@@ -123,9 +142,11 @@ def add_recipe():
 # Insert recipe route.
 @app.route('/insert_recipe', methods=['POST'])
 def insert_recipe():
-    # If the request is POST, assign the data in the form of a dictionary to new_recipe.
-    # this is to be able to assign the ingredients a list and not string to the document.
-    # make sure status is 1 so it will be displayed on the page, then insert the dictionary to the collection
+    # Assign the data in the form of a dictionary to new_recipe.
+    # this is to be able to assign the ingredients
+    # a list and not string to the document.
+    # make sure status is 1 so it will be displayed on the page,
+    # then insert the dictionary to the collection
     if request.method == 'POST':
         new_recipe = request.form.to_dict()
         ingredientsArray = request.form.getlist('ingredients')
@@ -140,15 +161,17 @@ def insert_recipe():
 # redirect the user to display the recipe they chose by using it's id.
 @app.route('/recipe/<recipe_id>')
 def recipe(recipe_id):
-    return render_template('recipe.html',
-                        recipe=coll.find_one({'_id': ObjectId(recipe_id)}))
+    return render_template('recipe.html', recipe=coll.find_one(
+        {'_id': ObjectId(recipe_id)}))
 
 
-# redirect user to the edit page, use the recipes id and send along it's document
+# redirect user to the edit page, use the recipes id
+# and send along it's document
 @app.route('/edit_recipe/<recipe_id>')
 def edit_recipe(recipe_id):
     chosen_recipe = coll.find_one({'_id': ObjectId(recipe_id)})
-    return render_template('updaterecipe.html',
+    return render_template(
+                            'updaterecipe.html',
                             cr=chosen_recipe)
 
 
@@ -157,26 +180,23 @@ def edit_recipe(recipe_id):
 # user can see his/hers changes.
 @app.route('/update_recipe/<recipe_id>', methods=["POST"])
 def update_recipe(recipe_id):
-    #if 'username' in session:
-    coll.update({'_id': ObjectId(recipe_id)},
-    {
-        'recipe_name': request.form.get('recipe_name'),
-        'recipe_author': session['username'],
-        'image_url': request.form.get('image_url'),
-        'cousine': request.form.get('cousine'),
-        'cooking_time': request.form.get('cooking_time'),
-        'servings': request.form.get('servings'),
-        'category': request.form.get('category'),
-        'ingredients': request.form.getlist('ingredients'),
-        'instructions': request.form.get('instructions'),
-        'summary': request.form.get('summary'),
-        'action': request.form.get('action'),
-        'status': 1
-    })
+    coll.update(
+        {'_id': ObjectId(recipe_id)},
+        {
+            'recipe_name': request.form.get('recipe_name'),
+            'recipe_author': session['username'],
+            'image_url': request.form.get('image_url'),
+            'cousine': request.form.get('cousine'),
+            'cooking_time': request.form.get('cooking_time'),
+            'servings': request.form.get('servings'),
+            'category': request.form.get('category'),
+            'ingredients': request.form.getlist('ingredients'),
+            'instructions': request.form.get('instructions'),
+            'summary': request.form.get('summary'),
+            'action': request.form.get('action'),
+            'status': 1
+        })
     return redirect(url_for('recipe', recipe_id=recipe_id))
-    #else:
-        #flash("You must be logged in to update a recipe")
-        #return redirect(url_for('index'))
 
 
 # Delete function does not delete the recipe from the database but changes
@@ -189,10 +209,10 @@ def delete_recipe(recipe_id):
         coll.find_one_and_update(
             {'_id': ObjectId(recipe_id)},
             {"$set":
-                {'status': 2}
-            }, upsert=True
+                {'status': 2}},
+            upsert=True
         )
-        
+
     return redirect(url_for('view_recipes'))
 
 
@@ -221,49 +241,54 @@ def recipe_search():
                             ('instructions', pymongo.TEXT),
                             ('summary', pymongo.TEXT)
                         ])
-        # Search through the collection and find the matches, 
+        # Search through the collection and find the matches,
         # assign it to 'searched_coll' and sort it by it's score value
         searched_coll = coll.find(
                                   {'$text': {'$search': search}},
                                   {'score': {'$meta': 'textScore'}}
                                 ).sort([('score', {'$meta': 'textScore'})])
-    # Iterate through the documents, and assign the ones with a status of 1 to 'result' which is sent to view
+    # Iterate through the documents, and assign the ones with a status of 1 to
+    # 'result' which is sent to view
     for doc in searched_coll:
         if doc['status'] == 1:
             result.append(doc)
 
-    return render_template('search.html',
-                        recipes=result)
+    return render_template(
+        'search.html',
+        recipes=result)
 
 
 # -----------------------------------------------------------#
 # -------            LOGIN SECTION
 # -----------------------------------------------------------#
 
-# The login and register function is very similar to the code from this tutorial:
-## https://www.youtube.com/watch?v=vVx1737auSE
-# it has been slightly modified for my needs, and use a different type of encryption,
-# which I found in this tutorial: https://www.youtube.com/watch?v=CSHx6eCkmv0&t=324s
+# The login and register function is very similar to the code
+# from this tutorial: https://www.youtube.com/watch?v=vVx1737auSE
+# it has been slightly modified for my needs,
+# and use a different type of encryption,
+# which I found in this tutorial:
+# https://www.youtube.com/watch?v=CSHx6eCkmv0&t=324s
 
 @app.route('/login', methods=['POST'])
 def login():
     if request.method == 'POST':
         users = mongo.db.users
-        # Fetch the username the user typed in 
+        # Fetch the username the user typed in
         login_user = users.find_one({'name': request.form['username']})
 
         # check if the username exist in the database
-        if login_user: 
-            # check if the users password match with the hashed one in the database
-            if bcrypt.check_password_hash(login_user['password'], request.form['password']):
-
-                # start a session with the username and welcome them back to the site
+        if login_user:
+            # check if the users password match with the hashed one in the db
+            if bcrypt.check_password_hash(
+                    login_user['password'], request.form['password']):
+                # start a session with the username and welcome
+                # them back to the site
                 session['username'] = request.form['username']
                 flash("Welcome " + request.form['username'])
                 return redirect(url_for('index'))
 
         # Let the user know they typed in the wrong password or username
-        session.pop('username',None)  
+        session.pop('username', None)
         flash("Incorrect username or password")
         return redirect(url_for('index'))
 
@@ -279,10 +304,15 @@ def register():
         if existing_user is None:
             # If so, check if the password and the confirmed password matches
             if request.form['register_password'] == request.form['re_pass']:
-                # Encrypt their password, insert the username and password into the users collection,
-                # start their session and redirect back to the home page with a welcome message
-                hashpass = bcrypt.generate_password_hash(request.form['register_password']).decode('utf-8')
-                users.insert({'name': request.form['register_name'], 'password': hashpass})
+                # Encrypt their password, insert the username and password
+                # into the users collection, start their session
+                # and redirect back to the home page with a welcome message
+                hashpass = bcrypt.generate_password_hash(
+                    request.form['register_password']).decode('utf-8')
+                users.insert(
+                    {'name': request.form['register_name'],
+                     'password': hashpass})
+
                 session['username'] = request.form['register_name']
                 flash("Welcome " + request.form['register_name'])
                 return redirect(url_for('index'))
