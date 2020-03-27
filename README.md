@@ -111,6 +111,8 @@ application more functional.
 One more warning was for two elements with the same ID, but since they are in a jinja if else statement they were also ignored.
 * **CSS** was tested using **Jigsaw**. One warning came up with text-color-decoration: none being invalid value which has been fixed.
 * **JavaScript** was tested using **JSHint**. No severe warning or errors, just a few missing semicolons which has been fixed.
+* **Python** file was tested using **PEP8**. Mainly indentation, blankspace fixes, and too long lines that needed to be fixed, through
+quite a lot of them.
 
 ### Responsiveness
 This site has been developed using Gitpod in Google Chrome and therefor it's responsiveness has mainly been tested using
