@@ -1,6 +1,5 @@
 import pymongo
 import os, requests, validators
-#import bcrypt
 
 from flask import Flask, render_template, redirect, request, url_for, session, Markup, flash
 from flask_pymongo import PyMongo
@@ -26,10 +25,10 @@ app.config['SECRET_KEY'] = SECRET_KEY
 # create new instance of PyMongo
 mongo = PyMongo(app)
 
+
 # Two collection varables, one with only the availible collections for the user (see delete_recipe)
 coll = mongo.db.recipe
 collStatusOne = coll.find({'status': 1})
-
 
 @app.route('/')
 def index():
@@ -37,6 +36,7 @@ def index():
     imageUrls = collStatusOne.distinct('image_url')
     # create an empty list which later will store all recipes containing working image url's 
     recipes = []
+    
 
     # iterate through the keys, and check if they have valid urls
     for image in imageUrls:
@@ -57,13 +57,52 @@ def index():
                 print('Image could not load, Error Response: '+ str(err))
 
     return render_template('index.html',
-                    recipes=recipes)
+                    recipes=recipes, pageIndex=0)
 
+#Both used for the pagination
+pageIndex = 0
+page = None
+
+@app.route('/page_recipes', defaults={'page': None, 'pageIndex': pageIndex})
+@app.route('/page_recipes/<page>/<pageIndex>')
+def page_recipes(page, pageIndex):
+    
+    documents = coll.count_documents({"status": 1})
+    print("Collection length: "+str(documents))
+    print("Page Index: " + str(pageIndex))
+    if page == '+':
+        print("Page Index: " + str(pageIndex))
+        pageIndex = int(pageIndex) + 6
+        if int(pageIndex) >= int(documents):
+            pageIndex = int(pageIndex) - 6
+    elif page == '-':
+        print("Page Index: " + str(pageIndex))
+        if int(pageIndex) == 0:
+            return redirect(url_for('view_recipes', page=page, pageIndex=pageIndex))
+        else:
+            pageIndex = int(pageIndex) - 6
+    else:
+        print('None')
+        pageIndex = pageIndex
+    return redirect(url_for('view_recipes', page=page, pageIndex=pageIndex))
 
 # route to browse recipes, sends along the valid recipes collection to view
-@app.route('/view_recipes')
-def view_recipes():
-    return render_template("recipes.html", recipes=coll.find({'status': 1}))
+@app.route('/view_recipes', defaults={'page': page, 'pageIndex': pageIndex})
+@app.route('/view_recipes/<page>/<pageIndex>')
+def view_recipes(page, pageIndex):
+
+    limit = 6
+    offset = int(pageIndex)
+    collOne = coll.find({'status' : 1})
+
+    starting_id = collOne.sort('_id', pymongo.ASCENDING)
+    last_id = starting_id[offset]['_id']
+
+    recipes = coll.find({
+        'status' : 1,
+        '_id' : {'$gte': last_id}}).sort('_id', pymongo.ASCENDING).limit(limit)
+
+    return render_template("recipes.html", recipes=recipes, page=page, pageIndex=pageIndex)
 
 
 # route to add recipe

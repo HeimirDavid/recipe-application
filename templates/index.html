@@ -19,7 +19,7 @@
                 {% endwith %}
                 <h3>Find, Create and Share your favorite recipes with others! All located at one convinent spot.</h3>
                 <h4>Create an account for free to be able to enjoy the full use of SeeFood!</h4>               
-                <a href="{{ url_for('view_recipes') }}" class="browse-btn waves-effect waves-light btn-large cyan">Browse Recipes</a>
+                <a href="{{ url_for('page_recipes', page=None, pageIndex=pageIndex) }}" class="browse-btn waves-effect waves-light btn-large cyan">Browse Recipes</a>
             </div>
         </div>
 </section>

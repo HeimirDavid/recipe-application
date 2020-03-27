@@ -210,10 +210,20 @@ https://www.youtube.com/watch?v=kpAt25cOBrU
 
 
 ### Content
-The text for section Y was copied from the Wikipedia article Z
+Recipe Sources: 
+* Thai Green Curry - **recipe:** https://www.bbcgoodfood.com/recipes/vegetarian-thai-green-curry
+* Pad Thai With Tofu - **recipe:** https://minimalistbaker.com/easy-tofu-pad-thai/
+* Pancakes - **recipe:** https://tasty.co/recipe?0=%2Fthe-fluffiest-vegan-pancakes&slug=the-fluffiest-vegan-pancakes&canonicalUrl=https%3A%2F%2Ftasty.co  
+**Picture:** https://unsplash.com/photos/trt7eH46oRA
 ### Media
-* The background image on the home page came from unsplash:  
-link: https://unsplash.com/photos/sDbj1dFlFPU
+* The background image on the home page came from unsplash.   
+link: https://unsplash.com/photos/sDbj1dFlFPU  
+* Swedish Chocolate Balls image.    
+link: https://bakeplaysmile.com/super-easy-super-delicious-rum-balls/  
+* Balkan Veggie Soup, image from unsplash.  
+link: https://unsplash.com/photos/3hi4Ckm-0v0  
+* Advanced Avocado, picture from unsplash.  
+link: https://unsplash.com/photos/9aOswReDKPo  
 
 The photos used in this site were obtained from ...
 ### Acknowledgements

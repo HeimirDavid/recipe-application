@@ -34,6 +34,10 @@
         </a>
         {% endfor %}
     </div>
+    <div class="row">
+                <a  href="{{ url_for('page_recipes', page='-', pageIndex=pageIndex) }}" class="btn-floating btn-med waves-effect waves-light green"><i class="material-icons">arrow_back</i></a>
+                <a href="{{ url_for('page_recipes', page='+', pageIndex=pageIndex) }}" class="btn-floating btn-med waves-effect waves-light green"><i class="material-icons">arrow_forward</i></a>
+            </div>
 
 
 
