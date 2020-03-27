@@ -146,8 +146,8 @@ availible to you in the main navigation. as you log out the button disapears.
 
 
 ## Deployment
-This project was deployed to the hosting platform **Heroku**.
-*The steps I took where:
+This project was deployed to the hosting platform **Heroku**.  
+***The steps I took where:***
 1. When logged in to the heroku platform, I created a new app called "seefood-application" and set it's region to Europe.
 2. I logged in to Heroku in the Terminal window on Gitpod using `Heroku login` command.
 3. Linked my Git repository (already existed) to heroku. 

@@ -19,16 +19,14 @@ MONGO_URI = os.environ.get("MONGO_URI")
 MONGODB_NAME = os.environ.get("MONGODB_NAME")
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
-
-
 app.config["MONGODB_NAME"] = MONGODB_NAME
 app.config["MONGO_URI"] = MONGO_URI
 app.config['SECRET_KEY'] = SECRET_KEY
 
-#create new instance of PyMongo
+# create new instance of PyMongo
 mongo = PyMongo(app)
 
-#Two collection varables, one with only the availible collections for the user (see delete_recipe)
+# Two collection varables, one with only the availible collections for the user (see delete_recipe)
 coll = mongo.db.recipe
 collStatusOne = coll.find({'status': 1})
 
@@ -42,21 +40,19 @@ def index():
 
     # iterate through the keys, and check if they have valid urls
     for image in imageUrls:
-        valid=validators.url(image)
-        if valid==True:
-            print('Valid Url')
-            try: #If the URL is valid, try if it gets a 200 status code response
+        valid = validators.url(image)
+        if valid == True:
+            try:  # If the URL is valid, try if it gets a 200 status code response
                 request = requests.get(image)
                 request.raise_for_status()
                 if request.status_code == 200:
-                    #Match the url's with it's matching document and store it in imageId
+                    # Match the url's with it's matching document and store it in imageId
                     imageId = coll.find({'image_url': image})
 
-                    #loop through the imageId and store the rows in a list which will be sent to view: recipies
+                    # loop through the imageId and store the rows in a list which will be sent to view: recipies
                     for imageColl in imageId:
                         recipes.append(imageColl)
-                        print('This is awesome!')
-            #error message if the url didn't get a 200 response
+            # error message if the url didn't get a 200 response
             except requests.ConnectionError as err:
                 print('Image could not load, Error Response: '+ str(err))
 
@@ -64,13 +60,13 @@ def index():
                     recipes=recipes)
 
 
-#route to browse recipes, sends along the valid recipes collection to view
+# route to browse recipes, sends along the valid recipes collection to view
 @app.route('/view_recipes')
 def view_recipes():
     return render_template("recipes.html", recipes=coll.find({'status': 1}))
 
 
-#route to add recipe
+# route to add recipe
 @app.route('/add_recipe')
 def add_recipe():
     # if the user is logged in they get redirected to the addrecipe page,
@@ -85,12 +81,12 @@ def add_recipe():
         return redirect(url_for('index'))
 
 
-#Insert recipe route.
+# Insert recipe route.
 @app.route('/insert_recipe', methods=['POST'])
 def insert_recipe():
-    #If the request is POST, assign the data in the form of a dictionary to new_recipe.
-    #this is to be able to assign the ingredients a list and not string to the document.
-    #make sure status is 1 so it will be displayed on the page, then insert the dictionary to the collection
+    # If the request is POST, assign the data in the form of a dictionary to new_recipe.
+    # this is to be able to assign the ingredients a list and not string to the document.
+    # make sure status is 1 so it will be displayed on the page, then insert the dictionary to the collection
     if request.method == 'POST':
         new_recipe = request.form.to_dict()
         ingredientsArray = request.form.getlist('ingredients')
@@ -102,14 +98,14 @@ def insert_recipe():
     return redirect(url_for('view_recipes'))
 
 
-#redirect the user to display the recipe they chose by using it's id.
+# redirect the user to display the recipe they chose by using it's id.
 @app.route('/recipe/<recipe_id>')
 def recipe(recipe_id):
     return render_template('recipe.html',
                         recipe=coll.find_one({'_id': ObjectId(recipe_id)}))
 
 
-#redirect user to the edit page, use the recipes id and send along it's document
+# redirect user to the edit page, use the recipes id and send along it's document
 @app.route('/edit_recipe/<recipe_id>')
 def edit_recipe(recipe_id):
     chosen_recipe = coll.find_one({'_id': ObjectId(recipe_id)})
@@ -117,40 +113,40 @@ def edit_recipe(recipe_id):
                             cr=chosen_recipe)
 
 
-#Locate the recipe using id, get the data from the form, and update it
-#with the new data from the user. redirect to the updated recipe so the
-#user can see his/hers changes.
+# Locate the recipe using id, get the data from the form, and update it
+# with the new data from the user. redirect to the updated recipe so the
+# user can see his/hers changes.
 @app.route('/update_recipe/<recipe_id>', methods=["POST"])
 def update_recipe(recipe_id):
-    if 'username' in session:
-        coll.update({'_id': ObjectId(recipe_id)},
-        {
-            'recipe_name': request.form.get('recipe_name'),
-            'recipe_author': session['username'],
-            'image_url': request.form.get('image_url'),
-            'cousine': request.form.get('cousine'),
-            'cooking_time': request.form.get('cooking_time'),
-            'servings': request.form.get('servings'),
-            'category': request.form.get('category'),
-            'ingredients': request.form.getlist('ingredients'),
-            'instructions': request.form.get('instructions'),
-            'summary': request.form.get('summary'),
-            'action': request.form.get('action'),
-            'status': 1
-        })
-        return redirect(url_for('recipe', recipe_id=recipe_id))
-    else:
-        flash("You must be logged in to update a recipe")
-        return redirect(url_for('index'))
+    #if 'username' in session:
+    coll.update({'_id': ObjectId(recipe_id)},
+    {
+        'recipe_name': request.form.get('recipe_name'),
+        'recipe_author': session['username'],
+        'image_url': request.form.get('image_url'),
+        'cousine': request.form.get('cousine'),
+        'cooking_time': request.form.get('cooking_time'),
+        'servings': request.form.get('servings'),
+        'category': request.form.get('category'),
+        'ingredients': request.form.getlist('ingredients'),
+        'instructions': request.form.get('instructions'),
+        'summary': request.form.get('summary'),
+        'action': request.form.get('action'),
+        'status': 1
+    })
+    return redirect(url_for('recipe', recipe_id=recipe_id))
+    #else:
+        #flash("You must be logged in to update a recipe")
+        #return redirect(url_for('index'))
 
 
-#Delete function does not delete the recipe from the database but changes
-#it's status to 2. Anything but a 1 will end up not displayed on the site.
+# Delete function does not delete the recipe from the database but changes
+# it's status to 2. Anything but a 1 will end up not displayed on the site.
 @app.route('/delete_recipe/<recipe_id>', methods=["POST"])
 def delete_recipe(recipe_id):
     if request.method == 'POST':
-        #The way of updating the document came from this source:
-        #https://kb.objectrocket.com/mongo-db/how-to-update-a-mongodb-document-in-python-356
+        # The way of updating the document came from this source:
+        # https://kb.objectrocket.com/mongo-db/how-to-update-a-mongodb-document-in-python-356
         coll.find_one_and_update(
             {'_id': ObjectId(recipe_id)},
             {"$set":
@@ -165,18 +161,18 @@ def delete_recipe(recipe_id):
 # -------            SEARCH SECTION
 # -----------------------------------------------------------#
 
-#main info on how to use text index and search came from this tutorial:
-#https://www.youtube.com/watch?v=dTN8cBDEG_Q
-#The code below has been modified after my needs and so it works with pymongo
+# main info on how to use text index and search came from this tutorial:
+# https://www.youtube.com/watch?v=dTN8cBDEG_Q
+# The code below has been modified after my needs and so it works with pymongo
 @app.route('/recipe_search', methods=["POST"])
 def recipe_search():
     if request.method == 'POST':
-        #Assign the text from the input from the user to a variable, search
+        # Assign the text from the input from the user to a variable, search
         search = request.form.to_dict().get('icon_prefix')
         result = []
         print(search)
 
-        #Create text index
+        # Create text index
         coll.create_index([
                             ('recipe_name', pymongo.TEXT),
                             ('recipe_author', pymongo.TEXT),
@@ -187,13 +183,13 @@ def recipe_search():
                             ('instructions', pymongo.TEXT),
                             ('summary', pymongo.TEXT)
                         ])
-        #Search through the collection and find the matches, 
-        #assign it to 'searched_coll' and sort it by it's score value
+        # Search through the collection and find the matches, 
+        # assign it to 'searched_coll' and sort it by it's score value
         searched_coll = coll.find(
                                   {'$text': {'$search': search}},
                                   {'score': {'$meta': 'textScore'}}
                                 ).sort([('score', {'$meta': 'textScore'})])
-    #Iterate through the documents, and assign the ones with a status of 1 to 'result' which is sent to view
+    # Iterate through the documents, and assign the ones with a status of 1 to 'result' which is sent to view
     for doc in searched_coll:
         if doc['status'] == 1:
             result.append(doc)
@@ -219,17 +215,17 @@ def login():
         # Fetch the username the user typed in 
         login_user = users.find_one({'name': request.form['username']})
 
-        #check if the username exist in the database
+        # check if the username exist in the database
         if login_user: 
             # check if the users password match with the hashed one in the database
             if bcrypt.check_password_hash(login_user['password'], request.form['password']):
 
-                #start a session with the username and welcome them back to the site
+                # start a session with the username and welcome them back to the site
                 session['username'] = request.form['username']
                 flash("Welcome " + request.form['username'])
                 return redirect(url_for('index'))
 
-        #Let the user know they typed in the wrong password or username
+        # Let the user know they typed in the wrong password or username
         session.pop('username',None)  
         flash("Incorrect username or password")
         return redirect(url_for('index'))
@@ -243,9 +239,9 @@ def register():
         existing_user = users.find_one({'name': request.form['register_name']})
         print(existing_user)
 
-        #Check if username is availible
+        # Check if username is availible
         if existing_user is None:
-            #If so, check if the password and the confirmed password matches
+            # If so, check if the password and the confirmed password matches
             if request.form['register_password'] == request.form['re_pass']:
                 # Encrypt their password, insert the username and password into the users collection,
                 # start their session and redirect back to the home page with a welcome message
@@ -271,4 +267,4 @@ def logout():
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
-            debug=False)
+            debug=True)

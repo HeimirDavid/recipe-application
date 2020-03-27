@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h2 class="center">Update Recipe</h2>
+<h2 class="center fancy-writing">Update Recipe</h2>
 
 <!-- Form is the same as the one on the addrecipe.html. cr == chosen recipe by the user. The fields are prefilled
 with the data from the chosen recipe and is availible to edit and submit the changes -->
@@ -21,7 +21,7 @@ with the data from the chosen recipe and is availible to edit and submit the cha
                 </div>
                 <div class="input-field col s12 m6">
                    <select id="category" name="category" required>
-                        <option value="" disabled selected>{{ cr.category }}</option>
+                        <option value="" disabled>{{ cr.category }}</option>
                         <option value="lunch/dinner">Lunch/Dinner</option>
                         <option value="desert">Desert</option>
                         <option value="snack">Snack</option>
