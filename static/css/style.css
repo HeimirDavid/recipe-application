@@ -383,7 +383,7 @@ nav ul li a {
     cursor: pointer;
 }
 
-#username, #password, #register_password, #re_pass, #register_name {
+#username, #password, #register_password, #register_name, #re_pass {
     color: #fefefe;
 }
 
